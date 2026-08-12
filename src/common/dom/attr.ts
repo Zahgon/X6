@@ -53,7 +53,7 @@ export function setAttributes(
   attrs: { [attr: string]: string | number | null | undefined },
 ) {
   Object.keys(attrs).forEach((name) => {
-    setAttribute(elem, name, attrs[name])
+      throw new Error("STUB");
   })
 }
 
@@ -111,8 +111,7 @@ export function qualifyAttr(name: string) {
 export function kebablizeAttrs(attrs: Attributes) {
   const result: Attributes = {}
   Object.keys(attrs).forEach((key) => {
-    const name = CASE_SENSITIVE_ATTR.includes(key) ? key : kebabCase(key)
-    result[name] = attrs[key]
+      throw new Error("STUB");
   })
   return result
 }
@@ -121,13 +120,7 @@ export function styleToObject(styleString: string) {
   const ret: { [name: string]: string } = {}
   const styles = styleString.split(';')
   styles.forEach((item) => {
-    const section = item.trim()
-    if (section) {
-      const pair = section.split('=')
-      if (pair.length) {
-        ret[pair[0].trim()] = pair[1] ? pair[1].trim() : ''
-      }
-    }
+      throw new Error("STUB");
   })
   return ret
 }
@@ -137,35 +130,7 @@ export function mergeAttrs(
   source: { [attr: string]: any },
 ) {
   Object.keys(source).forEach((attr) => {
-    if (attr === 'class') {
-      target[attr] = target[attr]
-        ? `${target[attr]} ${source[attr]}`
-        : source[attr]
-    } else if (attr === 'style') {
-      const to = typeof target[attr] === 'object'
-      const so = typeof source[attr] === 'object'
-
-      let tt
-      let ss
-
-      if (to && so) {
-        tt = target[attr]
-        ss = source[attr]
-      } else if (to) {
-        tt = target[attr]
-        ss = styleToObject(source[attr])
-      } else if (so) {
-        tt = styleToObject(target[attr])
-        ss = source[attr]
-      } else {
-        tt = styleToObject(target[attr])
-        ss = styleToObject(source[attr])
-      }
-
-      target[attr] = mergeAttrs(tt, ss)
-    } else {
-      target[attr] = source[attr]
-    }
+      throw new Error("STUB");
   })
 
   return target

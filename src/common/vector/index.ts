@@ -9,15 +9,15 @@ export class Vector {
   }
 
   public get type() {
-    return this.node.nodeName
+      throw new Error("STUB");
   }
 
   public get id() {
-    return this.node.id
+      throw new Error("STUB");
   }
 
   public set id(id: string) {
-    this.node.id = id
+      throw new Error("STUB");
   }
 
   public static isVector(instance: any): instance is Vector {
@@ -86,7 +86,7 @@ export class Vector {
       | (SVGElement | DocumentFragment | Vector)[],
   ) {
     if (Array.isArray(elems)) {
-      return elems.map((elem) => Vector.toNode(elem))
+      return elems.map((elem) => { throw new Error("STUB"); })
     }
 
     return [Vector.toNode(elems)]
@@ -97,36 +97,7 @@ export class Vector {
     attrs?: Dom.Attributes,
     children?: SVGElement | Vector | (SVGElement | Vector)[],
   ) {
-    if (!elem) {
-      throw new TypeError('Invalid element to create vector')
-    }
-
-    let node: SVGElement
-    if (Vector.isVector(elem)) {
-      node = elem.node
-    } else if (typeof elem === 'string') {
-      if (elem.toLowerCase() === 'svg') {
-        node = Dom.createSvgDocument()
-      } else if (elem[0] === '<') {
-        const doc = Dom.createSvgDocument(elem)
-        // only import the first child
-        node = document.importNode(doc.firstChild!, true) as SVGElement
-      } else {
-        node = document.createElementNS(Dom.ns.svg, elem) as SVGElement
-      }
-    } else {
-      node = elem
-    }
-
-    this.node = node
-
-    if (attrs) {
-      this.setAttributes(attrs)
-    }
-
-    if (children) {
-      this.append(children)
-    }
+      throw new Error("STUB");
   }
 
   /**
@@ -286,7 +257,7 @@ export class Vector {
   }
 
   tagName() {
-    return Dom.tagName(this.node)
+      throw new Error("STUB");
   }
 
   clone() {
@@ -349,9 +320,7 @@ export class Vector {
   }
 
   first() {
-    return this.node.firstChild
-      ? Vector.create(this.node.firstChild as SVGElement)
-      : null
+      throw new Error("STUB");
   }
 
   last() {
@@ -390,22 +359,11 @@ export class Vector {
   }
 
   findParentByClass(className: string, terminator?: SVGElement) {
-    const node = Dom.findParentByClass(this.node, className, terminator)
-    return node ? Vector.create(node as SVGElement) : null
+      throw new Error("STUB");
   }
 
   matches(selector: string): boolean {
-    const node = this.node as any
-    const matches = this.node.matches
-    const matcher: typeof matches =
-      node.matches ||
-      node.matchesSelector ||
-      node.msMatchesSelector ||
-      node.mozMatchesSelector ||
-      node.webkitMatchesSelector ||
-      node.oMatchesSelector ||
-      null
-    return matcher && matcher.call(node, selector)
+      throw new Error("STUB");
   }
 
   contains(child: SVGElement | Vector) {
@@ -413,39 +371,11 @@ export class Vector {
   }
 
   wrap(node: SVGElement | Vector) {
-    const vel = Vector.create(node)
-    const parentNode = this.node.parentNode as SVGElement
-    if (parentNode != null) {
-      parentNode.insertBefore(vel.node, this.node)
-    }
-    return vel.append(this)
+      throw new Error("STUB");
   }
 
   parent(type?: string) {
-    let parent: Vector = this // eslint-disable-line @typescript-eslint/no-this-alias
-
-    // check for parent
-    if (parent.node.parentNode == null) {
-      return null
-    }
-
-    // get parent element
-    parent = Vector.create(parent.node.parentNode as SVGElement)
-
-    if (type == null) {
-      return parent
-    }
-
-    // loop trough ancestors if type is given
-    do {
-      if (
-        typeof type === 'string' ? parent.matches(type) : parent instanceof type
-      ) {
-        return parent
-      }
-    } while ((parent = Vector.create(parent.node.parentNode as SVGElement)))
-
-    return parent
+      throw new Error("STUB");
   }
 
   children() {
@@ -522,14 +452,11 @@ export class Vector {
    * the path and find the closest ones from each set.
    */
   sample(interval = 1) {
-    if (this.node instanceof SVGPathElement) {
-      return Dom.sample(this.node, interval)
-    }
-    return []
+      throw new Error("STUB");
   }
 
   toPath() {
-    return Vector.create(Dom.toPath(this.node as any))
+      throw new Error("STUB");
   }
 
   toPathData() {

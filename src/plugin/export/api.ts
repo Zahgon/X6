@@ -30,76 +30,52 @@ Graph.prototype.toSVG = function (
   callback: ExportToSVGCallback,
   options?: ExportToSVGOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.toSVG(callback, options)
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.toSVGAsync = async function (options?: ExportToSVGOptions) {
-  return new Promise((resolve) => {
-    this.toSVG(resolve, options)
-  })
+    throw new Error("STUB");
 }
 
 Graph.prototype.toPNG = function (
   callback: ExportToSVGCallback,
   options?: ExportToImageOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.toPNG(callback, options)
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.toPNGAsync = async function (options?: ExportToImageOptions) {
-  return new Promise((resolve) => {
-    this.toPNG(resolve, options)
-  })
+    throw new Error("STUB");
 }
 
 Graph.prototype.toJPEG = function (
   callback: ExportToSVGCallback,
   options?: ExportToImageOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.toJPEG(callback, options)
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.toJPEGAsync = async function (options?: ExportToImageOptions) {
-  return new Promise((resolve) => {
-    this.toJPEG(resolve, options)
-  })
+    throw new Error("STUB");
 }
 
 Graph.prototype.exportPNG = function (
   fileName?: string,
   options?: ExportToImageOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.exportPNG(fileName, options)
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.exportJPEG = function (
   fileName?: string,
   options?: ExportToImageOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.exportJPEG(fileName, options)
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.exportSVG = function (
   fileName?: string,
   options?: ExportToSVGOptions,
 ) {
-  const instance = this.getPlugin('export') as Export
-  if (instance) {
-    instance.exportSVG(fileName, options)
-  }
+    throw new Error("STUB");
 }

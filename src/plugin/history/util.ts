@@ -29,11 +29,7 @@ export function getOptions(options: HistoryOptions): HistoryCommonOptions {
   const eventNames = options.eventNames
     ? options.eventNames.filter(
         (event) =>
-          !(
-            isChangeEvent(event) ||
-            reservedNames.includes(event) ||
-            batchEvents.includes(event)
-          ),
+          { throw new Error("STUB"); },
       )
     : reservedNames
 

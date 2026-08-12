@@ -1,25 +1,6 @@
 export function forEachPolyfill(arr) {
   arr.forEach((item) => {
-    if (Object.hasOwn(item, 'append')) {
-      return
-    }
-    Object.defineProperty(item, 'append', {
-      configurable: true,
-      enumerable: true,
-      writable: true,
-      value(...args: any[]) {
-        const docFrag = document.createDocumentFragment()
-
-        args.forEach((arg: any) => {
-          const isNode = arg instanceof Node
-          docFrag.appendChild(
-            isNode ? arg : document.createTextNode(String(arg)),
-          )
-        })
-
-        this.appendChild(docFrag)
-      },
-    })
+      throw new Error("STUB");
   })
 }
 
@@ -37,6 +18,6 @@ if (
 // https://github.com/jserz/js_piece/blob/master/DOM/ParentNode/append()/append().md
 if (typeof window !== 'undefined') {
   ;((arr) => {
-    forEachPolyfill(arr)
+      throw new Error("STUB");
   })([Element.prototype, Document.prototype, DocumentFragment.prototype])
 }

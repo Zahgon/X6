@@ -56,11 +56,7 @@ export class JobQueue {
   }
 
   clearJobs() {
-    this.queue.length = 0
-    this.pendingJobs.clear()
-    this.isFlushing = false
-    this.isFlushPending = false
-    this.cancelScheduleJob()
+      throw new Error("STUB");
   }
 
   flushJobs(deadline?: IdleDeadline) {
@@ -132,19 +128,19 @@ export class JobQueue {
     if ('requestAnimationFrame' in window) {
       this.scheduleMode = SCHEDULE_MODE.raf
       this.scheduleId = (window as Window).requestAnimationFrame(() =>
-        this.flushJobs(),
+        { throw new Error("STUB"); },
       )
     } else if ('requestIdleCallback' in window) {
       this.scheduleMode = SCHEDULE_MODE.idle
       this.scheduleId = (window as Window).requestIdleCallback(
-        (deadline: IdleDeadline) => this.flushJobs(deadline),
+        (deadline: IdleDeadline) => { throw new Error("STUB"); },
         {
           timeout: 100,
         },
       )
     } else {
       this.scheduleMode = SCHEDULE_MODE.timeout
-      this.scheduleId = (window as Window).setTimeout(() => this.flushJobs())
+      this.scheduleId = (window as Window).setTimeout(() => { throw new Error("STUB"); })
     }
   }
 

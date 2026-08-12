@@ -44,10 +44,7 @@ export class Store<D> extends Basecoat<EventArgs<D>> {
   protected pendingOptions: StoreMutateOptions | null
 
   constructor(data: Partial<D> = {}) {
-    super()
-    this.data = {} as D
-    this.mutate(ObjectExt.cloneDeep(data))
-    this.changed = {}
+      throw new Error("STUB");
   }
 
   protected mutate<K extends keyof D>(
@@ -71,36 +68,14 @@ export class Store<D> extends Basecoat<EventArgs<D>> {
     const changed = this.changed
 
     Object.keys(data).forEach((k) => {
-      const key = k as K
-      const newValue = data[key]
-      if (!ObjectExt.isEqual(current[key], newValue)) {
-        changes.push(key)
-      }
-
-      if (!ObjectExt.isEqual(previous[key], newValue)) {
-        changed[key] = newValue
-      } else {
-        delete changed[key]
-      }
-
-      if (unset) {
-        delete current[key]
-      } else {
-        current[key] = newValue as any
-      }
+        throw new Error("STUB");
     })
 
     if (!silent && changes.length > 0) {
       this.pending = true
       this.pendingOptions = options
       changes.forEach((key) => {
-        this.emit('change:*', {
-          key,
-          options,
-          store: this,
-          current: current[key],
-          previous: previous[key],
-        })
+          throw new Error("STUB");
       })
     }
 
@@ -188,7 +163,7 @@ export class Store<D> extends Basecoat<EventArgs<D>> {
       subset[key] = empty
       opts = options
     } else if (Array.isArray(key)) {
-      key.forEach((k) => (subset[k] = empty))
+      key.forEach((k) => { throw new Error("STUB"); })
       opts = options
     } else {
       // eslint-disable-next-line
@@ -295,22 +270,7 @@ export class Store<D> extends Basecoat<EventArgs<D>> {
    * parts of a view need to be updated.
    */
   getChanges(diff?: Partial<D>) {
-    if (diff == null) {
-      return this.hasChanged() ? ObjectExt.cloneDeep(this.changed) : null
-    }
-
-    const old = this.changing ? this.previous : this.data
-    const changed: Partial<D> = {}
-    let hasChanged
-    // eslint-disable-next-line
-    for (const key in diff) {
-      const val = diff[key]
-      if (!ObjectExt.isEqual(old[key], val)) {
-        changed[key] = val
-        hasChanged = true
-      }
-    }
-    return hasChanged ? ObjectExt.cloneDeep(changed) : null
+      throw new Error("STUB");
   }
 
   /**

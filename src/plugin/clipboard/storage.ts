@@ -5,7 +5,7 @@ const LOCAL_STORAGE_KEY = `${Config.prefixCls}.clipboard.cells`
 
 export function save(cells: Cell[]) {
   if (window.localStorage) {
-    const data = cells.map((cell) => cell.toJSON())
+    const data = cells.map((cell) => { throw new Error("STUB"); })
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
   }
 }

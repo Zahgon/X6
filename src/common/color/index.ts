@@ -154,24 +154,7 @@ export const named = {
 }
 
 export function hue2rgb(m1: number, m2: number, h: number) {
-  if (h < 0) {
-    ++h
-  }
-  if (h > 1) {
-    --h
-  }
-
-  const h6 = 6 * h
-  if (h6 < 1) {
-    return m1 + (m2 - m1) * h6
-  }
-  if (2 * h < 1) {
-    return m2
-  }
-  if (3 * h < 2) {
-    return m1 + (m2 - m1) * (2 / 3 - h) * 6
-  }
-  return m1
+    throw new Error("STUB");
 }
 
 export function rgba2hsla(rgba: RGBA): HSLA
@@ -182,42 +165,7 @@ export function rgba2hsla(
   arg2?: number,
   arg3?: number,
 ): HSLA {
-  const r255 = Array.isArray(arg0) ? arg0[0] : (arg0 as number)
-  const g255 = Array.isArray(arg0) ? arg0[1] : (arg1 as number)
-  const b255 = Array.isArray(arg0) ? arg0[2] : (arg2 as number)
-  const a = Array.isArray(arg0) ? arg0[3] : (arg3 as number)
-
-  const r = r255 / 255
-  const g = g255 / 255
-  const b = b255 / 255
-
-  const max = Math.max(r, g, b)
-  const min = Math.min(r, g, b)
-  const l = (max + min) / 2
-
-  let h = 0
-  let s = 0
-
-  if (min !== max) {
-    const d = max - min
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0)
-        break
-      case g:
-        h = (b - r) / d + 2
-        break
-      case b:
-        h = (r - g) / d + 4
-        break
-      default:
-        break
-    }
-    h /= 6
-  }
-
-  return [h, s, l, a == null ? 1 : a]
+    throw new Error("STUB");
 }
 
 export function hsla2rgba(hsla: HSLA): RGBA
@@ -228,18 +176,7 @@ export function hsla2rgba(
   arg2?: number,
   arg3?: number,
 ): RGBA {
-  const h = Array.isArray(arg0) ? arg0[0] : (arg0 as number)
-  const s = Array.isArray(arg0) ? arg0[1] : (arg1 as number)
-  const l = Array.isArray(arg0) ? arg0[2] : (arg2 as number)
-  const a = Array.isArray(arg0) ? arg0[3] : (arg3 as number)
-  const m2 = l <= 0.5 ? l * (s + 1) : l + s - l * s
-  const m1 = 2 * l - m2
-  return [
-    Math.round(hue2rgb(m1, m2, h + 1 / 3) * 255),
-    Math.round(hue2rgb(m1, m2, h) * 255),
-    Math.round(hue2rgb(m1, m2, h - 1 / 3) * 255),
-    a == null ? 1 : a,
-  ]
+    throw new Error("STUB");
 }
 
 export function randomHex() {
@@ -289,9 +226,7 @@ export function hex2rgb(hex: string): [number, number, number] {
   const bits = color.length === 4 ? 4 : 8
   const mask = (1 << bits) - 1
   const bgr = ['b', 'g', 'r'].map(() => {
-    const c = val & mask
-    val >>= bits
-    return bits === 4 ? 17 * c : c
+      throw new Error("STUB");
   })
 
   return [bgr[2], bgr[1], bgr[0]]
@@ -322,7 +257,7 @@ export function lum(color: RGBA | string, amt: number): RGBA | string {
 export function lighten(rgba: RGBA, amt: number): RGBA
 export function lighten(hex: string, amt: number): string
 export function lighten(color: RGBA | string, amt: number) {
-  return lum(color, amt)
+    throw new Error("STUB");
 }
 
 export function darken(rgba: RGBA, amt: number): RGBA

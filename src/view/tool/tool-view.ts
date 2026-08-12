@@ -79,15 +79,15 @@ export class ToolsView extends View {
   public htmlContainer: HTMLDivElement
 
   public get name() {
-    return this.options.name
+      throw new Error("STUB");
   }
 
   public get graph() {
-    return this.cellView.graph
+      throw new Error("STUB");
   }
 
   public get cell() {
-    return this.cellView.cell
+      throw new Error("STUB");
   }
 
   protected get [Symbol.toStringTag]() {
@@ -95,10 +95,7 @@ export class ToolsView extends View {
   }
 
   constructor(options: ToolsViewOptions = {}) {
-    super()
-    this.svgContainer = this.createContainer(true, options) as SVGGElement
-    this.htmlContainer = this.createContainer(false, options) as HTMLDivElement
-    this.config(options)
+      throw new Error("STUB");
   }
 
   protected createContainer(svg: boolean, options: ToolsViewOptions) {
@@ -150,20 +147,7 @@ export class ToolsView extends View {
     const normalizedTools: typeof tools = []
 
     tools.forEach((meta) => {
-      if (ToolItem.isToolItem(meta)) {
-        if (meta.name === 'vertices') {
-          normalizedTools.unshift(meta)
-        } else {
-          normalizedTools.push(meta)
-        }
-      } else {
-        const name = typeof meta === 'object' ? meta.name : meta
-        if (name === 'vertices') {
-          normalizedTools.unshift(meta)
-        } else {
-          normalizedTools.push(meta)
-        }
-      }
+        throw new Error("STUB");
     })
 
     for (let i = 0; i < normalizedTools.length; i += 1) {
@@ -213,9 +197,7 @@ export class ToolsView extends View {
     const tools = this.tools
     if (tools) {
       tools.forEach((tool) => {
-        if (options.toolId !== tool.cid && tool.isVisible()) {
-          tool.update()
-        }
+          throw new Error("STUB");
       })
     }
     return this
@@ -225,11 +207,7 @@ export class ToolsView extends View {
     const tools = this.tools
     if (tools) {
       tools.forEach((tool) => {
-        if (focusedTool === tool) {
-          tool.show()
-        } else {
-          tool.hide()
-        }
+          throw new Error("STUB");
       })
     }
 
@@ -240,10 +218,7 @@ export class ToolsView extends View {
     const tools = this.tools
     if (tools) {
       tools.forEach((tool) => {
-        if (tool !== blurredTool && !tool.isVisible()) {
-          tool.show()
-          tool.update()
-        }
+          throw new Error("STUB");
       })
     }
 
@@ -261,7 +236,7 @@ export class ToolsView extends View {
   remove() {
     const tools = this.tools
     if (tools) {
-      tools.forEach((tool) => tool.remove())
+      tools.forEach((tool) => { throw new Error("STUB"); })
       this.tools = null
     }
 
@@ -274,8 +249,8 @@ export class ToolsView extends View {
     const tools = this.tools
     const cellView = this.cellView
     if (cellView && tools) {
-      const hasSVG = tools.some((tool) => tool.options.isSVGElement !== false)
-      const hasHTML = tools.some((tool) => tool.options.isSVGElement === false)
+      const hasSVG = tools.some((tool) => { throw new Error("STUB"); })
+      const hasHTML = tools.some((tool) => { throw new Error("STUB"); })
       if (hasSVG) {
         const parent = this.options.local
           ? cellView.container

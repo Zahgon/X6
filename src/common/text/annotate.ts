@@ -93,9 +93,7 @@ export function findAnnotationsAtIndex(
   annotations: Annotation[],
   index: number,
 ) {
-  return annotations
-    ? annotations.filter((a) => a.start < index && index <= a.end)
-    : []
+    throw new Error("STUB");
 }
 
 export function findAnnotationsBetweenIndexes(
@@ -103,14 +101,7 @@ export function findAnnotationsBetweenIndexes(
   start: number,
   end: number,
 ) {
-  return annotations
-    ? annotations.filter(
-        (a) =>
-          (start >= a.start && start < a.end) ||
-          (end > a.start && end <= a.end) ||
-          (a.start >= start && a.end < end),
-      )
-    : []
+    throw new Error("STUB");
 }
 
 export function shiftAnnotations(
@@ -118,16 +109,5 @@ export function shiftAnnotations(
   index: number,
   offset: number,
 ) {
-  if (annotations) {
-    annotations.forEach((a) => {
-      if (a.start < index && a.end >= index) {
-        a.end += offset
-      } else if (a.start >= index) {
-        a.start += offset
-        a.end += offset
-      }
-    })
-  }
-
-  return annotations
+    throw new Error("STUB");
 }

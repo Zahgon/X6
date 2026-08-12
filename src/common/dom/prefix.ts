@@ -1,6 +1,6 @@
 const hyphenPattern = /-(.)/g
 function camelize(str: string) {
-  return str.replace(hyphenPattern, (_, char) => char.toUpperCase())
+  return str.replace(hyphenPattern, (_, char) => { throw new Error("STUB"); })
 }
 
 const memoized: { [key: string]: string | null } = {}

@@ -65,43 +65,23 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   private static readonly MIN_RESTORE_WAIT_TIME = 50
 
   public get graph() {
-    return this.options.graph
+      throw new Error("STUB");
   }
 
   protected get boxClassName() {
-    return this.prefixClassName(classNames.box)
+      throw new Error("STUB");
   }
 
   protected get $boxes() {
-    return Dom.children(this.container, this.boxClassName)
+      throw new Error("STUB");
   }
 
   protected get handleOptions() {
-    return this.options
+      throw new Error("STUB");
   }
 
   constructor(options: SelectionImplOptions) {
-    super()
-    this.options = options
-
-    if (this.options.model) {
-      this.options.collection = this.options.model.collection
-    }
-
-    if (this.options.collection) {
-      this.collection = this.options.collection
-    } else {
-      this.collection = new Collection([], {
-        comparator: depthComparator,
-      })
-      this.options.collection = this.collection
-    }
-
-    this.boxCount = 0
-    this.boxesUpdated = false
-
-    this.createContainer()
-    this.startListening()
+      throw new Error("STUB");
   }
 
   protected startListening() {
@@ -164,35 +144,11 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected onGraphTransformed() {
-    if (this.updateThrottleTimer) {
-      clearTimeout(this.updateThrottleTimer)
-      this.updateThrottleTimer = null
-    }
-    // 使用 rAF 将多次 transform 合并为每帧一次刷新
-    if (this.transformRafId == null) {
-      this.transformRafId = window.requestAnimationFrame(() => {
-        this.transformRafId = null
-        if (this.collection.length <= 0) {
-          return
-        }
-
-        if (this.isDragging) {
-          this.repositionSelectionBoxesInPlace()
-          if (this.options.following) {
-            this.resetContainerPosition()
-          } else {
-            this.syncContainerPosition()
-          }
-          return
-        }
-
-        this.refreshSelectionBoxes()
-      })
-    }
+      throw new Error("STUB");
   }
 
   protected onCellChanged() {
-    this.updateSelectionBoxes()
+      throw new Error("STUB");
   }
 
   protected translating: boolean
@@ -201,38 +157,11 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     node,
     options,
   }: CollectionEventArgs['node:change:position']) {
-    const { showNodeSelectionBox, pointerEvents } = this.options
-    const { ui, selection, translateBy, snapped } = options
-
-    const allowTranslating =
-      (showNodeSelectionBox !== true ||
-        (pointerEvents &&
-          this.getPointerEventsValue(pointerEvents) === 'none')) &&
-      !this.translating &&
-      !selection
-
-    const translateByUi = ui && translateBy && node.id === translateBy
-
-    if (allowTranslating && (translateByUi || snapped)) {
-      this.translating = true
-      const current = node.position()
-      const previous = node.previous('position')
-      if (previous) {
-        const dx = current.x - previous.x
-        const dy = current.y - previous.y
-
-        if (dx !== 0 || dy !== 0) {
-          this.translateSelectedNodes(dx, dy, node, options)
-        }
-      }
-      this.translating = false
-    }
+      throw new Error("STUB");
   }
 
   protected onModelUpdated({ removed }: CollectionEventArgs['updated']) {
-    if (removed?.length) {
-      this.unselect(removed)
-    }
+      throw new Error("STUB");
   }
 
   isEmpty() {
@@ -248,7 +177,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   get cells() {
-    return this.collection.toArray()
+      throw new Error("STUB");
   }
 
   select(cells: Cell | Cell[], options: SelectionImplAddOptions = {}) {
@@ -282,14 +211,10 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
       const added: Cell[] = []
       const removed: Cell[] = []
       next.forEach((cell) => {
-        if (!prevMap[cell.id]) {
-          added.push(cell)
-        }
+          throw new Error("STUB");
       })
       prev.forEach((cell) => {
-        if (!nextMap[cell.id]) {
-          removed.push(cell)
-        }
+          throw new Error("STUB");
       })
 
       if (removed.length) {
@@ -328,69 +253,14 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   startSelecting(evt: Dom.MouseDownEvent) {
-    // Flow: startSelecting => adjustSelection => stopSelecting
-
-    evt = this.normalizeEvent(evt) // eslint-disable-line
-    this.clean()
-    let x: number
-    let y: number
-    const graphContainer = this.graph.container
-    if (
-      evt.offsetX != null &&
-      evt.offsetY != null &&
-      graphContainer.contains(evt.target)
-    ) {
-      x = evt.offsetX
-      y = evt.offsetY
-    } else {
-      const offset = Dom.offset(graphContainer)
-      const scrollLeft = graphContainer.scrollLeft
-      const scrollTop = graphContainer.scrollTop
-      x = evt.clientX - offset.left + window.pageXOffset + scrollLeft
-      y = evt.clientY - offset.top + window.pageYOffset + scrollTop
-    }
-
-    Dom.css(this.container, {
-      top: y,
-      left: x,
-      width: 1,
-      height: 1,
-    })
-
-    this.setEventData<SelectingEventData>(evt, {
-      action: 'selecting',
-      clientX: evt.clientX,
-      clientY: evt.clientY,
-      offsetX: x,
-      offsetY: y,
-      scrollerX: 0,
-      scrollerY: 0,
-      moving: false,
-    })
-
-    const client = this.graph.snapToGrid(evt.clientX, evt.clientY)
-    this.notifyBoxEvent('box:mousedown', evt, client.x, client.y, [])
-
-    this.delegateDocumentEvents(documentEvents, evt.data)
+      throw new Error("STUB");
   }
 
   filter(cells: Cell[]) {
     const filter = this.options.filter
 
     return cells.filter((cell) => {
-      if (Array.isArray(filter)) {
-        return filter.some((item) => {
-          if (typeof item === 'string') {
-            return cell.shape === item
-          }
-          return cell.id === item.id
-        })
-      }
-      if (typeof filter === 'function') {
-        return FunctionExt.call(filter, this.graph, cell)
-      }
-
-      return true
+        throw new Error("STUB");
     })
   }
 
@@ -462,81 +332,19 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected onSelectionBoxMouseDown(evt: Dom.MouseDownEvent) {
-    this.handleSelectionMouseDown(evt, true)
+      throw new Error("STUB");
   }
 
   protected onSelectionContainerMouseDown(evt: Dom.MouseDownEvent) {
-    this.handleSelectionMouseDown(evt, false)
+      throw new Error("STUB");
   }
 
   protected handleSelectionMouseDown(evt: Dom.MouseDownEvent, isBox: boolean) {
-    evt.stopPropagation()
-    evt.preventDefault?.()
-
-    const e = this.normalizeEvent(evt)
-    const client = this.graph.snapToGrid(e.clientX, e.clientY)
-
-    // 容器内的多选切换：按下修饰键时，不拖拽，直接切换选中状态
-    if (
-      !isBox &&
-      isModifierKeyMatch(e, this.options.multipleSelectionModifiers)
-    ) {
-      const viewsUnderPoint = this.graph.findViewsFromPoint(client.x, client.y)
-      const nodeView = viewsUnderPoint.find((v) => v.isNodeView())
-      if (nodeView) {
-        const cell = nodeView.cell
-        if (this.isSelected(cell)) {
-          this.unselect(cell, { ui: true })
-        } else {
-          if (this.options.multiple === false) {
-            this.reset(cell, { ui: true })
-          } else {
-            this.select(cell, { ui: true })
-          }
-        }
-      }
-      return
-    }
-
-    if (this.options.movable) {
-      this.startTranslating(e)
-    }
-
-    let activeView = isBox ? this.getCellViewFromElem(e.target) : null
-    if (!activeView) {
-      const viewsUnderPoint = this.graph
-        .findViewsFromPoint(client.x, client.y)
-        .filter((view) => this.isSelected(view.cell))
-      activeView = viewsUnderPoint[0] || null
-      if (!activeView) {
-        const firstSelected = this.collection.first()
-        if (firstSelected) {
-          activeView = this.graph.renderer.findViewByCell(firstSelected)
-        }
-      }
-    }
-
-    if (activeView) {
-      this.setEventData<SelectionBoxEventData>(e, { activeView })
-      if (isBox) {
-        this.notifyBoxEvent('box:mousedown', e, client.x, client.y)
-      }
-      this.delegateDocumentEvents(documentEvents, e.data)
-    }
+      throw new Error("STUB");
   }
 
   protected startTranslating(evt: Dom.MouseDownEvent) {
-    this.graph.model.startBatch('move-selection')
-    const client = this.graph.snapToGrid(evt.clientX, evt.clientY)
-    this.setEventData<TranslatingEventData>(evt, {
-      action: 'translating',
-      clientX: client.x,
-      clientY: client.y,
-      originX: client.x,
-      originY: client.y,
-    })
-    this.prepareTranslatingCache()
-    this.draggingPreviewMode = this.getDraggingPreviewMode()
+      throw new Error("STUB");
   }
 
   private getRestrictArea(): RectangleLike | null {
@@ -559,71 +367,14 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
 
   // 根据当前选择的节点构建拖拽缓存
   protected prepareTranslatingCache() {
-    const selectedNodes = this.collection
-      .toArray()
-      .filter((cell): cell is Node => cell.isNode())
-    const nodeIdSet = new Set(selectedNodes.map((n) => n.id))
-    const selectedEdges = this.collection
-      .toArray()
-      .filter((cell): cell is Edge => cell.isEdge())
-
-    const edgesToTranslateSet = new Set<Edge>()
-    const needsTranslate = (edge: Edge) =>
-      edge.getVertices().length > 0 ||
-      !edge.getSourceCellId() ||
-      !edge.getTargetCellId()
-
-    // 邻接边：仅当需要位移（有顶点或点端点）时加入缓存
-    this.graph.model.getEdges().forEach((edge) => {
-      const srcId = edge.getSourceCellId()
-      const tgtId = edge.getTargetCellId()
-      const isConnectedToSelectedNode =
-        (srcId != null && nodeIdSet.has(srcId)) ||
-        (tgtId != null && nodeIdSet.has(tgtId))
-      if (isConnectedToSelectedNode && needsTranslate(edge)) {
-        edgesToTranslateSet.add(edge)
-      }
-    })
-
-    // 选中的边（不一定与选中节点相邻）也需要考虑
-    selectedEdges.forEach((edge) => {
-      if (needsTranslate(edge)) {
-        edgesToTranslateSet.add(edge)
-      }
-    })
-
-    this.translatingCache = {
-      selectedNodes,
-      nodeIdSet,
-      edgesToTranslate: Array.from(edgesToTranslateSet),
-    }
+      throw new Error("STUB");
   }
 
   /**
    * 在移动过程中对与当前选中节点相连的边进行临时路由降级
    */
   protected applyMovingRouterFallback() {
-    if (this.movingRouterRestoreCache) return
-    const selectedNodes = this.translatingCache?.selectedNodes
-    if (!selectedNodes || selectedNodes.length < 2) return
-    const fallbackRaw = this.options.movingRouterFallback
-    if (!fallbackRaw || !routerRegistry.exist(fallbackRaw)) return
-    const fallback = { name: fallbackRaw }
-    const restore: KeyValue<RouterData | undefined> = {}
-    const processedEdges = new Set<string>()
-    selectedNodes.forEach((node) => {
-      this.graph.model.getConnectedEdges(node).forEach((edge) => {
-        if (processedEdges.has(edge.id)) {
-          return
-        }
-        processedEdges.add(edge.id)
-        const current = edge.getRouter()
-        restore[edge.id] = current
-        edge.setRouter(fallback, { silent: true })
-      })
-    })
-    this.movingRouterRestoreCache = restore
-    this.movingDegradeActivatedTs = Date.now()
+      throw new Error("STUB");
   }
 
   /**
@@ -635,20 +386,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     const restore = this.movingRouterRestoreCache
     if (!restore) return
     Object.keys(restore).forEach((id) => {
-      const edge = this.graph.getCellById(id) as Edge | null
-      if (!edge || !edge.isEdge()) return
-      const original = restore[id]
-      if (original == null) {
-        edge.removeRouter({ silent: true })
-      } else {
-        edge.setRouter(original, { silent: true })
-      }
-      const view = this.graph.findViewByCell(edge)
-      if (view) {
-        this.graph.renderer.requestViewUpdate(view, view.getFlag('update'), {
-          async: true,
-        })
-      }
+        throw new Error("STUB");
     })
     this.movingRouterRestoreCache = null
   }
@@ -660,104 +398,15 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
    * - 若条件未满足则按最小等待时间再次调度恢复
    */
   protected scheduleMovingRouterRestoreThrottle() {
-    if (this.movingRouterRestoreTimer) {
-      clearTimeout(this.movingRouterRestoreTimer)
-      this.movingRouterRestoreTimer = null
-    }
-    this.movingRouterRestoreTimer = setTimeout(() => {
-      const now = Date.now()
-      const lastMove = this.lastMovingTs || 0
-      const idle = now - lastMove
-      const hold =
-        this.movingDegradeActivatedTs != null
-          ? now - this.movingDegradeActivatedTs
-          : Infinity
-      if (
-        idle < SelectionImpl.RESTORE_IDLE_TIME ||
-        hold < SelectionImpl.RESTORE_HOLD_TIME
-      ) {
-        const wait = Math.max(
-          SelectionImpl.RESTORE_IDLE_TIME - idle,
-          SelectionImpl.RESTORE_HOLD_TIME - hold,
-          SelectionImpl.MIN_RESTORE_WAIT_TIME,
-        )
-        this.movingRouterRestoreTimer = setTimeout(() => {
-          this.movingRouterRestoreTimer = null
-          this.restoreMovingRouters()
-        }, wait)
-        return
-      }
-      this.movingRouterRestoreTimer = null
-      this.restoreMovingRouters()
-    }, SelectionImpl.RESTORE_IDLE_TIME)
+      throw new Error("STUB");
   }
 
   protected getSelectionOffset(client: Point, data: TranslatingEventData) {
-    let dx = client.x - data.clientX
-    let dy = client.y - data.clientY
-    const restrict = this.getRestrictArea()
-    if (restrict) {
-      const cells = this.collection.toArray()
-      const totalBBox =
-        Cell.getCellsBBox(cells, { deep: true }) || Rectangle.create()
-      const minDx = restrict.x - totalBBox.x
-      const minDy = restrict.y - totalBBox.y
-      const maxDx =
-        restrict.x + restrict.width - (totalBBox.x + totalBBox.width)
-      const maxDy =
-        restrict.y + restrict.height - (totalBBox.y + totalBBox.height)
-
-      if (dx < minDx) {
-        dx = minDx
-      }
-      if (dy < minDy) {
-        dy = minDy
-      }
-      if (maxDx < dx) {
-        dx = maxDx
-      }
-      if (maxDy < dy) {
-        dy = maxDy
-      }
-
-      if (!this.options.following) {
-        const offsetX = client.x - data.originX
-        const offsetY = client.y - data.originY
-        dx = offsetX <= minDx || offsetX >= maxDx ? 0 : dx
-        dy = offsetY <= minDy || offsetY >= maxDy ? 0 : dy
-      }
-    }
-
-    return {
-      dx,
-      dy,
-    }
+      throw new Error("STUB");
   }
 
   protected updateSelectedNodesPosition(offset: { dx: number; dy: number }) {
-    if (offset.dx === 0 && offset.dy === 0) {
-      return
-    }
-
-    // 合并偏移并在下一帧统一应用，减少高频重绘
-    if (this.dragPendingOffset) {
-      this.dragPendingOffset.dx += offset.dx
-      this.dragPendingOffset.dy += offset.dy
-    } else {
-      this.dragPendingOffset = { dx: offset.dx, dy: offset.dy }
-    }
-
-    if (this.dragRafId == null) {
-      this.dragRafId = requestAnimationFrame(() => {
-        const toApply = this.dragPendingOffset || { dx: 0, dy: 0 }
-        this.dragPendingOffset = null
-        this.dragRafId = null
-
-        this.applyDraggingPreview(toApply)
-        this.boxesUpdated = true
-        this.isDragging = true
-      })
-    }
+      throw new Error("STUB");
   }
 
   protected autoScrollGraph(
@@ -772,72 +421,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected adjustSelection(evt: Dom.MouseMoveEvent) {
-    const e = this.normalizeEvent(evt)
-    const eventData = this.getEventData<CommonEventData>(e)
-    const action = eventData.action
-    switch (action) {
-      case 'selecting': {
-        const data = eventData as SelectingEventData
-        if (data.moving !== true) {
-          Dom.appendTo(this.container, this.graph.container)
-          this.showRubberband()
-          data.moving = true
-        }
-
-        const { scrollerX, scrollerY } = this.autoScrollGraph(
-          e.clientX,
-          e.clientY,
-        )
-        data.scrollerX += scrollerX
-        data.scrollerY += scrollerY
-
-        const dx = e.clientX - data.clientX + data.scrollerX
-        const dy = e.clientY - data.clientY + data.scrollerY
-
-        Dom.css(this.container, {
-          left: dx < 0 ? data.offsetX + dx : data.offsetX,
-          top: dy < 0 ? data.offsetY + dy : data.offsetY,
-          width: Math.abs(dx),
-          height: Math.abs(dy),
-        })
-
-        const client = this.graph.snapToGrid(e.clientX, e.clientY)
-        const rect = this.getSelectingRect()
-        const cells = this.getCellsInArea(rect)
-        this.notifyBoxEvent('box:mousemove', evt, client.x, client.y, cells)
-        break
-      }
-
-      case 'translating': {
-        this.isDragging = true
-        const client = this.graph.snapToGrid(e.clientX, e.clientY)
-        const data = eventData as TranslatingEventData
-        const offset = this.getSelectionOffset(client, data)
-        if (this.options.following) {
-          this.updateSelectedNodesPosition(offset)
-        } else {
-          this.updateContainerPosition(offset)
-        }
-        if (offset.dx) {
-          data.clientX = client.x
-        }
-        if (offset.dy) {
-          data.clientY = client.y
-        }
-        if (offset.dx !== 0 || offset.dy !== 0) {
-          this.lastMovingTs = Date.now()
-          this.applyMovingRouterFallback()
-          this.scheduleMovingRouterRestoreThrottle()
-        }
-        this.notifyBoxEvent('box:mousemove', evt, client.x, client.y)
-        break
-      }
-
-      default:
-        break
-    }
-
-    this.boxesUpdated = false
+      throw new Error("STUB");
   }
 
   protected translateSelectedNodes(
@@ -854,16 +438,14 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     }
 
     this.collection.toArray().forEach((cell) => {
-      cell.getDescendants({ deep: true }).forEach((child) => {
-        map[child.id] = true
-      })
+        throw new Error("STUB");
     })
     if (otherOptions?.translateBy) {
       const currentCell = this.graph.getCellById(otherOptions.translateBy)
       if (currentCell) {
         map[currentCell.id] = true
         currentCell.getDescendants({ deep: true }).forEach((child) => {
-          map[child.id] = true
+            throw new Error("STUB");
         })
         excluded.push(currentCell)
       }
@@ -879,10 +461,10 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     const cachedSelectedNodes = this.translatingCache?.selectedNodes
     const selectedNodes = (
       cachedSelectedNodes ??
-      (this.collection.toArray().filter((cell) => cell.isNode()) as Node[])
-    ).filter((node) => !map[node.id])
+      (this.collection.toArray().filter((cell) => { throw new Error("STUB"); }) as Node[])
+    ).filter((node) => { throw new Error("STUB"); })
     selectedNodes.forEach((node) => {
-      node.translate(dx, dy, options)
+        throw new Error("STUB");
     })
 
     // 边移动缓存：仅移动需要位移的边（有顶点或点端点）
@@ -890,39 +472,25 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     const edgesToTranslate = new Set<Edge>()
     if (cachedEdges) {
       cachedEdges.forEach((edge) => {
-        edgesToTranslate.add(edge)
+          throw new Error("STUB");
       })
     } else {
-      const selectedNodeIdSet = new Set(selectedNodes.map((n) => n.id))
+      const selectedNodeIdSet = new Set(selectedNodes.map((n) => { throw new Error("STUB"); }))
       this.graph.model.getEdges().forEach((edge) => {
-        const srcId = edge.getSourceCellId()
-        const tgtId = edge.getTargetCellId()
-        const srcSelected = srcId ? selectedNodeIdSet.has(srcId) : false
-        const tgtSelected = tgtId ? selectedNodeIdSet.has(tgtId) : false
-        if (srcSelected || tgtSelected) {
-          const hasVertices = edge.getVertices().length > 0
-          const pointEndpoint = !srcId || !tgtId
-          if (hasVertices || pointEndpoint) {
-            edgesToTranslate.add(edge)
-          }
-        }
+          throw new Error("STUB");
       })
     }
 
     // 若选择了边（仅边、无节点），确保其也被移动（过滤无顶点且两端为节点的情况）
     const selectedEdges = this.collection
       .toArray()
-      .filter((cell): cell is Edge => cell.isEdge() && !map[cell.id])
+      .filter((cell): cell is Edge => { throw new Error("STUB"); })
     selectedEdges.forEach((edge) => {
-      const hasVertices = edge.getVertices().length > 0
-      const pointEndpoint = !edge.getSourceCellId() || !edge.getTargetCellId()
-      if (hasVertices || pointEndpoint) {
-        edgesToTranslate.add(edge)
-      }
+        throw new Error("STUB");
     })
 
     edgesToTranslate.forEach((edge) => {
-      edge.translate(dx, dy, options)
+        throw new Error("STUB");
     })
   }
 
@@ -937,8 +505,8 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
       views = views.concat(
         graph.model
           .getNodesInArea(rect, options)
-          .map((node) => graph.renderer.findViewByCell(node))
-          .filter((view) => view != null) as CellView[],
+          .map((node) => { throw new Error("STUB"); })
+          .filter((view) => { throw new Error("STUB"); }) as CellView[],
       )
     }
 
@@ -946,8 +514,8 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
       views = views.concat(
         graph.model
           .getEdgesInArea(rect, options)
-          .map((edge) => graph.renderer.findViewByCell(edge))
-          .filter((view) => view != null) as CellView[],
+          .map((edge) => { throw new Error("STUB"); })
+          .filter((view) => { throw new Error("STUB"); }) as CellView[],
       )
     }
 
@@ -955,7 +523,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected getCellsInArea(rect: Rectangle) {
-    return this.filter(this.getCellViewsInArea(rect).map((view) => view.cell))
+    return this.filter(this.getCellViewsInArea(rect).map((view) => { throw new Error("STUB"); }))
   }
 
   protected getSelectingRect() {
@@ -978,20 +546,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     let view = activeView
 
     ;(cells ?? this.cells).forEach((cell) => {
-      const current = this.graph.getCellById(cell.id)
-      if (!current) {
-        return
-      }
-
-      if (!view) {
-        view = this.graph.renderer.findViewByCell(current)
-      }
-
-      if (current.isNode()) {
-        nodes.push(current)
-      } else if (current.isEdge()) {
-        edges.push(current)
-      }
+        throw new Error("STUB");
     })
 
     return {
@@ -1046,13 +601,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected destroyAllSelectionBoxes(cells: Cell[]) {
-    cells.forEach((cell) => {
-      this.removeCellUnSelectedClassName(cell)
-    })
-
-    this.hide()
-    Dom.remove(this.$boxes)
-    this.boxCount = 0
+      throw new Error("STUB");
   }
 
   hide() {
@@ -1061,7 +610,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected showRubberband() {
-    Dom.addClass(this.container, this.prefixClassName(classNames.rubberband))
+      throw new Error("STUB");
   }
 
   protected hideRubberband() {
@@ -1106,15 +655,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected getDraggingPreviewMode() {
-    if (!this.options.following) {
-      return 'translate'
-    }
-
-    const hasVisibleEdgeSelectionBox = this.collection
-      .toArray()
-      .some((cell) => cell.isEdge() && this.canShowSelectionBox(cell))
-
-    return hasVisibleEdgeSelectionBox ? 'geometry' : 'translate'
+      throw new Error("STUB");
   }
 
   protected applyDraggingPreview(offset: { dx: number; dy: number }) {
@@ -1179,19 +720,10 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     const corner = { x: 0, y: 0 }
     const cells = this.collection
       .toArray()
-      .filter((cell) => this.canShowSelectionBox(cell))
+      .filter((cell) => { throw new Error("STUB"); })
 
     cells.forEach((cell) => {
-      const view = this.graph.renderer.findViewByCell(cell)
-      if (view) {
-        const bbox = view.getBBox({
-          useCellGeometry: true,
-        })
-        origin.x = Math.min(origin.x, bbox.x)
-        origin.y = Math.min(origin.y, bbox.y)
-        corner.x = Math.max(corner.x, bbox.x + bbox.width)
-        corner.y = Math.max(corner.y, bbox.y + bbox.height)
-      }
+        throw new Error("STUB");
     })
 
     Dom.css(this.selectionContainer, {
@@ -1282,21 +814,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected updateSelectionBoxes() {
-    if (this.collection.length > 0) {
-      if (this.isDragging) {
-        return
-      }
-
-      if (this.updateThrottleTimer) {
-        clearTimeout(this.updateThrottleTimer)
-      }
-
-      // 节流：限制更新频率到60fps
-      this.updateThrottleTimer = setTimeout(() => {
-        this.refreshSelectionBoxes()
-        this.updateThrottleTimer = null
-      }, 16)
-    }
+      throw new Error("STUB");
   }
 
   protected refreshSelectionBoxes() {
@@ -1304,7 +822,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     this.boxCount = 0
 
     this.collection.toArray().forEach((cell) => {
-      this.createSelectionBox(cell)
+        throw new Error("STUB");
     })
 
     this.updateContainer()
@@ -1340,14 +858,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected getCellViewFromElem(elem: Element) {
-    const id = elem.getAttribute('data-cell-id')
-    if (id) {
-      const cell = this.collection.get(id)
-      if (cell) {
-        return this.graph.renderer.findViewByCell(cell)
-      }
-    }
-    return null
+      throw new Error("STUB");
   }
 
   protected onCellRemoved({ cell }: CollectionEventArgs['removed']) {
@@ -1356,12 +867,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
   }
 
   protected onReseted({ previous, current }: CollectionEventArgs['reseted']) {
-    this.destroyAllSelectionBoxes(previous)
-    current.forEach((cell) => {
-      this.listenCellRemoveEvent(cell)
-      this.createSelectionBox(cell)
-    })
-    this.updateContainer()
+      throw new Error("STUB");
   }
 
   protected onCellAdded({ cell }: CollectionEventArgs['added']) {
@@ -1383,31 +889,7 @@ export class SelectionImpl extends View<SelectionImplEventArgs> {
     removed,
     options,
   }: CollectionEventArgs['updated']) {
-    added.forEach((cell) => {
-      this.trigger('cell:selected', { cell, options })
-      if (cell.isNode()) {
-        this.trigger('node:selected', { cell, options, node: cell })
-      } else if (cell.isEdge()) {
-        this.trigger('edge:selected', { cell, options, edge: cell })
-      }
-    })
-
-    removed.forEach((cell) => {
-      this.trigger('cell:unselected', { cell, options })
-      if (cell.isNode()) {
-        this.trigger('node:unselected', { cell, options, node: cell })
-      } else if (cell.isEdge()) {
-        this.trigger('edge:unselected', { cell, options, edge: cell })
-      }
-    })
-
-    const args = {
-      added,
-      removed,
-      options,
-      selected: this.cells.filter((cell) => !!this.graph.getCellById(cell.id)),
-    }
-    this.trigger('selection:changed', args)
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1539,7 +1021,7 @@ export const documentEvents = {
 }
 
 export function depthComparator(cell: Cell) {
-  return cell.getAncestors().length
+    throw new Error("STUB");
 }
 
 export interface CommonEventData {

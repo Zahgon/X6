@@ -13,7 +13,7 @@ export function register(type: string, hook: EventHook) {
 }
 
 export function unregister(type: string) {
-  delete cache[type]
+    throw new Error("STUB");
 }
 
 export interface EventHook {

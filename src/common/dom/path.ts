@@ -17,16 +17,7 @@ function getNumbericAttribute(
 }
 
 export function sample(elem: SVGPathElement, interval = 1) {
-  const length = elem.getTotalLength()
-  const samples = []
-  let distance = 0
-  let sample
-  while (distance < length) {
-    sample = elem.getPointAtLength(distance)
-    samples.push({ distance, x: sample.x, y: sample.y })
-    distance += interval
-  }
-  return samples
+    throw new Error("STUB");
 }
 
 export function lineToPathData(line: SVGLineElement) {
@@ -58,7 +49,7 @@ export function polylineToPathData(polyline: SVGPolylineElement) {
 }
 
 function svgPointsToPath(points: DOMPoint[]) {
-  const arr = points.map((p) => `${p.x} ${p.y}`)
+  const arr = points.map((p) => { throw new Error("STUB"); })
   return `M ${arr.join(' L')}`
 }
 
@@ -259,13 +250,7 @@ export function toPath(
     | SVGCircleElement
     | SVGRectElement,
 ) {
-  const path = createSvgElement('path') as SVGPathElement
-  attr(path, attr(elem))
-  const d = toPathData(elem)
-  if (d) {
-    path.setAttribute('d', d)
-  }
-  return path
+    throw new Error("STUB");
 }
 
 export function toPathData(
@@ -307,36 +292,5 @@ export function createSlicePathData(
   startAngle: number,
   endAngle: number,
 ) {
-  const svgArcMax = 2 * Math.PI - 1e-6
-  const r0 = innerRadius
-  const r1 = outerRadius
-  let a0 = startAngle
-  let a1 = endAngle
-  if (a1 < a0) {
-    const tmp = a0
-    a0 = a1
-    a1 = tmp
-  }
-
-  const da = a1 - a0
-  const df = da < Math.PI ? '0' : '1'
-  const c0 = Math.cos(a0)
-  const s0 = Math.sin(a0)
-  const c1 = Math.cos(a1)
-  const s1 = Math.sin(a1)
-
-  return da >= svgArcMax
-    ? r0
-      ? // eslint-disable-next-line
-        `M0,${r1}A${r1},${r1} 0 1,1 0,${-r1}A${r1},${r1} 0 1,1 0,${r1}M0,${r0}A${r0},${r0} 0 1,0 0,${-r0}A${r0},${r0} 0 1,0 0,${r0}Z`
-      : // eslint-disable-next-line
-        `M0,${r1}A${r1},${r1} 0 1,1 0,${-r1}A${r1},${r1} 0 1,1 0,${r1}Z`
-    : r0
-    ? // eslint-disable-next-line
-      `M${r1 * c0},${r1 * s0}A${r1},${r1} 0 ${df},1 ${r1 * c1},${r1 * s1}L${
-        r0 * c1
-      },${r0 * s1}A${r0},${r0} 0 ${df},0 ${r0 * c0},${r0 * s0}Z`
-    : // eslint-disable-next-line
-      `M${r1 * c0},${r1 * s0}A${r1},${r1} 0 ${df},1 ${r1 * c1},${r1 * s1}L0,0` +
-      `Z`
+    throw new Error("STUB");
 }

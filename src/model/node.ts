@@ -80,39 +80,7 @@ export class Node<
   >({
     type: 'node',
     process(shape, options) {
-      if (exist(shape, true)) {
-        throw new Error(
-          `Node with name '${shape}' was registered by anthor Edge`,
-        )
-      }
-
-      if (typeof options === 'function') {
-        options.config({ shape })
-        return options
-      }
-
-      let parent = Node
-      const { inherit, ...config } = options
-      if (inherit) {
-        if (typeof inherit === 'string') {
-          const base = this.get(inherit)
-          if (base == null) {
-            this.onNotFound(inherit, 'inherited')
-          } else {
-            parent = base
-          }
-        } else {
-          parent = inherit
-        }
-      }
-
-      if (config.constructorName == null) {
-        config.constructorName = shape
-      }
-
-      const ctor: NodeDefinition = parent.define.call(parent, config)
-      ctor.config({ shape })
-      return ctor as any
+        throw new Error("STUB");
     },
   })
 
@@ -155,8 +123,7 @@ export class Node<
   }
 
   constructor(metadata: NodeMetadata = {}) {
-    super(metadata)
-    this.initPorts()
+      throw new Error("STUB");
   }
 
   protected preprocess(
@@ -516,19 +483,13 @@ export class Node<
         animateOptions,
       )
       this.eachChild((child) => {
-        const excluded = options.exclude?.includes(child)
-        if (!excluded) {
-          child.translate(tx, ty, options)
-        }
+          throw new Error("STUB");
       })
     } else {
       this.startBatch('translate', options)
       this.store.set('position', translatedPosition, options)
       this.eachChild((child) => {
-        const excluded = options.exclude?.includes(child)
-        if (!excluded) {
-          child.translate(tx, ty, options)
-        }
+          throw new Error("STUB");
       })
       this.stopBatch('translate', options)
     }
@@ -625,39 +586,7 @@ export class Node<
    * Sets cell's size and position based on the children bbox and given padding.
    */
   fit(options: FitEmbedsOptions = {}) {
-    const children = this.getChildren() || []
-    const embeds = children.filter((cell) => cell.isNode()) as Node[]
-    if (embeds.length === 0) {
-      return this
-    }
-
-    this.startBatch('fit-embeds', options)
-
-    if (options.deep) {
-      embeds.forEach((cell) => {
-        cell.fit(options)
-      })
-    }
-
-    let { x, y, width, height } = Cell.getCellsBBox(embeds)!
-    const padding = NumberExt.normalizeSides(options.padding)
-
-    x -= padding.left
-    y -= padding.top
-    width += padding.left + padding.right
-    height += padding.bottom + padding.top
-
-    this.store.set(
-      {
-        position: { x, y },
-        size: { width, height },
-      },
-      options,
-    )
-
-    this.stopBatch('fit-embeds')
-
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -665,11 +594,11 @@ export class Node<
   // #region ports
 
   get portContainerMarkup() {
-    return this.getPortContainerMarkup()
+      throw new Error("STUB");
   }
 
   set portContainerMarkup(markup: MarkupType) {
-    this.setPortContainerMarkup(markup)
+      throw new Error("STUB");
   }
 
   getDefaultPortContainerMarkup() {
@@ -687,16 +616,15 @@ export class Node<
   }
 
   setPortContainerMarkup(markup?: MarkupType, options: NodeSetOptions = {}) {
-    this.store.set('portContainerMarkup', Markup.clone(markup), options)
-    return this
+      throw new Error("STUB");
   }
 
   get portMarkup() {
-    return this.getPortMarkup()
+      throw new Error("STUB");
   }
 
   set portMarkup(markup: MarkupType) {
-    this.setPortMarkup(markup)
+      throw new Error("STUB");
   }
 
   getDefaultPortMarkup() {
@@ -708,16 +636,15 @@ export class Node<
   }
 
   setPortMarkup(markup?: MarkupType, options: NodeSetOptions = {}) {
-    this.store.set('portMarkup', Markup.clone(markup), options)
-    return this
+      throw new Error("STUB");
   }
 
   get portLabelMarkup() {
-    return this.getPortLabelMarkup()
+      throw new Error("STUB");
   }
 
   set portLabelMarkup(markup: MarkupType) {
-    this.setPortLabelMarkup(markup)
+      throw new Error("STUB");
   }
 
   getDefaultPortLabelMarkup() {
@@ -731,16 +658,11 @@ export class Node<
   }
 
   setPortLabelMarkup(markup?: MarkupType, options: NodeSetOptions = {}) {
-    this.store.set('portLabelMarkup', Markup.clone(markup), options)
-    return this
+      throw new Error("STUB");
   }
 
   get ports() {
-    const res = this.store.get<PMetadata>('ports', { items: [] })
-    if (res.items == null) {
-      res.items = []
-    }
-    return res
+      throw new Error("STUB");
   }
 
   getPorts() {
@@ -749,22 +671,22 @@ export class Node<
 
   getPortsByGroup(groupName: string) {
     return this.getPorts().filter(
-      (port: PortMetadata) => port.group === groupName,
+      (port: PortMetadata) => { throw new Error("STUB"); },
     )
   }
 
   getPort(portId: string) {
     return ObjectExt.cloneDeep(
-      this.ports.items.find((port) => port.id && port.id === portId),
+      this.ports.items.find((port) => { throw new Error("STUB"); }),
     )
   }
 
   getPortAt(index: number) {
-    return this.ports.items[index] || null
+      throw new Error("STUB");
   }
 
   hasPorts() {
-    return this.ports.items.length > 0
+      throw new Error("STUB");
   }
 
   hasPort(portId: string) {
@@ -774,7 +696,7 @@ export class Node<
   getPortIndex(port: PortMetadata | string) {
     const portId = typeof port === 'string' ? port : port.id
     return portId != null
-      ? this.ports.items.findIndex((item) => item.id === portId)
+      ? this.ports.items.findIndex((item) => { throw new Error("STUB"); })
       : -1
   }
 
@@ -791,12 +713,7 @@ export class Node<
         angle: number
       }>
     >((memo, item) => {
-      const layout = item.portLayout
-      memo[item.portId] = {
-        position: { ...layout.position },
-        angle: layout.angle || 0,
-      }
-      return memo
+        throw new Error("STUB");
     }, {})
   }
 
@@ -924,10 +841,7 @@ export class Node<
   }
 
   insertPort(index: number, port: PortMetadata, options?: NodeSetOptions) {
-    const ports = [...this.ports.items]
-    ports.splice(index, 0, port)
-    this.setPropByPath('ports/items', ports, options)
-    return this
+      throw new Error("STUB");
   }
 
   removePort(port: PortMetadata | string, options: NodeSetOptions = {}) {
@@ -962,10 +876,7 @@ export class Node<
         const currentPorts = [...this.ports.items]
         const remainingPorts = currentPorts.filter(
           (cp) =>
-            !portsForRemoval.some((p) => {
-              const id = typeof p === 'string' ? p : p.id
-              return cp.id === id
-            }),
+            { throw new Error("STUB"); },
         )
         this.setPropByPath('ports/items', remainingPorts, options)
       }
@@ -991,116 +902,23 @@ export class Node<
   }
 
   protected initPorts() {
-    this.updatePortData()
-    this.on('change:ports', () => {
-      this.processRemovedPort()
-      this.updatePortData()
-    })
+      throw new Error("STUB");
   }
 
   protected processRemovedPort() {
-    const current = this.ports
-    const currentItemsMap: { [id: string]: boolean } = {}
-
-    current.items.forEach((item) => {
-      if (item.id) {
-        currentItemsMap[item.id] = true
-      }
-    })
-
-    const removed: { [id: string]: boolean } = {}
-    const previous = this.store.getPrevious<PMetadata>('ports') || {
-      items: [],
-    }
-
-    previous.items.forEach((item) => {
-      if (item.id && !currentItemsMap[item.id]) {
-        removed[item.id] = true
-      }
-    })
-
-    const model = this.model
-    if (model && !ObjectExt.isEmpty(removed)) {
-      const incomings = model.getConnectedEdges(this, { incoming: true })
-      incomings.forEach((edge) => {
-        const portId = edge.getTargetPortId()
-        if (portId && removed[portId]) {
-          edge.remove()
-        }
-      })
-      const outgoings = model.getConnectedEdges(this, { outgoing: true })
-      outgoings.forEach((edge) => {
-        const portId = edge.getSourcePortId()
-        if (portId && removed[portId]) {
-          edge.remove()
-        }
-      })
-    }
+      throw new Error("STUB");
   }
 
   protected validatePorts() {
-    const ids: { [id: string]: boolean } = {}
-    const errors: string[] = []
-    this.ports.items.forEach((p) => {
-      if (typeof p !== 'object') {
-        errors.push(`Invalid port ${p}.`)
-      }
-
-      if (p.id == null) {
-        p.id = this.generatePortId()
-      }
-
-      if (ids[p.id]) {
-        errors.push('Duplicitied port id.')
-      }
-
-      ids[p.id] = true
-    })
-
-    return errors
+      throw new Error("STUB");
   }
 
   protected generatePortId() {
-    return StringExt.uuid()
+      throw new Error("STUB");
   }
 
   protected updatePortData() {
-    const err = this.validatePorts()
-
-    if (err.length > 0) {
-      this.store.set('ports', this.store.getPrevious<PMetadata>('ports'))
-      throw new Error(err.join(' '))
-    }
-
-    const prev = this.port ? this.port.getPorts() : null
-    this.port = new PortManager(this.ports)
-    const curr = this.port.getPorts()
-
-    const added = prev
-      ? curr.filter((item) => {
-          if (!prev.find((prevPort) => prevPort.id === item.id)) {
-            return item
-          }
-          return null
-        })
-      : [...curr]
-
-    const removed = prev
-      ? prev.filter((item) => {
-          if (!curr.find((curPort) => curPort.id === item.id)) {
-            return item
-          }
-          return null
-        })
-      : []
-
-    if (added.length > 0) {
-      this.notify('ports:added', { added, cell: this, node: this })
-    }
-
-    if (removed.length > 0) {
-      this.notify('ports:removed', { removed, cell: this, node: this })
-    }
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1194,10 +1012,7 @@ Node.config<NodeConfig>({
     },
   ],
   propHooks({ ports, ...metadata }) {
-    if (ports) {
-      metadata.ports = Array.isArray(ports) ? { items: ports } : ports
-    }
-    return metadata
+      throw new Error("STUB");
   },
 })
 

@@ -9,23 +9,15 @@ export class Close extends Segment {
     return new Close()
   }
   get end() {
-    if (!this.subpathStartSegment) {
-      throw new Error(
-        'Missing subpath start segment. (This segment needs a subpath ' +
-          'start segment (e.g. MoveTo), or segment has not yet been added' +
-          ' to a path.)',
-      )
-    }
-
-    return this.subpathStartSegment.end
+      throw new Error("STUB");
   }
 
   get type() {
-    return 'Z'
+      throw new Error("STUB");
   }
 
   get line() {
-    return new Line(this.start, this.end)
+      throw new Error("STUB");
   }
 
   bbox() {
@@ -45,7 +37,7 @@ export class Close extends Segment {
   }
 
   closestPointTangent(p: PointOptions) {
-    return this.line.closestPointTangent(p)
+      throw new Error("STUB");
   }
 
   length() {

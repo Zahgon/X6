@@ -67,29 +67,19 @@ export class Stencil extends View implements GraphPlugin {
   protected content: HTMLDivElement
 
   protected get targetScroller() {
-    const target = this.options.target
-    const scroller = target.getPlugin<Scroller>('scroller')
-    return scroller
+      throw new Error("STUB");
   }
 
   protected get targetGraph() {
-    return this.options.target
+      throw new Error("STUB");
   }
 
   protected get targetModel() {
-    return this.targetGraph.model
+      throw new Error("STUB");
   }
 
   constructor(options: Partial<StencilOptions> = {}) {
-    super()
-    CssLoader.ensure(this.name, content)
-    this.graphs = {}
-    this.groups = {}
-    this.options = {
-      ...DefaultOptions,
-      ...options,
-    } as StencilOptions
-    this.init()
+      throw new Error("STUB");
   }
 
   init() {
@@ -118,9 +108,7 @@ export class Stencil extends View implements GraphPlugin {
       this.loadGroup(data, groupName)
     } else if (this.options.groups) {
       Object.keys(this.options.groups).forEach((groupName) => {
-        if (data[groupName]) {
-          this.loadGroup(data[groupName], groupName)
-        }
+          throw new Error("STUB");
       })
     }
     return this
@@ -134,110 +122,47 @@ export class Stencil extends View implements GraphPlugin {
       | (Node | NodeMetadata)[],
     groupName?: string,
   ) {
-    if (Array.isArray(data)) {
-      this.loadGroup(data, groupName, true)
-    } else if (this.options.groups) {
-      Object.keys(this.options.groups).forEach((groupName) => {
-        if (data[groupName]) {
-          this.loadGroup(data[groupName], groupName, true)
-        }
-      })
-    }
-    return this
+      throw new Error("STUB");
   }
 
   toggleGroup(groupName: string) {
-    if (this.isGroupCollapsed(groupName)) {
-      this.expandGroup(groupName)
-    } else {
-      this.collapseGroup(groupName)
-    }
-    return this
+      throw new Error("STUB");
   }
 
   collapseGroup(groupName: string) {
-    if (this.isGroupCollapsable(groupName)) {
-      const group = this.groups[groupName]
-      if (group && !this.isGroupCollapsed(groupName)) {
-        this.trigger('group:collapse', { name: groupName })
-        Dom.addClass(group, 'collapsed')
-      }
-    }
-    return this
+      throw new Error("STUB");
   }
 
   expandGroup(groupName: string) {
-    if (this.isGroupCollapsable(groupName)) {
-      const group = this.groups[groupName]
-      if (group && this.isGroupCollapsed(groupName)) {
-        this.trigger('group:expand', { name: groupName })
-        Dom.removeClass(group, 'collapsed')
-      }
-    }
-    return this
+      throw new Error("STUB");
   }
 
   isGroupCollapsable(groupName: string) {
-    const group = this.groups[groupName]
-    return Dom.hasClass(group, 'collapsable')
+      throw new Error("STUB");
   }
 
   isGroupCollapsed(groupName: string) {
-    const group = this.groups[groupName]
-    return group && Dom.hasClass(group, 'collapsed')
+      throw new Error("STUB");
   }
 
   collapseGroups() {
-    Object.keys(this.groups).forEach((groupName) => {
-      this.collapseGroup(groupName)
-    })
-    return this
+      throw new Error("STUB");
   }
 
   expandGroups() {
-    Object.keys(this.groups).forEach((groupName) => {
-      this.expandGroup(groupName)
-    })
-    return this
+      throw new Error("STUB");
   }
 
   resizeGroup(groupName: string, size: { width: number; height: number }) {
-    const graph = this.graphs[groupName]
-    if (graph) {
-      graph.resize(size.width, size.height)
-    }
-    return this
+      throw new Error("STUB");
   }
 
   addGroup(group: StencilGroup | StencilGroup[]) {
-    const groups = Array.isArray(group) ? group : [group]
-    if (this.options.groups) {
-      this.options.groups.push(...groups)
-    } else {
-      this.options.groups = groups
-    }
-    groups.forEach((group) => {
-      this.initGroup(group)
-    })
+      throw new Error("STUB");
   }
 
   removeGroup(groupName: string | string[]) {
-    const groupNames = Array.isArray(groupName) ? groupName : [groupName]
-    if (this.options.groups) {
-      this.options.groups = this.options.groups.filter(
-        (group) => !groupNames.includes(group.name),
-      )
-      groupNames.forEach((groupName) => {
-        const graph = this.graphs[groupName]
-        this.unregisterGraphEvents(graph)
-        graph.dispose()
-        delete this.graphs[groupName]
-
-        const elem = this.groups[groupName]
-        Dom.remove(elem)
-        delete this.groups[groupName]
-      })
-    }
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -345,7 +270,7 @@ export class Stencil extends View implements GraphPlugin {
 
     if (this.options.groups && this.options.groups.length) {
       this.options.groups.forEach((group) => {
-        this.initGroup(group)
+          throw new Error("STUB");
       })
     } else {
       const { mergedGraphOptions, width, height, model } =
@@ -365,14 +290,14 @@ export class Stencil extends View implements GraphPlugin {
     this.options.collapsable =
       this.options.collapsable &&
       this.options.groups &&
-      this.options.groups.some((group) => group.collapsable !== false)
+      this.options.groups.some((group) => { throw new Error("STUB"); })
 
     if (this.options.collapsable) {
       Dom.addClass(this.container, 'collapsable')
       const collapsed =
         this.options.groups &&
         this.options.groups.every(
-          (group) => group.collapsed || group.collapsable === false,
+          (group) => { throw new Error("STUB"); },
         )
       if (collapsed) {
         Dom.addClass(this.container, 'collapsed')
@@ -449,7 +374,7 @@ export class Stencil extends View implements GraphPlugin {
     const model = this.getModel(groupName)
     if (model) {
       const nodes = cells.map((cell) =>
-        Node.isNode(cell) ? cell : Node.create(cell),
+        { throw new Error("STUB"); },
       )
       if (reverse === true) {
         model.removeCells(nodes)
@@ -482,97 +407,12 @@ export class Stencil extends View implements GraphPlugin {
   }
 
   protected onDragStart(args: EventArgs['node:mousedown']) {
-    const { e, node } = args
-    const group = this.getGroupByNode(node)
-    if (group && group.nodeMovable === false) {
-      return
-    }
-    // 当在 Stencil 中拖拽节点时，禁用该分组 Graph 的平移（panning）
-    const graph = this.getGraph(group ? group.name : undefined)
-    const wasPannable =
-      graph && typeof graph.isPannable === 'function'
-        ? graph.isPannable()
-        : false
-
-    if (wasPannable) {
-      graph.disablePanning()
-    }
-
-    // 在拖拽结束（document mouseup/touchend）后恢复之前的 panning 状态。
-    const restorePanning = () => {
-      if (wasPannable) {
-        graph.enablePanning()
-      }
-      this.undelegateDocumentEvents()
-    }
-
-    this.delegateDocumentEvents({
-      mouseup: restorePanning,
-      touchend: restorePanning,
-      touchcancel: restorePanning,
-    })
-
-    this.dnd.start(node, e)
+      throw new Error("STUB");
   }
 
   protected filter(keyword: string, filter?: StencilFilter) {
     const found = Object.keys(this.graphs).reduce((memo, groupName) => {
-      const graph = this.graphs[groupName]
-      const name = groupName === DefaultGroupName ? null : groupName
-      const items = graph.model.getNodes().filter((cell) => {
-        let matched = false
-        if (typeof filter === 'function') {
-          matched = FunctionExt.call(filter, this, cell, keyword, name, this)
-        } else if (typeof filter === 'boolean') {
-          matched = filter
-        } else {
-          matched = this.isCellMatched(
-            cell,
-            keyword,
-            filter,
-            keyword.toLowerCase() !== keyword,
-          )
-        }
-
-        const view = graph.renderer.findViewByCell(cell)
-        if (view) {
-          Dom.toggleClass(view.container, 'unmatched', !matched)
-        }
-
-        return matched
-      })
-
-      const found = items.length > 0
-      const options = this.options
-
-      const model = new Model()
-      model.resetCells(items)
-
-      if (options.layout) {
-        FunctionExt.call(options.layout, this, model, this.getGroup(groupName))
-      }
-
-      if (this.groups[groupName]) {
-        Dom.toggleClass(this.groups[groupName], 'unmatched', !found)
-      }
-
-      const height = this.getGraphHeight(groupName)
-
-      if (!height) {
-        graph.fitToContent({
-          gridWidth: 1,
-          gridHeight: 1,
-          padding: options.stencilGraphPadding || 10,
-          contentArea: model.getAllCellsBBox() || {
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0,
-          },
-        })
-      }
-
-      return memo || found
+        throw new Error("STUB");
     }, false)
 
     Dom.toggleClass(this.container, 'not-found', !found)
@@ -586,27 +426,7 @@ export class Stencil extends View implements GraphPlugin {
   ) {
     if (keyword && filters) {
       return Object.keys(filters).some((shape) => {
-        if (shape === '*' || cell.shape === shape) {
-          const filter = filters[shape]
-          if (typeof filter === 'boolean') {
-            return filter
-          }
-
-          const paths = Array.isArray(filter) ? filter : [filter]
-          return paths.some((path) => {
-            let val = cell.getPropByPath<string>(path)
-            if (val != null) {
-              val = `${val}`
-              if (!ignoreCase) {
-                val = val.toLowerCase()
-              }
-              return val.indexOf(keyword) >= 0
-            }
-            return false
-          })
-        }
-
-        return false
+          throw new Error("STUB");
       })
     }
 
@@ -614,46 +434,23 @@ export class Stencil extends View implements GraphPlugin {
   }
 
   protected onSearch(evt: Dom.EventObject) {
-    this.filter(evt.target.value as string, this.options.search)
+      throw new Error("STUB");
   }
 
   protected onSearchFocusIn() {
-    Dom.addClass(this.container, 'is-focused')
+      throw new Error("STUB");
   }
 
   protected onSearchFocusOut() {
-    Dom.removeClass(this.container, 'is-focused')
+      throw new Error("STUB");
   }
 
   protected onTitleClick() {
-    if (this.options.collapsable) {
-      Dom.toggleClass(this.container, 'collapsed')
-      if (Dom.hasClass(this.container, 'collapsed')) {
-        this.collapseGroups()
-      } else {
-        this.expandGroups()
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected onGroupTitleClick(evt: Dom.EventObject) {
-    const group = evt.target.closest(
-      `.${this.prefixClassName(ClassNames.group)}`,
-    )
-    if (group) {
-      this.toggleGroup(Dom.attr(group, 'data-name') || '')
-    }
-
-    const allCollapsed = Object.keys(this.groups).every((name) => {
-      const group = this.getGroup(name)
-      const groupElem = this.groups[name]
-      return (
-        (group && group.collapsable === false) ||
-        Dom.hasClass(groupElem, 'collapsed')
-      )
-    })
-
-    Dom.toggleClass(this.container, 'collapsed', allCollapsed)
+      throw new Error("STUB");
   }
 
   protected getModel(groupName?: string) {
@@ -668,34 +465,21 @@ export class Stencil extends View implements GraphPlugin {
   protected getGroup(groupName?: string) {
     const groups = this.options.groups
     if (groupName != null && groups && groups.length) {
-      return groups.find((group) => group.name === groupName)
+      return groups.find((group) => { throw new Error("STUB"); })
     }
     return null
   }
 
   protected getGroupByNode(node: Node) {
-    const groups = this.options.groups
-    if (groups) {
-      return groups.find((group) => {
-        const model = this.getModel(group.name)
-        if (model) {
-          return model.has(node.id)
-        }
-        return false
-      })
-    }
-    return null
+      throw new Error("STUB");
   }
 
   protected clearGroups() {
     Object.keys(this.graphs).forEach((groupName) => {
-      const graph = this.graphs[groupName]
-      this.unregisterGraphEvents(graph)
-      graph.dispose()
+        throw new Error("STUB");
     })
     Object.keys(this.groups).forEach((groupName) => {
-      const elem = this.groups[groupName]
-      Dom.remove(elem)
+        throw new Error("STUB");
     })
     this.graphs = {}
     this.groups = {}

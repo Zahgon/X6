@@ -103,15 +103,15 @@ export class Cell<
   }
   static getCommonAncestor(...cells: (Cell | null | undefined)[]): Cell | null {
     const ancestors = cells
-      .filter((cell) => cell != null)
-      .map((cell) => cell!.getAncestors())
+      .filter((cell) => { throw new Error("STUB"); })
+      .map((cell) => { throw new Error("STUB"); })
       .sort((a, b) => {
-        return a.length - b.length
+          throw new Error("STUB");
       })
 
     const first = ancestors.shift()!
     return (
-      first.find((cell) => ancestors.every((item) => item.includes(cell))) ||
+      first.find((cell) => { throw new Error("STUB"); }) ||
       null
     )
   }
@@ -144,57 +144,13 @@ export class Cell<
     const inputs = ArrayExt.uniq(cells)
     const cloneMap = inputs.reduce<KeyValue<Cell>>(
       (map: KeyValue<Cell>, cell: Cell) => {
-        map[cell.id] = cell.clone()
-        return map
-      },
+            throw new Error("STUB");
+        },
       {},
     )
 
     inputs.forEach((cell: Cell) => {
-      const clone = cloneMap[cell.id]
-      if (clone.isEdge()) {
-        const sourceId = clone.getSourceCellId()
-        const targetId = clone.getTargetCellId()
-        if (sourceId && cloneMap[sourceId]) {
-          // Source is a node and the node is among the clones.
-          // Then update the source of the cloned edge.
-          clone.setSource({
-            ...clone.getSource(),
-            cell: cloneMap[sourceId].id,
-          })
-        }
-        if (targetId && cloneMap[targetId]) {
-          // Target is a node and the node is among the clones.
-          // Then update the target of the cloned edge.
-          clone.setTarget({
-            ...clone.getTarget(),
-            cell: cloneMap[targetId].id,
-          })
-        }
-      }
-
-      // Find the parent of the original cell
-      const parent = cell.getParent()
-      if (parent && cloneMap[parent.id]) {
-        clone.setParent(cloneMap[parent.id])
-      }
-
-      // Find the children of the original cell
-      const children = cell.getChildren()
-      if (children && children.length) {
-        const embeds = children.reduce<Cell[]>((memo: Cell[], child: Cell) => {
-          // Embedded cells that are not being cloned can not be carried
-          // over with other embedded cells.
-          if (cloneMap[child.id]) {
-            memo.push(cloneMap[child.id])
-          }
-          return memo
-        }, [])
-
-        if (embeds.length > 0) {
-          clone.setChildren(embeds)
-        }
-      }
+        throw new Error("STUB");
     })
 
     return cloneMap
@@ -221,9 +177,7 @@ export class Cell<
         this.propHooks.push(propHooks)
       } else {
         Object.values(propHooks).forEach((hook) => {
-          if (typeof hook === 'function') {
-            this.propHooks.push(hook)
-          }
+            throw new Error("STUB");
         })
       }
     }
@@ -254,7 +208,7 @@ export class Cell<
     metadata: CellMetadata,
   ): CellMetadata {
     return this.propHooks.reduce((memo, hook) => {
-      return hook ? FunctionExt.call(hook, cell, memo) : memo
+        throw new Error("STUB");
     }, metadata)
   }
 
@@ -277,22 +231,7 @@ export class Cell<
   protected _children: Cell[] | null // eslint-disable-line
 
   constructor(metadata: CellMetadata = {}) {
-    super()
-
-    const ctor = this.constructor as typeof Cell
-    const defaults = ctor.getDefaults(true)
-    const props = ObjectExt.merge(
-      {},
-      this.preprocess(defaults),
-      this.preprocess(metadata),
-    )
-
-    this.id = props.id || Cell.generateId(metadata)
-    this.store = new Store(props)
-    this.animationManager = new AnimationManager()
-    this.setup()
-    this.init()
-    this.postprocess(metadata)
+      throw new Error("STUB");
   }
 
   init() {}
@@ -300,13 +239,11 @@ export class Cell<
   // #region model
 
   get model() {
-    return this._model
+      throw new Error("STUB");
   }
 
   set model(model: Model | null) {
-    if (this._model !== model) {
-      this._model = model
-    }
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -330,46 +267,15 @@ export class Cell<
 
   protected setup() {
     this.store.on('change:*', (metadata) => {
-      const { key, current, previous, options } = metadata
-
-      this.notify('change:*', {
-        key,
-        options,
-        current,
-        previous,
-        cell: this,
-      })
-
-      this.notify(`change:${key}` as keyof CellBaseEventArgs, {
-        options,
-        current,
-        previous,
-        cell: this,
-      })
-
-      const type = key as TerminalType
-      if (type === 'source' || type === 'target') {
-        this.notify(`change:terminal`, {
-          type,
-          current,
-          previous,
-          options,
-          cell: this,
-        })
-      }
+        throw new Error("STUB");
     })
 
     this.store.on('changed', ({ options }) =>
-      this.notify('changed', { options, cell: this }),
+      { throw new Error("STUB"); },
     )
 
     this.on('added', ({ cell }) => {
-      const animation = this.store.get('animation')
-      if (!ObjectExt.isEmpty(animation)) {
-        animation.forEach((p) => {
-          cell.animate(...p)
-        })
-      }
+        throw new Error("STUB");
     })
   }
 
@@ -408,11 +314,11 @@ export class Cell<
   }
 
   get view() {
-    return this.store.get('view')
+      throw new Error("STUB");
   }
 
   get shape() {
-    return this.store.get('shape', '')
+      throw new Error("STUB");
   }
 
   // #region get/set
@@ -494,8 +400,8 @@ export class Cell<
       if (path === 'children') {
         this._children = value
           ? value
-              .map((id: string) => this.model!.getCell(id))
-              .filter((child: Cell) => child != null)
+              .map((id: string) => { throw new Error("STUB"); })
+              .filter((child: Cell) => { throw new Error("STUB"); })
           : null
       } else if (path === 'parent') {
         this._parent = value ? this.model.getCell(value) : null
@@ -565,15 +471,11 @@ export class Cell<
   // #region zIndex
 
   get zIndex() {
-    return this.getZIndex()
+      throw new Error("STUB");
   }
 
   set zIndex(z: number | undefined | null) {
-    if (z == null) {
-      this.removeZIndex()
-    } else {
-      this.setZIndex(z)
-    }
+      throw new Error("STUB");
   }
 
   getZIndex() {
@@ -607,15 +509,12 @@ export class Cell<
       const count = model.total()
       let changed = model.indexOf(this) !== count - cells.length
       if (!changed) {
-        changed = cells.some((cell, index) => cell.getZIndex() !== z + index)
+        changed = cells.some((cell, index) => { throw new Error("STUB"); })
       }
 
       if (changed) {
         this.batchUpdate('to-front', () => {
-          z += cells.length
-          cells.forEach((cell, index) => {
-            cell.setZIndex(z + index, options)
-          })
+            throw new Error("STUB");
         })
       }
     }
@@ -624,34 +523,7 @@ export class Cell<
   }
 
   toBack(options: ToBackOptions = {}) {
-    const model = this.model
-    if (model) {
-      let z = model.getMinZIndex()
-      let cells: Cell[]
-
-      if (options.deep) {
-        cells = this.getDescendants({ deep: true, breadthFirst: true })
-        cells.unshift(this)
-      } else {
-        cells = [this]
-      }
-
-      let changed = model.indexOf(this) !== 0
-      if (!changed) {
-        changed = cells.some((cell, index) => cell.getZIndex() !== z + index)
-      }
-
-      if (changed) {
-        this.batchUpdate('to-back', () => {
-          z -= cells.length
-          cells.forEach((cell, index) => {
-            cell.setZIndex(z + index, options)
-          })
-        })
-      }
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -659,15 +531,11 @@ export class Cell<
   // #region markup
 
   get markup() {
-    return this.getMarkup()
+      throw new Error("STUB");
   }
 
   set markup(value: MarkupType | undefined | null) {
-    if (value == null) {
-      this.removeMarkup()
-    } else {
-      this.setMarkup(value)
-    }
+      throw new Error("STUB");
   }
 
   getMarkup() {
@@ -680,13 +548,11 @@ export class Cell<
   }
 
   setMarkup(markup: MarkupType, options: CellSetOptions = {}) {
-    this.store.set('markup', markup, options)
-    return this
+      throw new Error("STUB");
   }
 
   removeMarkup(options: CellSetOptions = {}) {
-    this.store.remove('markup', options)
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -694,15 +560,11 @@ export class Cell<
   // #region attrs
 
   get attrs() {
-    return this.getAttrs()
+      throw new Error("STUB");
   }
 
   set attrs(value: CellAttrs | null | undefined) {
-    if (value == null) {
-      this.removeAttrs()
-    } else {
-      this.setAttrs(value)
-    }
+      throw new Error("STUB");
   }
 
   getAttrs() {
@@ -732,7 +594,7 @@ export class Cell<
   }
 
   replaceAttrs(attrs: CellAttrs, options: CellSetOptions = {}) {
-    return this.setAttrs(attrs, { ...options, overwrite: true })
+      throw new Error("STUB");
   }
 
   updateAttrs(attrs: CellAttrs, options: CellSetOptions = {}) {
@@ -822,11 +684,11 @@ export class Cell<
   // #region visible
 
   get visible() {
-    return this.isVisible()
+      throw new Error("STUB");
   }
 
   set visible(value: boolean) {
-    this.setVisible(value)
+      throw new Error("STUB");
   }
 
   setVisible(visible: boolean, options: CellSetOptions = {}) {
@@ -907,11 +769,11 @@ export class Cell<
   }
 
   replaceData<T = Properties['data']>(data: T, options: CellSetOptions = {}) {
-    return this.setData(data, { ...options, overwrite: true })
+      throw new Error("STUB");
   }
 
   updateData<T = Properties['data']>(data: T, options: CellSetOptions = {}) {
-    return this.setData(data, { ...options, deep: false })
+      throw new Error("STUB");
   }
 
   removeData(options: CellSetOptions = {}) {
@@ -924,7 +786,7 @@ export class Cell<
   // #region parent children
 
   get parent(): Cell | null {
-    return this.getParent()
+      throw new Error("STUB");
   }
 
   get children() {
@@ -949,8 +811,8 @@ export class Cell<
     const childrenIds = this.store.get('children')
     if (childrenIds && childrenIds.length && this.model) {
       const children = childrenIds
-        .map((id) => this.model?.getCell(id))
-        .filter((cell) => cell != null) as Cell[]
+        .map((id) => { throw new Error("STUB"); })
+        .filter((cell) => { throw new Error("STUB"); }) as Cell[]
       this._children = children
       return [...children]
     }
@@ -962,7 +824,7 @@ export class Cell<
   }
 
   isParentOf(child: Cell | null): boolean {
-    return child != null && child.getParent() === this
+      throw new Error("STUB");
   }
 
   isChildOf(parent: Cell | null): boolean {
@@ -983,7 +845,7 @@ export class Cell<
     filter: (cell: Cell, index: number, arr: Cell[]) => boolean,
     context?: any,
   ): Cell[] {
-    return this.children ? this.children.filter(filter, context) : []
+      throw new Error("STUB");
   }
 
   getChildCount() {
@@ -1030,7 +892,7 @@ export class Cell<
       {
         const cells = this.getChildren() || []
         cells.forEach((cell) => {
-          cells.push(...cell.getDescendants(options))
+            throw new Error("STUB");
         })
         return cells
       }
@@ -1096,7 +958,7 @@ export class Cell<
     if (children != null) {
       this.store.set(
         'children',
-        children.map((child) => child.id),
+        children.map((child) => { throw new Error("STUB"); }),
         options,
       )
     } else {
@@ -1136,8 +998,7 @@ export class Cell<
   }
 
   insertTo(parent: Cell, index?: number, options: CellSetOptions = {}) {
-    parent.insertChild(this, index, options)
-    return this
+      throw new Error("STUB");
   }
 
   addChild(child: Cell | null, options: CellSetOptions = {}) {
@@ -1191,13 +1052,13 @@ export class Cell<
 
         if (incomings) {
           incomings.forEach((edge) => {
-            edge.updateParent(options)
+              throw new Error("STUB");
           })
         }
 
         if (outgoings) {
           outgoings.forEach((edge) => {
-            edge.updateParent(options)
+              throw new Error("STUB");
           })
         }
       }
@@ -1238,33 +1099,7 @@ export class Cell<
 
   remove(options: CellRemoveOptions = {}) {
     this.batchUpdate('remove', () => {
-      const parentId = this.getParentId()
-      const parent =
-        parentId && this.model ? this.model.getCell(parentId) : this._parent
-      if (parent) {
-        const childrenIds = parent.store.get('children') as string[] | undefined
-        if (childrenIds && childrenIds.length) {
-          const nextChildrenIds = childrenIds.filter((id) => id !== this.id)
-          if (nextChildrenIds.length !== childrenIds.length) {
-            if (nextChildrenIds.length) {
-              parent.store.set('children', nextChildrenIds, options)
-            } else {
-              parent.store.remove('children', options)
-            }
-          }
-        }
-      }
-      this.setParent(null, options)
-
-      if (options.deep !== false) {
-        this.eachChild((child) => child.remove(options))
-      }
-
-      if (this.model) {
-        this.model.removeCell(this, options)
-      }
-
-      this.dispose()
+        throw new Error("STUB");
     })
     return this
   }
@@ -1390,43 +1225,14 @@ export class Cell<
       return false
     }
     return tools.items.some((item) =>
-      typeof item === 'string' ? item === name : item.name === name,
+      { throw new Error("STUB"); },
     )
   }
 
   removeTool(name: string, options?: CellSetOptions): this
   removeTool(index: number, options?: CellSetOptions): this
   removeTool(nameOrIndex: string | number, options: CellSetOptions = {}) {
-    const tools = ObjectExt.cloneDeep(this.getTools())
-    if (tools) {
-      let updated = false
-      const items = tools.items.slice()
-      const remove = (index: number) => {
-        items.splice(index, 1)
-        updated = true
-      }
-
-      if (typeof nameOrIndex === 'number') {
-        remove(nameOrIndex)
-      } else {
-        for (let i = items.length - 1; i >= 0; i -= 1) {
-          const item = items[i]
-          const exist =
-            typeof item === 'string'
-              ? item === nameOrIndex
-              : item.name === nameOrIndex
-          if (exist) {
-            remove(i)
-          }
-        }
-      }
-
-      if (updated) {
-        tools.items = items
-        this.setTools(tools, options)
-      }
-    }
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1474,70 +1280,11 @@ export class Cell<
     const finalAttrs: CellAttrs = {}
 
     Object.entries(props).forEach(([key, val]) => {
-      if (
-        val != null &&
-        !Array.isArray(val) &&
-        typeof val === 'object' &&
-        !ObjectExt.isPlainObject(val)
-      ) {
-        throw new Error(
-          `Can only serialize ${cellType} with plain-object props, but got a "${toString.call(
-            val,
-          )}" type of key "${key}" on ${cellType} "${this.id}"`,
-        )
-      }
-
-      if (key !== 'attrs' && key !== 'shape' && diff) {
-        const preset = defaults[key]
-        if (ObjectExt.isEqual(val, preset)) {
-          delete props[key]
-        }
-      }
+        throw new Error("STUB");
     })
 
     Object.keys(attrs).forEach((key) => {
-      const attr = attrs[key]
-      const defaultAttr = defaultAttrs[key]
-
-      Object.keys(attr).forEach((name) => {
-        const value = attr[name] as KeyValue
-        const defaultValue = defaultAttr ? defaultAttr[name] : null
-
-        if (
-          value != null &&
-          typeof value === 'object' &&
-          !Array.isArray(value)
-        ) {
-          Object.keys(value).forEach((subName) => {
-            const subValue = value[subName]
-            if (
-              defaultAttr == null ||
-              defaultValue == null ||
-              !ObjectExt.isObject(defaultValue) ||
-              !ObjectExt.isEqual(defaultValue[subName], subValue)
-            ) {
-              if (finalAttrs[key] == null) {
-                finalAttrs[key] = {}
-              }
-              if (finalAttrs[key][name] == null) {
-                finalAttrs[key][name] = {}
-              }
-              const tmp = finalAttrs[key][name] as KeyValue
-              tmp[subName] = subValue
-            }
-          })
-        } else if (
-          defaultAttr == null ||
-          !ObjectExt.isEqual(defaultValue, value)
-        ) {
-          // `value` is not an object, default attribute with `key` does not
-          // exist or it is different than the attribute value set on the cell.
-          if (finalAttrs[key] == null) {
-            finalAttrs[key] = {}
-          }
-          finalAttrs[key][name] = value as any
-        }
-      })
+        throw new Error("STUB");
     })
 
     const finalProps = {
@@ -1883,9 +1630,6 @@ export interface CellConfig<
 
 Cell.config({
   propHooks({ tools, ...metadata }) {
-    if (tools) {
-      metadata.tools = Cell.normalizeTools(tools)
-    }
-    return metadata
-  },
+        throw new Error("STUB");
+    },
 })

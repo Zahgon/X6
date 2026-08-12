@@ -30,14 +30,14 @@ export class Segments extends ToolItem<EdgeView, Options> {
       stroke: '#fff',
       'stroke-width': 2,
     },
-    createHandle: (options) => new Handle(options),
+    createHandle: (options) => { throw new Error("STUB"); },
     anchor: Util.getAnchor,
   }
 
   protected handles: Handle[] = []
 
   protected get vertices() {
-    return this.cellView.cell.getVertices()
+      throw new Error("STUB");
   }
 
   update() {
@@ -97,7 +97,7 @@ export class Segments extends ToolItem<EdgeView, Options> {
     const handle = this.options.createHandle!({
       index,
       graph: this.graph,
-      guard: (evt) => this.guard(evt),
+      guard: (evt) => { throw new Error("STUB"); },
       attrs: this.options.attrs || {},
     })
 
@@ -128,17 +128,13 @@ export class Segments extends ToolItem<EdgeView, Options> {
     this.handles = []
     if (handles) {
       handles.forEach((handle) => {
-        this.stopHandleListening(handle)
-        handle.remove()
+          throw new Error("STUB");
       })
     }
   }
 
   protected shiftHandleIndexes(delta: number) {
-    const handles = this.handles
-    for (let i = 0, n = handles.length; i < n; i += 1) {
-      handles[i].options.index! += delta
-    }
+      throw new Error("STUB");
   }
 
   protected resetAnchor(
@@ -159,210 +155,19 @@ export class Segments extends ToolItem<EdgeView, Options> {
   }
 
   protected snapHandle(handle: Handle, position: PointLike, data: EventData) {
-    const axis = handle.options.axis!
-    const index = handle.options.index!
-    const edgeView = this.cellView
-    const edge = edgeView.cell
-    const vertices = edge.getVertices()
-    const prev = vertices[index - 2] || data.sourceAnchor
-    const next = vertices[index + 1] || data.targetAnchor
-    const snapRadius = this.options.snapRadius
-    if (Math.abs(position[axis] - prev[axis]) < snapRadius) {
-      position[axis] = prev[axis]
-    } else if (Math.abs(position[axis] - next[axis]) < snapRadius) {
-      position[axis] = next[axis]
-    }
-    return position
+      throw new Error("STUB");
   }
 
   protected onHandleChanging({ handle, e }: HandleEventArgs['changing']) {
-    const graph = this.graph
-    const options = this.options
-    const edgeView = this.cellView
-    const anchorFn = options.anchor
-
-    const axis = handle.options.axis!
-    const index = handle.options.index! - 1
-
-    const data = this.getEventData<EventData>(e)
-    const evt = this.normalizeEvent(e)
-    const coords = graph.snapToGrid(evt.clientX, evt.clientY)
-    const position = this.snapHandle(handle, coords.clone(), data)
-    const vertices = ObjectExt.cloneDeep(this.vertices)
-    let vertex = vertices[index]
-    let nextVertex = vertices[index + 1]
-
-    // First Segment
-    const sourceView = edgeView.sourceView
-    const sourceBBox = edgeView.sourceBBox
-    let changeSourceAnchor = false
-    let deleteSourceAnchor = false
-
-    if (!vertex) {
-      vertex = edgeView.sourceAnchor.toJSON()
-      vertex[axis] = position[axis]
-      if (sourceBBox.containsPoint(vertex)) {
-        changeSourceAnchor = true
-      } else {
-        vertices.unshift(vertex)
-        this.shiftHandleIndexes(1)
-        deleteSourceAnchor = true
-      }
-    } else if (index === 0) {
-      if (sourceBBox.containsPoint(vertex)) {
-        vertices.shift()
-        this.shiftHandleIndexes(-1)
-        changeSourceAnchor = true
-      } else {
-        vertex[axis] = position[axis]
-        deleteSourceAnchor = true
-      }
-    } else {
-      vertex[axis] = position[axis]
-    }
-
-    if (typeof anchorFn === 'function' && sourceView) {
-      if (changeSourceAnchor) {
-        const sourceAnchorPosition = data.sourceAnchor.clone()
-        sourceAnchorPosition[axis] = position[axis]
-        const sourceAnchor = FunctionExt.call(
-          anchorFn,
-          edgeView,
-          sourceAnchorPosition,
-          sourceView,
-          edgeView.sourceMagnet || sourceView.container,
-          'source',
-          edgeView,
-          this,
-        )
-        this.resetAnchor('source', sourceAnchor)
-      }
-
-      if (deleteSourceAnchor) {
-        this.resetAnchor('source', data.sourceAnchorDef)
-      }
-    }
-
-    // Last segment
-    const targetView = edgeView.targetView
-    const targetBBox = edgeView.targetBBox
-    let changeTargetAnchor = false
-    let deleteTargetAnchor = false
-    if (!nextVertex) {
-      nextVertex = edgeView.targetAnchor.toJSON()
-      nextVertex[axis] = position[axis]
-      if (targetBBox.containsPoint(nextVertex)) {
-        changeTargetAnchor = true
-      } else {
-        vertices.push(nextVertex)
-        deleteTargetAnchor = true
-      }
-    } else if (index === vertices.length - 2) {
-      if (targetBBox.containsPoint(nextVertex)) {
-        vertices.pop()
-        changeTargetAnchor = true
-      } else {
-        nextVertex[axis] = position[axis]
-        deleteTargetAnchor = true
-      }
-    } else {
-      nextVertex[axis] = position[axis]
-    }
-
-    if (typeof anchorFn === 'function' && targetView) {
-      if (changeTargetAnchor) {
-        const targetAnchorPosition = data.targetAnchor.clone()
-        targetAnchorPosition[axis] = position[axis]
-        const targetAnchor = FunctionExt.call(
-          anchorFn,
-          edgeView,
-          targetAnchorPosition,
-          targetView,
-          edgeView.targetMagnet || targetView.container,
-          'target',
-          edgeView,
-          this,
-        )
-        this.resetAnchor('target', targetAnchor)
-      }
-      if (deleteTargetAnchor) {
-        this.resetAnchor('target', data.targetAnchorDef)
-      }
-    }
-
-    if (!Point.equalPoints(vertices, this.vertices)) {
-      this.cellView.cell.setVertices(vertices, { ui: true, toolId: this.cid })
-    }
-
-    this.updateHandle(handle, vertex, nextVertex, 0)
-    if (!options.stopPropagation) {
-      edgeView.notifyMouseMove(evt, coords.x, coords.y)
-    }
+      throw new Error("STUB");
   }
 
   protected onHandleChange({ handle, e }: HandleEventArgs['change']) {
-    const options = this.options
-    const handles = this.handles
-    const edgeView = this.cellView
-
-    const index = handle.options.index
-    if (!Array.isArray(handles)) {
-      return
-    }
-
-    for (let i = 0, n = handles.length; i < n; i += 1) {
-      if (i !== index) {
-        handles[i].hide()
-      }
-    }
-
-    this.focus()
-    this.setEventData<EventData>(e, {
-      sourceAnchor: edgeView.sourceAnchor.clone(),
-      targetAnchor: edgeView.targetAnchor.clone(),
-      sourceAnchorDef: ObjectExt.cloneDeep(
-        this.cell.prop(['source', 'anchor']),
-      ),
-      targetAnchorDef: ObjectExt.cloneDeep(
-        this.cell.prop(['target', 'anchor']),
-      ),
-    })
-
-    this.cell.startBatch('move-segment', { ui: true, toolId: this.cid })
-
-    if (!options.stopPropagation) {
-      const normalizedEvent = this.normalizeEvent(e)
-      const coords = this.graph.snapToGrid(
-        normalizedEvent.clientX,
-        normalizedEvent.clientY,
-      )
-      edgeView.notifyMouseDown(normalizedEvent, coords.x, coords.y)
-    }
+      throw new Error("STUB");
   }
 
   protected onHandleChanged({ e }: HandleEventArgs['changed']) {
-    const options = this.options
-    const edgeView = this.cellView
-    if (options.removeRedundancies) {
-      edgeView.removeRedundantLinearVertices({ ui: true, toolId: this.cid })
-    }
-
-    const normalizedEvent = this.normalizeEvent(e)
-    const coords = this.graph.snapToGrid(
-      normalizedEvent.clientX,
-      normalizedEvent.clientY,
-    )
-
-    this.render()
-    this.blur()
-
-    this.cell.stopBatch('move-segment', { ui: true, toolId: this.cid })
-    if (!options.stopPropagation) {
-      edgeView.notifyMouseUp(normalizedEvent, coords.x, coords.y)
-    }
-    edgeView.checkMouseleave(normalizedEvent)
-
-    options.onChanged && options.onChanged({ edge: edgeView.cell, edgeView })
+      throw new Error("STUB");
   }
 
   protected updateHandle(
@@ -430,12 +235,7 @@ class Handle extends View<HandleEventArgs> {
   public container: SVGRectElement
 
   constructor(public options: HandleOptions) {
-    super()
-    this.render()
-    this.delegateEvents({
-      mousedown: 'onMouseDown',
-      touchstart: 'onMouseDown',
-    })
+      throw new Error("STUB");
   }
 
   render() {

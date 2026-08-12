@@ -8,7 +8,7 @@ import { Geometry } from './geometry'
 type HullRecord = [Point, number, number]
 export class Polyline extends Geometry {
   static isPolyline(instance: any): instance is Polyline {
-    return instance != null && instance instanceof Polyline
+      throw new Error("STUB");
   }
 
   static parse(svgString: string) {
@@ -33,28 +33,20 @@ export class Polyline extends Geometry {
   }
 
   public get end() {
-    return this.points[this.points.length - 1] || null
+      throw new Error("STUB");
   }
 
   constructor(points?: PointOptions[] | string) {
-    super()
-    if (points != null) {
-      if (typeof points === 'string') {
-        return Polyline.parse(points)
-      }
-      this.points = points.map((p) => Point.create(p))
-    } else {
-      this.points = []
-    }
+      throw new Error("STUB");
   }
 
   scale(sx: number, sy: number, origin: PointOptions = new Point()) {
-    this.points.forEach((p) => p.scale(sx, sy, origin))
+    this.points.forEach((p) => { throw new Error("STUB"); })
     return this
   }
 
   rotate(angle: number, origin?: PointOptions) {
-    this.points.forEach((p) => p.rotate(angle, origin))
+    this.points.forEach((p) => { throw new Error("STUB"); })
     return this
   }
 
@@ -62,12 +54,12 @@ export class Polyline extends Geometry {
   translate(p: PointOptions): this
   translate(dx: number | PointOptions, dy?: number): this {
     const t = Point.create(dx, dy)
-    this.points.forEach((p) => p.translate(t.x, t.y))
+    this.points.forEach((p) => { throw new Error("STUB"); })
     return this
   }
 
   round(precision = 0) {
-    this.points.forEach((p) => p.round(precision))
+    this.points.forEach((p) => { throw new Error("STUB"); })
     return this
   }
 
@@ -140,8 +132,7 @@ export class Polyline extends Geometry {
   }
 
   closestPointTangent(p: PointOptions) {
-    const cpLength = this.closestPointLength(p)
-    return this.tangentAtLength(cpLength)
+      throw new Error("STUB");
   }
 
   containsPoint(p: PointOptions) {
@@ -411,197 +402,7 @@ export class Polyline extends Geometry {
   }
 
   toHull() {
-    const points = this.points
-    const count = points.length
-    if (count === 0) {
-      return new Polyline()
-    }
-
-    // Step 1: find the starting point -- point with
-    // the lowest y (if equality, highest x).
-    let startPoint: Point = points[0]
-    for (let i = 1; i < count; i += 1) {
-      if (points[i].y < startPoint.y) {
-        startPoint = points[i]
-      } else if (points[i].y === startPoint.y && points[i].x > startPoint.x) {
-        startPoint = points[i]
-      }
-    }
-
-    // Step 2: sort the list of points by angle between line
-    // from start point to current point and the x-axis (theta).
-
-    // Step 2a: create the point records = [point, originalIndex, angle]
-    const sortedRecords: HullRecord[] = []
-    for (let i = 0; i < count; i += 1) {
-      let angle = startPoint.theta(points[i])
-      if (angle === 0) {
-        // Give highest angle to start point.
-        // The start point will end up at end of sorted list.
-        // The start point will end up at beginning of hull points list.
-        angle = 360
-      }
-
-      sortedRecords.push([points[i], i, angle])
-    }
-
-    // Step 2b: sort the list in place
-    sortedRecords.sort((record1, record2) => {
-      let ret = record1[2] - record2[2]
-      if (ret === 0) {
-        ret = record2[1] - record1[1]
-      }
-
-      return ret
-    })
-
-    // Step 2c: duplicate start record from the top of
-    // the stack to the bottom of the stack.
-    if (sortedRecords.length > 2) {
-      const startPoint = sortedRecords[sortedRecords.length - 1]
-      sortedRecords.unshift(startPoint)
-    }
-
-    // Step 3
-    // ------
-
-    // Step 3a: go through sorted points in order and find those with
-    // right turns, and we want to get our results in clockwise order.
-
-    // Dictionary of points with left turns - cannot be on the hull.
-    const insidePoints: { [key: string]: Point } = {}
-    // Stack of records with right turns - hull point candidates.
-    const hullRecords: HullRecord[] = []
-    const getKey = (record: HullRecord) =>
-      `${record[0].toString()}@${record[1]}`
-
-    while (sortedRecords.length !== 0) {
-      const currentRecord = sortedRecords.pop()!
-      const currentPoint = currentRecord[0]
-
-      // Check if point has already been discarded.
-      if (insidePoints[getKey(currentRecord)]) {
-        continue
-      }
-
-      let correctTurnFound = false
-      while (!correctTurnFound) {
-        if (hullRecords.length < 2) {
-          // Not enough points for comparison, just add current point.
-          hullRecords.push(currentRecord)
-          correctTurnFound = true
-        } else {
-          const lastHullRecord = hullRecords.pop()!
-          const lastHullPoint = lastHullRecord[0]
-          const secondLastHullRecord = hullRecords.pop()!
-          const secondLastHullPoint = secondLastHullRecord[0]
-
-          const crossProduct = secondLastHullPoint.cross(
-            lastHullPoint,
-            currentPoint,
-          )
-
-          if (crossProduct < 0) {
-            // Found a right turn.
-            hullRecords.push(secondLastHullRecord)
-            hullRecords.push(lastHullRecord)
-            hullRecords.push(currentRecord)
-            correctTurnFound = true
-          } else if (crossProduct === 0) {
-            // the three points are collinear
-            // three options:
-            // there may be a 180 or 0 degree angle at lastHullPoint
-            // or two of the three points are coincident
-
-            // we have to take rounding errors into account
-            const THRESHOLD = 1e-10
-            const angleBetween = lastHullPoint.angleBetween(
-              secondLastHullPoint,
-              currentPoint,
-            )
-
-            if (Math.abs(angleBetween - 180) < THRESHOLD) {
-              // rouding around 180 to 180
-              // if the cross product is 0 because the angle is 180 degrees
-              // discard last hull point (add to insidePoints)
-              // insidePoints.unshift(lastHullPoint);
-              insidePoints[getKey(lastHullRecord)] = lastHullPoint
-              // reenter second-to-last hull point (will be last at next iter)
-              hullRecords.push(secondLastHullRecord)
-              // do not do anything with current point
-              // correct turn not found
-            } else if (
-              lastHullPoint.equals(currentPoint) ||
-              secondLastHullPoint.equals(lastHullPoint)
-            ) {
-              // if the cross product is 0 because two points are the same
-              // discard last hull point (add to insidePoints)
-              // insidePoints.unshift(lastHullPoint);
-              insidePoints[getKey(lastHullRecord)] = lastHullPoint
-              // reenter second-to-last hull point (will be last at next iter)
-              hullRecords.push(secondLastHullRecord)
-              // do not do anything with current point
-              // correct turn not found
-            } else if (Math.abs(((angleBetween + 1) % 360) - 1) < THRESHOLD) {
-              // rounding around 0 and 360 to 0
-              // if the cross product is 0 because the angle is 0 degrees
-              // remove last hull point from hull BUT do not discard it
-              // reenter second-to-last hull point (will be last at next iter)
-              hullRecords.push(secondLastHullRecord)
-              // put last hull point back into the sorted point records list
-              sortedRecords.push(lastHullRecord)
-              // we are switching the order of the 0deg and 180deg points
-              // correct turn not found
-            }
-          } else {
-            // found a left turn
-            // discard last hull point (add to insidePoints)
-            // insidePoints.unshift(lastHullPoint);
-            insidePoints[getKey(lastHullRecord)] = lastHullPoint
-            // reenter second-to-last hull point (will be last at next iter of loop)
-            hullRecords.push(secondLastHullRecord)
-            // do not do anything with current point
-            // correct turn not found
-          }
-        }
-      }
-    }
-
-    // At this point, hullPointRecords contains the output points in clockwise order
-    // the points start with lowest-y,highest-x startPoint, and end at the same point
-
-    // Step 3b: remove duplicated startPointRecord from the end of the array
-    if (hullRecords.length > 2) {
-      hullRecords.pop()
-    }
-
-    // Step 4: find the lowest originalIndex record and put it at the beginning of hull
-    let lowestHullIndex // the lowest originalIndex on the hull
-    let indexOfLowestHullIndexRecord = -1 // the index of the record with lowestHullIndex
-    for (let i = 0, n = hullRecords.length; i < n; i += 1) {
-      const currentHullIndex = hullRecords[i][1]
-
-      if (lowestHullIndex === undefined || currentHullIndex < lowestHullIndex) {
-        lowestHullIndex = currentHullIndex
-        indexOfLowestHullIndexRecord = i
-      }
-    }
-
-    let hullPointRecordsReordered = []
-    if (indexOfLowestHullIndexRecord > 0) {
-      const newFirstChunk = hullRecords.slice(indexOfLowestHullIndexRecord)
-      const newSecondChunk = hullRecords.slice(0, indexOfLowestHullIndexRecord)
-      hullPointRecordsReordered = newFirstChunk.concat(newSecondChunk)
-    } else {
-      hullPointRecordsReordered = hullRecords
-    }
-
-    const hullPoints = []
-    for (let i = 0, n = hullPointRecordsReordered.length; i < n; i += 1) {
-      hullPoints.push(hullPointRecordsReordered[i][0])
-    }
-
-    return new Polyline(hullPoints)
+      throw new Error("STUB");
   }
 
   equals(p: Polyline) {
@@ -613,18 +414,18 @@ export class Polyline extends Geometry {
       return false
     }
 
-    return p.points.every((a, i) => a.equals(this.points[i]))
+    return p.points.every((a, i) => { throw new Error("STUB"); })
   }
 
   clone() {
-    return new Polyline(this.points.map((p) => p.clone()))
+    return new Polyline(this.points.map((p) => { throw new Error("STUB"); }))
   }
 
   toJSON() {
-    return this.points.map((p) => p.toJSON())
+    return this.points.map((p) => { throw new Error("STUB"); })
   }
 
   serialize() {
-    return this.points.map((p) => `${p.serialize()}`).join(' ')
+    return this.points.map((p) => { throw new Error("STUB"); }).join(' ')
   }
 }

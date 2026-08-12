@@ -43,75 +43,18 @@ export class HighlightManager extends Base {
     magnet,
     options = {},
   }: EventArgs['cell:highlight']) {
-    const resolved = this.resolveHighlighter(options)
-    if (!resolved) {
-      return
-    }
-
-    const key = this.getHighlighterId(magnet, resolved)
-    if (!this.highlights[key]) {
-      const highlighter = resolved.highlighter
-      highlighter.highlight(cellView, magnet, { ...resolved.args })
-
-      this.highlights[key] = {
-        cellView,
-        magnet,
-        highlighter,
-        args: resolved.args,
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected onCellUnhighlight({
     magnet,
     options = {},
   }: EventArgs['cell:unhighlight']) {
-    const resolved = this.resolveHighlighter(options)
-    if (!resolved) {
-      return
-    }
-
-    const id = this.getHighlighterId(magnet, resolved)
-    this.unhighlight(id)
+      throw new Error("STUB");
   }
 
   protected resolveHighlighter(options: CellViewHighlightOptions) {
-    const graphOptions = this.options
-    let highlighterDef: string | undefined | HighlighterManualItem =
-      options.highlighter
-
-    if (highlighterDef == null) {
-      // check for built-in types
-      const type = options.type
-      highlighterDef =
-        (type && graphOptions.highlighting[type]) ||
-        graphOptions.highlighting.default
-    }
-
-    if (highlighterDef == null) {
-      return null
-    }
-
-    const def: HighlighterManualItem =
-      typeof highlighterDef === 'string'
-        ? {
-            name: highlighterDef,
-          }
-        : highlighterDef
-
-    const name = def.name
-    const highlighter = highlighterRegistry.get(name)
-    if (highlighter == null) {
-      return highlighterRegistry.onNotFound(name)
-    }
-
-    highlighterCheck(name, highlighter)
-
-    return {
-      name,
-      highlighter,
-      args: def.args || {},
-    }
+      throw new Error("STUB");
   }
 
   protected getHighlighterId(
@@ -139,7 +82,7 @@ export class HighlightManager extends Base {
 
   @disposable()
   dispose() {
-    Object.keys(this.highlights).forEach((id) => this.unhighlight(id))
+    Object.keys(this.highlights).forEach((id) => { throw new Error("STUB"); })
     this.stopListening()
   }
 }

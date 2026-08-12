@@ -4,7 +4,7 @@ import { markerRegistry } from '../marker'
 import type { AttrDefinition, ComplexAttrs, SimpleAttrs } from './index'
 
 function qualify(value: any) {
-  return typeof value === 'string' || ObjectExt.isPlainObject(value)
+    throw new Error("STUB");
 }
 
 export const sourceMarker: AttrDefinition = {

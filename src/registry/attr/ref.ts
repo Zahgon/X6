@@ -59,14 +59,8 @@ export const refRy: AttrDefinition = {
 
 export const refRInscribed: AttrDefinition = {
   set: ((attrName): AttrSetFunction => {
-    const widthFn = setWrapper(attrName, 'width')
-    const heightFn = setWrapper(attrName, 'height')
-    return function (value, options) {
-      const refBBox = options.refBBox
-      const fn = refBBox.height > refBBox.width ? widthFn : heightFn
-      return FunctionExt.call(fn, this, value, options)
-    }
-  })('r'),
+        throw new Error("STUB");
+    })('r'),
 }
 
 export const refRCircumscribed: AttrDefinition = {
@@ -139,29 +133,7 @@ function positionWrapper(
   origin: 'origin' | 'corner',
 ): AttrPositionFunction {
   return (val, { refBBox }) => {
-    if (val == null) {
-      return null
-    }
-
-    let value = parseFloat(val as string)
-    const percentage = NumberExt.isPercentage(val)
-    if (percentage) {
-      value /= 100
-    }
-
-    let delta
-    if (Number.isFinite(value)) {
-      const refOrigin = refBBox[origin]
-      if (percentage || (value > 0 && value < 1)) {
-        delta = refOrigin[axis] + refBBox[dimension] * value
-      } else {
-        delta = refOrigin[axis] + value
-      }
-    }
-
-    const point = new Point()
-    point[axis] = delta || 0
-    return point
+      throw new Error("STUB");
   }
 }
 
@@ -170,23 +142,7 @@ function setWrapper(
   dimension: 'width' | 'height',
 ): AttrSetFunction {
   return (val, { refBBox }) => {
-    let value = parseFloat(val as string)
-    const percentage = NumberExt.isPercentage(val)
-    if (percentage) {
-      value /= 100
-    }
-
-    const attrs: SimpleAttrs = {}
-
-    if (Number.isFinite(value)) {
-      const attrValue =
-        percentage || (value >= 0 && value <= 1)
-          ? value * refBBox[dimension]
-          : Math.max(value + refBBox[dimension], 0)
-      attrs[attrName] = attrValue
-    }
-
-    return attrs
+      throw new Error("STUB");
   }
 }
 
@@ -198,63 +154,27 @@ function shapeWrapper(
   const resetOffset = options && options.resetOffset
 
   return (value, { elem, refBBox }) => {
-    let cache = Dom.data(elem, cacheName)
-    if (!cache || cache.value !== value) {
-      // only recalculate if value has changed
-      const cachedShape = shapeConstructor(value)
-      cache = {
-        value,
-        shape: cachedShape,
-        shapeBBox: cachedShape.bbox(),
-      }
-      Dom.data(elem, cacheName, cache)
-    }
-
-    const shape = cache.shape.clone()
-    const shapeBBox = cache.shapeBBox.clone() as Rectangle
-    const shapeOrigin = shapeBBox.getOrigin()
-    const refOrigin = refBBox.getOrigin()
-
-    shapeBBox.x = refOrigin.x
-    shapeBBox.y = refOrigin.y
-
-    const fitScale = refBBox.getMaxScaleToFit(shapeBBox, refOrigin)
-    // `maxRectScaleToFit` can give Infinity if width or height is 0
-    const sx = shapeBBox.width === 0 || refBBox.width === 0 ? 1 : fitScale.sx
-    const sy = shapeBBox.height === 0 || refBBox.height === 0 ? 1 : fitScale.sy
-
-    shape.scale(sx, sy, shapeOrigin)
-    if (resetOffset) {
-      shape.translate(-shapeOrigin.x, -shapeOrigin.y)
-    }
-
-    return shape
+      throw new Error("STUB");
   }
 }
 
 // `d` attribute for SVGPaths
 function dWrapper(options: { resetOffset: boolean }): AttrSetFunction {
   function pathConstructor(value: string) {
-    return Path.parse(value)
+      throw new Error("STUB");
   }
 
   const shape = shapeWrapper(pathConstructor, options)
 
   return (value, args) => {
-    const path = shape<Path>(value, args)
-    return {
-      d: path.serialize(),
-    }
+      throw new Error("STUB");
   }
 }
 
 // `points` attribute for SVGPolylines and SVGPolygons
 function pointsWrapper(options: { resetOffset: boolean }): AttrSetFunction {
-  const shape = shapeWrapper((points) => new Polyline(points as any), options)
+  const shape = shapeWrapper((points) => { throw new Error("STUB"); }, options)
   return (value, args) => {
-    const polyline = shape<Polyline>(value, args)
-    return {
-      points: polyline.serialize(),
-    }
+      throw new Error("STUB");
   }
 }

@@ -14,17 +14,7 @@ export function highlighterCheck(
   name: string,
   highlighter: HighlighterCommonDefinition,
 ) {
-  if (typeof highlighter.highlight !== 'function') {
-    throw new Error(
-      `Highlighter '${name}' is missing required \`highlight()\` method`,
-    )
-  }
-
-  if (typeof highlighter.unhighlight !== 'function') {
-    throw new Error(
-      `Highlighter '${name}' is missing required \`unhighlight()\` method`,
-    )
-  }
+    throw new Error("STUB");
 }
 
 type Presets = typeof presets

@@ -36,12 +36,7 @@ export function transformLine(line: Line, matrix: DOMMatrix) {
  * Transforms polyline by an SVG transformation represented by `matrix`.
  */
 export function transformPolyline(polyline: Polyline, matrix: DOMMatrix) {
-  let points = polyline instanceof Polyline ? polyline.points : polyline
-  if (!Array.isArray(points)) {
-    points = []
-  }
-
-  return new Polyline(points.map((p) => transformPoint(p, matrix)))
+    throw new Error("STUB");
 }
 
 export function transformRectangle(rect: RectangleLike, matrix: DOMMatrix) {
@@ -306,63 +301,7 @@ export function translateAndAutoOrient(
   reference: PointOptions,
   target?: SVGElement,
 ) {
-  const pos = Point.create(position)
-  const ref = Point.create(reference)
-
-  if (!target) {
-    const svg =
-      elem instanceof SVGSVGElement
-        ? elem
-        : (elem.ownerSVGElement as SVGSVGElement)
-    target = svg // eslint-disable-line
-  }
-
-  // Clean-up previously set transformations except the scale.
-  // If we didn't clean up the previous transformations then they'd
-  // add up with the old ones. Scale is an exception as it doesn't
-  // add up, consider: `this.scale(2).scale(2).scale(2)`. The result
-  // is that the element is scaled by the factor 2, not 8.
-  const s = Dom.scale(elem)
-  elem.setAttribute('transform', '')
-  const bbox = getBBox(elem, {
-    target,
-  }).scale(s.sx, s.sy)
-
-  // 1. Translate to origin.
-  const translateToOrigin = Dom.createSVGTransform()
-  translateToOrigin.setTranslate(
-    -bbox.x - bbox.width / 2,
-    -bbox.y - bbox.height / 2,
-  )
-
-  // 2. Rotate around origin.
-  const rotateAroundOrigin = Dom.createSVGTransform()
-  const angle = pos.angleBetween(ref, pos.clone().translate(1, 0))
-  if (angle) rotateAroundOrigin.setRotate(angle, 0, 0)
-
-  // 3. Translate to the `position` + the offset (half my width)
-  //    towards the `reference` point.
-  const translateFromOrigin = Dom.createSVGTransform()
-  const finalPosition = pos.clone().move(ref, bbox.width / 2)
-  translateFromOrigin.setTranslate(
-    2 * pos.x - finalPosition.x,
-    2 * pos.y - finalPosition.y,
-  )
-
-  // 4. Get the current transformation matrix of this node
-  const ctm = Dom.getTransformToElement(elem, target)
-
-  // 5. Apply transformations and the scale
-  const transform = Dom.createSVGTransform()
-  transform.setMatrix(
-    translateFromOrigin.matrix.multiply(
-      rotateAroundOrigin.matrix.multiply(
-        translateToOrigin.matrix.multiply(ctm.scale(s.sx, s.sy)),
-      ),
-    ),
-  )
-
-  elem.setAttribute('transform', Dom.matrixToTransformString(transform.matrix))
+    throw new Error("STUB");
 }
 
 export function findShapeNode(magnet: Element) {

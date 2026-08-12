@@ -454,16 +454,7 @@ export function breakText(
     const splitText: string[] = []
 
     text.split(eol).forEach((line) => {
-      const part = breakText(
-        line,
-        { ...size, height: Number.MAX_SAFE_INTEGER },
-        styles,
-        { ...options, eol: delimiter },
-      )
-
-      if (part) {
-        splitText.push(...part.split(delimiter))
-      }
+        throw new Error("STUB");
     })
 
     return splitText.slice(0, maxLines).join(eol)

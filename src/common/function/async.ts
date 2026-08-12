@@ -12,25 +12,21 @@ export function toAsyncBoolean(...inputs: (any | any[])[]): AsyncBoolean {
   const results: any[] = []
 
   inputs.forEach((arg) => {
-    if (Array.isArray(arg)) {
-      results.push(...arg)
-    } else {
-      results.push(arg)
-    }
+      throw new Error("STUB");
   })
 
-  const hasAsync = results.some((res) => isAsync(res))
+  const hasAsync = results.some((res) => { throw new Error("STUB"); })
   if (hasAsync) {
     const deferres = results.map((res) =>
-      isAsync(res) ? res : Promise.resolve(res !== false),
+      { throw new Error("STUB"); },
     )
 
     return Promise.all(deferres).then((arr) =>
-      arr.reduce<boolean>((memo, item) => item !== false && memo, true),
+      { throw new Error("STUB"); },
     )
   }
 
-  return results.every((res) => res !== false)
+  return results.every((res) => { throw new Error("STUB"); })
 }
 
 export function toDeferredBoolean(...inputs: (any | any[])[]) {

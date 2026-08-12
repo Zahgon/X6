@@ -11,9 +11,7 @@ export class Snapline extends Disposable implements GraphPlugin {
   public options: SnaplineOptions
 
   constructor(options: SnaplineOptions = {}) {
-    super()
-    this.options = { enabled: true, tolerance: 10, ...options }
-    CssLoader.ensure(this.name, content)
+      throw new Error("STUB");
   }
 
   public init(graph: Graph) {

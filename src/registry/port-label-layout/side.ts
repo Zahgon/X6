@@ -10,56 +10,32 @@ export const manual: PortLabelLayoutDefinition<SideArgs> = (
   portPosition,
   elemBBox,
   args,
-) => toResult({ position: elemBBox.getTopLeft() }, args)
+) => { throw new Error("STUB"); }
 
 export const left: PortLabelLayoutDefinition<SideArgs> = (
   portPosition,
   elemBBox,
   args,
 ) =>
-  toResult(
-    {
-      position: { x: -15, y: 0 },
-      attrs: { '.': { y: '.3em', 'text-anchor': 'end' } },
-    },
-    args,
-  )
+  { throw new Error("STUB"); }
 
 export const right: PortLabelLayoutDefinition<SideArgs> = (
   portPosition,
   elemBBox,
   args,
 ) =>
-  toResult(
-    {
-      position: { x: 15, y: 0 },
-      attrs: { '.': { y: '.3em', 'text-anchor': 'start' } },
-    },
-    args,
-  )
+  { throw new Error("STUB"); }
 
 export const top: PortLabelLayoutDefinition<SideArgs> = (
   portPosition,
   elemBBox,
   args,
 ) =>
-  toResult(
-    {
-      position: { x: 0, y: -15 },
-      attrs: { '.': { 'text-anchor': 'middle' } },
-    },
-    args,
-  )
+  { throw new Error("STUB"); }
 
 export const bottom: PortLabelLayoutDefinition<SideArgs> = (
   portPosition,
   elemBBox,
   args,
 ) =>
-  toResult(
-    {
-      position: { x: 0, y: 15 },
-      attrs: { '.': { y: '.6em', 'text-anchor': 'middle' } },
-    },
-    args,
-  )
+  { throw new Error("STUB"); }

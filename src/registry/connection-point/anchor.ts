@@ -69,9 +69,5 @@ export const anchor: ConnectionPointDefinition<AnchorOptions> = (
   magnet,
   options,
 ) => {
-  const { alignOffset, align } = options
-  if (align) {
-    alignLine(line, align, alignOffset)
-  }
-  return offset(line.end, line.start, options.offset)
+    throw new Error("STUB");
 }

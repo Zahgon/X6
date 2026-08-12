@@ -123,12 +123,7 @@ export class CellView<
 
     if (actions) {
       Object.entries(actions).forEach(([key, val]) => {
-        const raw = ret.actions[key]
-        if (val && raw) {
-          ret.actions[key] = mergeActions(raw, val)
-        } else if (val) {
-          ret.actions[key] = mergeActions(val)
-        }
+          throw new Error("STUB");
       })
     }
 
@@ -156,23 +151,7 @@ export class CellView<
   }
 
   constructor(cell: Entity, options: Partial<Options> = {}) {
-    super()
-
-    this.cell = cell
-    this.options = this.ensureOptions(options)
-    this.graph = this.options.graph
-    this.attr = new AttrManager(this)
-    this.flag = new FlagManager(
-      this,
-      this.options.actions,
-      this.options.bootstrap,
-    )
-    this.cache = new Cache(this)
-
-    this.setContainer(this.ensureContainer())
-    this.setup()
-
-    this.init()
+      throw new Error("STUB");
   }
 
   protected init() {}
@@ -182,75 +161,45 @@ export class CellView<
   }
 
   public get priority() {
-    return this.options.priority
+      throw new Error("STUB");
   }
 
   protected get rootSelector() {
-    return this.options.rootSelector
+      throw new Error("STUB");
   }
 
   protected getConstructor<T extends CellViewDefinition>() {
-    return this.constructor as any as T
+      throw new Error("STUB");
   }
 
   protected ensureOptions(options: Partial<Options>) {
-    return this.getConstructor().getOptions(options) as Options
+      throw new Error("STUB");
   }
 
   protected getContainerTagName(): string {
-    return this.options.isSvgElement ? 'g' : 'div'
+      throw new Error("STUB");
   }
 
   protected getContainerStyle():
     | Nilable<Record<string, string | number>>
     | undefined {
-    return
+      throw new Error("STUB");
   }
 
   protected getContainerAttrs(): Nilable<SimpleAttrs> {
-    return {
-      'data-cell-id': this.cell.id,
-      'data-shape': this.cell.shape,
-    }
+      throw new Error("STUB");
   }
 
   protected getContainerClassName(): Nilable<string | string[]> {
-    return this.prefixClassName('cell')
+      throw new Error("STUB");
   }
 
   protected ensureContainer() {
-    return createViewElement(
-      this.getContainerTagName(),
-      this.options.isSvgElement,
-    )
+      throw new Error("STUB");
   }
 
   protected setContainer(container: Element) {
-    if (this.container !== container) {
-      this.undelegateEvents()
-      this.container = container
-
-      if (this.options.events != null) {
-        this.delegateEvents(this.options.events)
-      }
-
-      const attrs = this.getContainerAttrs()
-      if (attrs != null) {
-        this.setAttrs(attrs, container)
-      }
-
-      const style = this.getContainerStyle()
-      if (style != null) {
-        this.setStyle(style, container)
-      }
-
-      const className = this.getContainerClassName()
-      if (className != null) {
-        this.addClass(className, container)
-      }
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   isNodeView(): this is NodeView {
@@ -311,27 +260,11 @@ export class CellView<
   }
 
   protected onCellChanged({ options }: CellBaseEventArgs['changed']) {
-    this.onAttrsChange(options)
+      throw new Error("STUB");
   }
 
   protected onAttrsChange(options: CellMutateOptions) {
-    let flag = this.flag.getChangedFlag()
-    if (options.updated || !flag) {
-      return
-    }
-
-    if (options.dirty && this.hasAction(flag, 'update')) {
-      flag |= this.getFlag('render') // eslint-disable-line no-bitwise
-    }
-
-    // tool changes should be sync render
-    if (options.toolId) {
-      options.async = false
-    }
-
-    if (this.graph != null) {
-      this.graph.renderer.requestViewUpdate(this, flag, options)
-    }
+      throw new Error("STUB");
   }
 
   parseJSONMarkup(
@@ -378,7 +311,7 @@ export class CellView<
   }
 
   getCache(elem: Element) {
-    return this.cache.get(elem)
+      throw new Error("STUB");
   }
 
   getDataOfElement(elem: Element) {
@@ -536,7 +469,9 @@ export class CellView<
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  notifyUnhighlight(magnet: Element, options: CellViewHighlightOptions) {}
+  notifyUnhighlight(magnet: Element, options: CellViewHighlightOptions) {
+      throw new Error("STUB");
+  }
 
   // #endregion
 
@@ -643,17 +578,11 @@ export class CellView<
   }
 
   hideTools() {
-    if (this.tools) {
-      this.tools.hide()
-    }
-    return this
+      throw new Error("STUB");
   }
 
   showTools() {
-    if (this.tools) {
-      this.tools.show()
-    }
-    return this
+      throw new Error("STUB");
   }
 
   protected renderTools() {
@@ -700,11 +629,11 @@ export class CellView<
   }
 
   onDblClick(e: Dom.DoubleClickEvent, x: number, y: number) {
-    this.notify('cell:dblclick', this.getEventArgs(e, x, y))
+      throw new Error("STUB");
   }
 
   onContextMenu(e: Dom.ContextMenuEvent, x: number, y: number) {
-    this.notify('cell:contextmenu', this.getEventArgs(e, x, y))
+      throw new Error("STUB");
   }
 
   protected cachedModelForMouseEvent: Model | null
@@ -732,11 +661,11 @@ export class CellView<
   }
 
   onMouseOver(e: Dom.MouseOverEvent) {
-    this.notify('cell:mouseover', this.getEventArgs(e))
+      throw new Error("STUB");
   }
 
   onMouseOut(e: Dom.MouseOutEvent) {
-    this.notify('cell:mouseout', this.getEventArgs(e))
+      throw new Error("STUB");
   }
 
   onMouseEnter(e: Dom.MouseEnterEvent) {
@@ -748,15 +677,11 @@ export class CellView<
   }
 
   onMouseWheel(e: Dom.EventObject, x: number, y: number, delta: number) {
-    this.notify('cell:mousewheel', {
-      delta,
-      ...this.getEventArgs(e, x, y),
-    })
+      throw new Error("STUB");
   }
 
   onCustomEvent(e: Dom.MouseDownEvent, name: string, x: number, y: number) {
-    this.notify('cell:customevent', { name, ...this.getEventArgs(e, x, y) })
-    this.notify(name, { ...this.getEventArgs(e, x, y) })
+      throw new Error("STUB");
   }
 
   onMagnetMouseDown(
@@ -764,23 +689,31 @@ export class CellView<
     magnet: Element,
     x: number,
     y: number,
-  ) {}
+  ) {
+      throw new Error("STUB");
+  }
 
   onMagnetDblClick(
     e: Dom.DoubleClickEvent,
     magnet: Element,
     x: number,
     y: number,
-  ) {}
+  ) {
+      throw new Error("STUB");
+  }
 
   onMagnetContextMenu(
     e: Dom.ContextMenuEvent,
     magnet: Element,
     x: number,
     y: number,
-  ) {}
+  ) {
+      throw new Error("STUB");
+  }
 
-  onLabelMouseDown(e: Dom.MouseDownEvent, x: number, y: number) {}
+  onLabelMouseDown(e: Dom.MouseDownEvent, x: number, y: number) {
+      throw new Error("STUB");
+  }
 
   checkMouseleave(e: Dom.EventObject) {
     const target = this.getEventTarget(e, { fromPoint: true })

@@ -55,8 +55,8 @@ export interface DndOptions {
 
 export const DndDefaults: Partial<DndOptions> = {
   // animation: false,
-  getDragNode: (sourceNode) => sourceNode.clone(),
-  getDropNode: (draggingNode) => draggingNode.clone(),
+  getDragNode: (sourceNode) => { throw new Error("STUB"); },
+  getDropNode: (draggingNode) => { throw new Error("STUB"); },
 }
 
 export class Dnd extends View implements GraphPlugin {
@@ -76,32 +76,23 @@ export class Dnd extends View implements GraphPlugin {
   public draggingGraph: Graph
 
   protected get targetScroller() {
-    const target = this.options.target
-    const scroller = target.getPlugin<Scroller>('scroller')
-    return scroller
+      throw new Error("STUB");
   }
 
   protected get targetGraph() {
-    return this.options.target
+      throw new Error("STUB");
   }
 
   protected get targetModel() {
-    return this.targetGraph.model
+      throw new Error("STUB");
   }
 
   protected get snapline() {
-    const target = this.options.target
-    const snapline = target.getPlugin<Snapline>('snapline')
-    return snapline
+      throw new Error("STUB");
   }
 
   constructor(options: Partial<DndOptions> & { target: Graph }) {
-    super()
-    this.options = {
-      ...DndDefaults,
-      ...options,
-    } as DndOptions
-    this.init()
+      throw new Error("STUB");
   }
 
   init() {
@@ -504,11 +495,7 @@ export class Dnd extends View implements GraphPlugin {
       }
 
       return FunctionExt.toDeferredBoolean(ret).then((valid) => {
-        if (valid) {
-          targetModel.addCell(droppingNode, { stencil: this.cid })
-          return droppingNode
-        }
-        return null
+          throw new Error("STUB");
       })
     }
 

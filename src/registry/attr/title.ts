@@ -3,9 +3,8 @@ import type { AttrDefinition } from './index'
 
 export const title: AttrDefinition = {
   qualify(title, { elem }) {
-    // HTMLElement title is specified via an attribute (i.e. not an element)
-    return elem instanceof SVGElement
-  },
+        throw new Error("STUB");
+    },
   set(val, { elem }) {
     const cacheName = 'x6-title'
     const title = `${val}`

@@ -2,10 +2,10 @@ import { get } from './store'
 import type { EventTarget, HandlerObject } from './store'
 import { EventObject } from './object'
 
-export const returnTrue = () => true
-export const returnFalse = () => false
+export const returnTrue = () => { throw new Error("STUB"); }
+export const returnFalse = () => { throw new Error("STUB"); }
 export function stopPropagationCallback(e: Event) {
-  e.stopPropagation()
+    throw new Error("STUB");
 }
 
 export function addEventListener<TElement extends Element>(
@@ -42,7 +42,7 @@ export function normalizeType(type: string) {
     namespaces: parts[2]
       ? parts[2]
           .split('.')
-          .map((ns) => ns.trim())
+          .map((ns) => { throw new Error("STUB"); })
           .sort()
       : [],
   }
@@ -59,11 +59,7 @@ export function isValidTarget(target: Element | Record<string, any>) {
 }
 
 export function isValidSelector(elem: EventTarget, selector?: string) {
-  if (selector) {
-    const node = elem as Element
-    return node.querySelector != null && node.querySelector(selector) != null
-  }
-  return true
+    throw new Error("STUB");
 }
 
 type Handler = (...args: any[]) => void
@@ -135,7 +131,7 @@ export function getHandlerQueue(elem: EventTarget, event: EventObject) {
             const nodes: Element[] = []
 
             node.querySelectorAll(selector).forEach((child) => {
-              nodes.push(child)
+                throw new Error("STUB");
             })
 
             matchedSelectors[selector] = nodes.includes(curr as Element)

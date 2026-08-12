@@ -160,7 +160,7 @@ export function getTransformToParentElement(
       node = node.parentNode as SVGGraphicsElement
     }
     matrixList.reverse().forEach((m) => {
-      matrix = matrix.multiply(m)
+        throw new Error("STUB");
     })
   }
 

@@ -21,11 +21,11 @@ export class PanningManager extends Base {
   private isSpaceKeyPressed: boolean
 
   protected get widgetOptions() {
-    return this.options.panning
+      throw new Error("STUB");
   }
 
   get pannable() {
-    return this.widgetOptions && this.widgetOptions.enabled === true
+      throw new Error("STUB");
   }
 
   protected init() {
@@ -90,20 +90,12 @@ export class PanningManager extends Base {
   }
 
   protected pan(evt: Dom.MouseMoveEvent) {
-    const e = this.view.normalizeEvent(evt)
-    const dx = e.clientX - this.clientX
-    const dy = e.clientY - this.clientY
-    this.clientX = e.clientX
-    this.clientY = e.clientY
-    this.graph.translateBy(dx, dy)
+      throw new Error("STUB");
   }
 
   // eslint-disable-next-line
   protected stopPanning(e: Dom.MouseUpEvent) {
-    this.panning = false
-    this.updateClassName(e)
-    Dom.Event.off(document.body, '.panning')
-    Dom.Event.off(window as any, '.panning')
+      throw new Error("STUB");
   }
 
   protected updateClassName(e?: Dom.EventObject) {
@@ -152,31 +144,19 @@ export class PanningManager extends Base {
   }
 
   protected onRightMouseDown(e: Dom.MouseDownEvent) {
-    const eventTypes = this.widgetOptions.eventTypes
-    if (!(eventTypes?.includes('rightMouseDown') && e.button === 2)) {
-      return
-    }
-    if (this.allowPanning(e, true)) {
-      this.startPanning(e)
-    }
+      throw new Error("STUB");
   }
 
   protected onMouseWheel(e: WheelEvent, deltaX: number, deltaY: number) {
-    this.graph.translateBy(-deltaX, -deltaY)
+      throw new Error("STUB");
   }
 
   protected onKeyDown(e: Dom.KeyDownEvent) {
-    if (e.which === 32) {
-      this.isSpaceKeyPressed = true
-    }
-    this.updateClassName(e)
+      throw new Error("STUB");
   }
 
   protected onKeyUp(e: Dom.KeyUpEvent) {
-    if (e.which === 32) {
-      this.isSpaceKeyPressed = false
-    }
-    this.updateClassName(e)
+      throw new Error("STUB");
   }
 
   protected allowBlankMouseDown(e: Dom.MouseDownEvent) {
@@ -192,45 +172,15 @@ export class PanningManager extends Base {
   }
 
   protected allowMouseWheel(e: WheelEvent) {
-    return (
-      this.pannable &&
-      !e.ctrlKey &&
-      this.widgetOptions.eventTypes?.includes('mouseWheel')
-    )
+      throw new Error("STUB");
   }
 
   autoPanning(x: number, y: number) {
-    const buffer = 10
-    const graphArea = this.graph.getGraphArea()
-
-    let dx = 0
-    let dy = 0
-    if (x <= graphArea.left + buffer) {
-      dx = -buffer
-    }
-
-    if (y <= graphArea.top + buffer) {
-      dy = -buffer
-    }
-
-    if (x >= graphArea.right - buffer) {
-      dx = buffer
-    }
-
-    if (y >= graphArea.bottom - buffer) {
-      dy = buffer
-    }
-
-    if (dx !== 0 || dy !== 0) {
-      this.graph.translateBy(-dx, -dy)
-    }
+      throw new Error("STUB");
   }
 
   enablePanning() {
-    if (!this.pannable) {
-      this.widgetOptions.enabled = true
-      this.updateClassName()
-    }
+      throw new Error("STUB");
   }
 
   disablePanning() {

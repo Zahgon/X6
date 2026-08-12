@@ -24,130 +24,67 @@ declare module '../../graph/graph' {
 }
 
 Graph.prototype.isSnaplineEnabled = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    return snapline.isEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.enable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.disable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.toggleEnabled()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.hideSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.hide()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.setSnaplineFilter = function (filter?: SnaplineFilter) {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.setFilter(filter)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isSnaplineOnResizingEnabled = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    return snapline.isOnResizingEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableSnaplineOnResizing = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.enableOnResizing()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableSnaplineOnResizing = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.disableOnResizing()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleSnaplineOnResizing = function (
   enableOnResizing?: boolean,
 ) {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.toggleOnResizing(enableOnResizing)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isSharpSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    return snapline.isSharp()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableSharpSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.enableSharp()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableSharpSnapline = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.disableSharp()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleSharpSnapline = function (sharp?: boolean) {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.toggleSharp(sharp)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.getSnaplineTolerance = function () {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    return snapline.getTolerance()
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.setSnaplineTolerance = function (tolerance: number) {
-  const snapline = this.getPlugin('snapline') as Snapline
-  if (snapline) {
-    snapline.setTolerance(tolerance)
-  }
-  return this
+    throw new Error("STUB");
 }

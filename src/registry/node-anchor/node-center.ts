@@ -10,9 +10,5 @@ export interface NodeCenterEndpointOptions {
  */
 export const nodeCenter: NodeAnchorDefinition<NodeCenterEndpointOptions> =
   function (view, magnet, ref, options, endType) {
-    const result = view.cell.getConnectionPoint(this.cell, endType)
-    if (options.dx || options.dy) {
-      result.translate(options.dx || 0, options.dy || 0)
-    }
-    return result
+      throw new Error("STUB");
   }

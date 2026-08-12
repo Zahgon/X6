@@ -10,9 +10,5 @@ export const ratio: EdgeAnchorDefinition<RatioEndpointOptions> = (
   ref,
   options,
 ) => {
-  let ratio = options.ratio != null ? options.ratio : 0.5
-  if (ratio > 1) {
-    ratio /= 100
-  }
-  return view.getPointAtRatio(ratio)!
+    throw new Error("STUB");
 }

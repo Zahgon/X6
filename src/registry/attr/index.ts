@@ -91,20 +91,7 @@ export function isValidDefinition(
   val: ComplexAttrValue,
   options: QualifyOptions,
 ): def is AttrDefinition {
-  if (def != null) {
-    if (typeof def === 'string') {
-      return true
-    }
-
-    if (
-      typeof def.qualify !== 'function' ||
-      FunctionExt.call(def.qualify, this, val, options)
-    ) {
-      return true
-    }
-  }
-
-  return false
+    throw new Error("STUB");
 }
 
 type Presets = typeof attrPresets

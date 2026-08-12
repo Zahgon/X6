@@ -33,74 +33,26 @@ export class Validator extends Basecoat<ValidatorEventArgs> {
   protected readonly map: { [event: string]: ValidatorCallback[][] }
 
   constructor(options: ValidatorOptions) {
-    super()
-    this.map = {}
-    this.command = options.history
-    this.cancelInvalid = options.cancelInvalid !== false
-    this.command.on('add', this.onCommandAdded, this)
+      throw new Error("STUB");
   }
 
   protected onCommandAdded({ cmds }: HistoryEventArgs['add']) {
-    return Array.isArray(cmds)
-      ? cmds.every((cmd) => this.isValidCommand(cmd))
-      : this.isValidCommand(cmds)
+      throw new Error("STUB");
   }
 
   protected isValidCommand(cmd: HistoryCommand) {
-    if (cmd.options && cmd.options.validation === false) {
-      return true
-    }
-
-    const callbacks = (cmd.event && this.map[cmd.event]) || []
-
-    let handoverErr: Error | null = null
-
-    callbacks.forEach((routes) => {
-      let i = 0
-
-      const rollup = (err: Error | null) => {
-        const fn = routes[i]
-        i += 1
-
-        try {
-          if (fn) {
-            fn(err, cmd, rollup)
-          } else {
-            handoverErr = err
-          }
-        } catch (err) {
-          rollup(err)
-        }
-      }
-
-      rollup(handoverErr)
-    })
-
-    if (handoverErr) {
-      if (this.cancelInvalid) {
-        this.command.cancel()
-      }
-      this.emit('invalid', { err: handoverErr })
-      return false
-    }
-
-    return true
+      throw new Error("STUB");
   }
 
   validate(events: string | string[], ...callbacks: ValidatorCallback[]) {
     const evts = Array.isArray(events) ? events : events.split(/\s+/)
 
     callbacks.forEach((callback) => {
-      if (typeof callback !== 'function') {
-        throw new Error(`${evts.join(' ')} requires callback functions.`)
-      }
+        throw new Error("STUB");
     })
 
     evts.forEach((event) => {
-      if (this.map[event] == null) {
-        this.map[event] = []
-      }
-      this.map[event].push(callbacks)
+        throw new Error("STUB");
     })
 
     return this

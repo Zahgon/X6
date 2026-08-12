@@ -3,7 +3,7 @@ export class Dictionary<T extends Record<string, any>, V> {
   private arr: T[]
 
   constructor() {
-    this.clear()
+      throw new Error("STUB");
   }
 
   clear() {
@@ -36,8 +36,7 @@ export class Dictionary<T extends Record<string, any>, V> {
 
   each(iterator: (value: V, key: T) => void) {
     this.arr.forEach((key) => {
-      const value = this.map.get(key)!
-      iterator(value, key)
+        throw new Error("STUB");
     })
   }
 

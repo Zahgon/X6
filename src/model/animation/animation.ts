@@ -29,47 +29,31 @@ export class Animation {
   }
 
   get effect(): KeyframeEffect | null {
-    return this._effect
+      throw new Error("STUB");
   }
 
   get currentTime(): number | null {
-    return this._currentTime
+      throw new Error("STUB");
   }
 
   set currentTime(value: number | null) {
-    const now = this._timeline.currentTime
-    if (!NumberExt.isNumber(now)) return
-
-    this._startTime = now - value
-    this._currentTime = value
+      throw new Error("STUB");
   }
 
   get playbackRate(): number {
-    return this._playbackRate
+      throw new Error("STUB");
   }
 
   set playbackRate(value: number) {
-    const oldRate = this._playbackRate
-    this._playbackRate = value
-    const now = this._timeline.currentTime
-
-    // 如果正在运行，调整开始时间以保持视觉连续性
-    if (
-      this._playState === 'running' &&
-      this._startTime != null &&
-      NumberExt.isNumber(now)
-    ) {
-      const currentTime = (now - this._startTime) * oldRate
-      this._startTime = now - currentTime / value
-    }
+      throw new Error("STUB");
   }
 
   get playState(): AnimationPlayState {
-    return this._playState
+      throw new Error("STUB");
   }
 
   get timeline(): AnimationTimeline | null {
-    return this._timeline
+      throw new Error("STUB");
   }
 
   play(): void {
@@ -209,6 +193,6 @@ export class Animation {
     }
 
     this._currentTime = currentTime
-    this._rafId = requestAnimationFrame(() => this._tick())
+    this._rafId = requestAnimationFrame(() => { throw new Error("STUB"); })
   }
 }

@@ -94,8 +94,7 @@ export function getGridOffsets(grid: Grid, options: ResolvedOptions) {
   const step = options.step
 
   options.directions.forEach((direction) => {
-    direction.gridOffsetX = (direction.offsetX / step) * grid.x
-    direction.gridOffsetY = (direction.offsetY / step) * grid.y
+      throw new Error("STUB");
   })
 
   return options.directions
@@ -196,52 +195,8 @@ export function getRectPoints(
 
   const rectPoints = Object.keys(directionMap).reduce<Point[]>(
     (res, key: Direction) => {
-      if (directionList.includes(key)) {
-        const direction = directionMap[key]
-
-        // Create a line that is guaranteed to intersect the bbox if bbox
-        // is in the direction even if anchor lies outside of bbox.
-        const ending = new Point(
-          anchor.x + direction.x * (Math.abs(centerVector.x) + bbox.width),
-          anchor.y + direction.y * (Math.abs(centerVector.y) + bbox.height),
-        )
-        const intersectionLine = new Line(anchor, ending)
-
-        // Get the farther intersection, in case there are two
-        // (that happens if anchor lies next to bbox)
-        const intersections = intersectionLine.intersect(bbox) || []
-        let farthestIntersectionDistance
-        let farthestIntersection = null
-        for (let i = 0; i < intersections.length; i += 1) {
-          const intersection = intersections[i]
-          const distance = anchor.squaredDistance(intersection)
-          if (
-            farthestIntersectionDistance == null ||
-            distance > farthestIntersectionDistance
-          ) {
-            farthestIntersectionDistance = distance
-            farthestIntersection = intersection
-          }
-        }
-
-        // If an intersection was found in this direction, it is our rectPoint
-        if (farthestIntersection) {
-          let target = align(farthestIntersection, grid, precision)
-          // If the rectPoint lies inside the bbox, offset it by one more step
-          if (bbox.containsPoint(target)) {
-            target = align(
-              target.translate(direction.x * grid.x, direction.y * grid.y),
-              grid,
-              precision,
-            )
-          }
-
-          res.push(target)
-        }
-      }
-
-      return res
-    },
+          throw new Error("STUB");
+      },
     [],
   )
 

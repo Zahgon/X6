@@ -40,18 +40,15 @@ export class Scheduler extends Disposable {
   private queue: JobQueue
 
   get model() {
-    return this.graph.model
+      throw new Error("STUB");
   }
 
   get container() {
-    return this.graph.view.stage
+      throw new Error("STUB");
   }
 
   constructor(graph: Graph) {
-    super()
-    this.queue = new JobQueue()
-    this.graph = graph
-    this.init()
+      throw new Error("STUB");
   }
 
   protected init() {
@@ -76,16 +73,7 @@ export class Scheduler extends Disposable {
   }
 
   protected onModelReseted({ options, previous }: ModelEventArgs['reseted']) {
-    let cells = this.model.getCells()
-    if (!options?.diff) {
-      this.queue.clearJobs()
-      this.removeZPivots()
-      this.resetViews()
-    } else {
-      const previousSet = new Set(previous)
-      cells = cells.filter((cell) => !previousSet.has(cell))
-    }
-    this.renderViews(cells, { ...options, queue: cells.map((cell) => cell.id) })
+      throw new Error("STUB");
   }
 
   protected onCellAdded({ cell, options }: ModelEventArgs['cell:added']) {
@@ -100,23 +88,14 @@ export class Scheduler extends Disposable {
     cell,
     options,
   }: ModelEventArgs['cell:change:zIndex']) {
-    const viewItem = this.views[cell.id]
-    if (viewItem) {
-      this.requestViewUpdate(
-        viewItem.view,
-        FLAG_INSERT,
-        options,
-        JOB_PRIORITY.Update,
-        true,
-      )
-    }
+      throw new Error("STUB");
   }
 
   protected onCellVisibleChanged({
     cell,
     current,
   }: ModelEventArgs['cell:change:visible']) {
-    this.toggleVisible(cell, !!current)
+      throw new Error("STUB");
   }
 
   requestViewUpdate(
@@ -155,27 +134,13 @@ export class Scheduler extends Disposable {
       id,
       priority,
       cb: () => {
-        const current = this.views[id]
-        if (!current) return
-
-        const currentOptions = current.options || {}
-        this.renderViewInArea(current.view, current.flag, currentOptions)
-        const queue = currentOptions.queue
-        if (queue) {
-          const index = queue.indexOf(current.view.cell.id)
-          if (index >= 0) {
-            queue.splice(index, 1)
-          }
-          if (queue.length === 0) {
-            this.graph.trigger('render:done')
-          }
-        }
+          throw new Error("STUB");
       },
     })
 
     const effectedEdges = this.getEffectedEdges(view)
     effectedEdges.forEach((edge) => {
-      this.requestViewUpdate(edge.view, edge.flag, options, priority, false)
+        throw new Error("STUB");
     })
 
     if (flush) {
@@ -188,19 +153,7 @@ export class Scheduler extends Disposable {
 
     // 当可视渲染区域变化时，卸载不在区域内且已挂载的视图
     Object.values(this.views).forEach((viewItem) => {
-      if (!viewItem) return
-      const { view } = viewItem
-      if (viewItem.state === SchedulerViewState.MOUNTED) {
-        if (!this.isUpdatable(view)) {
-          // 卸载 DOM
-          view.remove()
-          this.graph.trigger('view:unmounted', { view })
-          // 切换到 WAITING 状态，等待重新进入区域时再插入
-          viewItem.state = SchedulerViewState.WAITING
-          // 确保重新进入可视区域后会重新插入，并执行视图的 render 等动作，让 react 等节点能重新展示
-          viewItem.flag |= FLAG_INSERT | view.getBootstrapFlag()
-        }
-      }
+        throw new Error("STUB");
     })
 
     this.flushWaitingViews()
@@ -222,44 +175,11 @@ export class Scheduler extends Disposable {
 
   protected renderViews(cells: Cell[], options: any = {}) {
     cells.sort((c1, c2) => {
-      if (c1.isNode() && c2.isEdge()) {
-        return -1
-      }
-      return 0
+        throw new Error("STUB");
     })
 
     cells.forEach((cell) => {
-      const id = cell.id
-      const views = this.views
-      let flag = 0
-      let viewItem = views[id]
-
-      if (viewItem) {
-        flag = FLAG_INSERT
-      } else {
-        const cellView = this.createCellView(cell)
-        if (cellView) {
-          cellView.graph = this.graph
-          flag = FLAG_INSERT | cellView.getBootstrapFlag()
-          viewItem = {
-            view: cellView,
-            flag,
-            options,
-            state: SchedulerViewState.CREATED,
-          }
-          this.views[id] = viewItem
-        }
-      }
-
-      if (viewItem) {
-        this.requestViewUpdate(
-          viewItem.view,
-          flag,
-          options,
-          this.getRenderPriority(viewItem.view),
-          false,
-        )
-      }
+        throw new Error("STUB");
     })
 
     this.flush()
@@ -301,7 +221,7 @@ export class Scheduler extends Disposable {
           id,
           priority: JOB_PRIORITY.RenderEdge,
           cb: () => {
-            this.updateView(view, flag, options)
+              throw new Error("STUB");
           },
         })
       }
@@ -310,21 +230,7 @@ export class Scheduler extends Disposable {
 
   protected removeViews(cells: Cell[]) {
     cells.forEach((cell) => {
-      const id = cell.id
-      const viewItem = this.views[id]
-
-      if (viewItem) {
-        this.willRemoveViews[id] = viewItem
-        delete this.views[id]
-
-        this.queue.queueJob({
-          id,
-          priority: this.getRenderPriority(viewItem.view),
-          cb: () => {
-            this.removeView(viewItem.view)
-          },
-        })
-      }
+        throw new Error("STUB");
     })
 
     this.flush()
@@ -338,16 +244,7 @@ export class Scheduler extends Disposable {
 
   protected flushWaitingViews() {
     Object.values(this.views).forEach((viewItem) => {
-      if (viewItem && viewItem.state === SchedulerViewState.WAITING) {
-        const { view, flag, options } = viewItem
-        this.requestViewUpdate(
-          view,
-          flag,
-          options,
-          this.getRenderPriority(view),
-          false,
-        )
-      }
+        throw new Error("STUB");
     })
 
     this.flush()
@@ -394,14 +291,7 @@ export class Scheduler extends Disposable {
   }
 
   protected resetViews() {
-    this.willRemoveViews = { ...this.views, ...this.willRemoveViews }
-    Object.values(this.willRemoveViews).forEach((viewItem) => {
-      if (viewItem) {
-        this.removeView(viewItem.view)
-      }
-    })
-    this.views = {}
-    this.willRemoveViews = {}
+      throw new Error("STUB");
   }
 
   protected removeView(view: CellView) {
@@ -476,14 +366,7 @@ export class Scheduler extends Disposable {
   }
 
   protected removeZPivots() {
-    if (this.zPivots) {
-      Object.values(this.zPivots).forEach((elem) => {
-        if (elem && elem.parentNode) {
-          elem.parentNode.removeChild(elem)
-        }
-      })
-    }
-    this.zPivots = {}
+      throw new Error("STUB");
   }
 
   protected createCellView(cell: Cell) {
@@ -598,7 +481,7 @@ export class Scheduler extends Disposable {
     this.stopListening()
     // clear views
     Object.keys(this.views).forEach((id) => {
-      this.views[id].view.dispose()
+        throw new Error("STUB");
     })
     this.views = {}
   }

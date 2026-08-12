@@ -13,13 +13,13 @@ export const radial: PortLabelLayoutDefinition<RadialArgs> = (
   portPosition,
   elemBBox,
   args,
-) => radialLayout(portPosition.diff(elemBBox.getCenter()), false, args)
+) => { throw new Error("STUB"); }
 
 export const radialOriented: PortLabelLayoutDefinition<RadialArgs> = (
   portPosition,
   elemBBox,
   args,
-) => radialLayout(portPosition.diff(elemBBox.getCenter()), true, args)
+) => { throw new Error("STUB"); }
 
 function radialLayout(
   portCenterOffset: Point,

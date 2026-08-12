@@ -16,16 +16,7 @@ export const line: PortLayoutDefinition<LineArgs> = (
   elemBBox,
   groupPositionArgs,
 ) => {
-  const start = normalizePoint(
-    elemBBox,
-    groupPositionArgs.start || elemBBox.getOrigin(),
-  )
-  const end = normalizePoint(
-    elemBBox,
-    groupPositionArgs.end || elemBBox.getCorner(),
-  )
-
-  return lineLayout(portsPositionArgs, start, end, groupPositionArgs)
+    throw new Error("STUB");
 }
 
 export const left: PortLayoutDefinition<SideArgs> = (
@@ -33,12 +24,7 @@ export const left: PortLayoutDefinition<SideArgs> = (
   elemBBox,
   groupPositionArgs,
 ) => {
-  return lineLayout(
-    portsPositionArgs,
-    elemBBox.getTopLeft(),
-    elemBBox.getBottomLeft(),
-    groupPositionArgs,
-  )
+    throw new Error("STUB");
 }
 
 export const right: PortLayoutDefinition<SideArgs> = (
@@ -46,12 +32,7 @@ export const right: PortLayoutDefinition<SideArgs> = (
   elemBBox,
   groupPositionArgs,
 ) => {
-  return lineLayout(
-    portsPositionArgs,
-    elemBBox.getTopRight(),
-    elemBBox.getBottomRight(),
-    groupPositionArgs,
-  )
+    throw new Error("STUB");
 }
 
 export const top: PortLayoutDefinition<SideArgs> = (
@@ -59,12 +40,7 @@ export const top: PortLayoutDefinition<SideArgs> = (
   elemBBox,
   groupPositionArgs,
 ) => {
-  return lineLayout(
-    portsPositionArgs,
-    elemBBox.getTopLeft(),
-    elemBBox.getTopRight(),
-    groupPositionArgs,
-  )
+    throw new Error("STUB");
 }
 
 export const bottom: PortLayoutDefinition<SideArgs> = (
@@ -72,12 +48,7 @@ export const bottom: PortLayoutDefinition<SideArgs> = (
   elemBBox,
   groupPositionArgs,
 ) => {
-  return lineLayout(
-    portsPositionArgs,
-    elemBBox.getBottomLeft(),
-    elemBBox.getBottomRight(),
-    groupPositionArgs,
-  )
+    throw new Error("STUB");
 }
 
 function lineLayout(
@@ -89,16 +60,6 @@ function lineLayout(
   const line = new Line(p1, p2)
   const length = portsPositionArgs.length
   return portsPositionArgs.map(({ strict, ...offset }, index) => {
-    const ratio =
-      strict || groupPositionArgs.strict
-        ? (index + 1) / (length + 1)
-        : (index + 0.5) / length
-
-    const p = line.pointAt(ratio)
-    if (offset.dx || offset.dy) {
-      p.translate(offset.dx || 0, offset.dy || 0)
-    }
-
-    return toResult(p.round(), 0, offset)
+      throw new Error("STUB");
   })
 }

@@ -39,7 +39,7 @@ export class Path extends Geometry {
         const args = command.match(argRe) // [type, coordinate1, coordinate2...]
         if (args != null) {
           const type = args[0]
-          const coords = args.slice(1).map((a) => +a)
+          const coords = args.slice(1).map((a) => { throw new Error("STUB"); })
           const segment = Path.createSegment.call(null, type, ...coords)
           path.appendSegment(segment)
         }
@@ -156,66 +156,7 @@ export class Path extends Geometry {
   constructor(
     args?: Line | Curve | Polyline | Segment | Segment[] | Line[] | Curve[],
   ) {
-    super()
-    this.segments = []
-    if (Array.isArray(args)) {
-      if (Line.isLine(args[0]) || Curve.isCurve(args[0])) {
-        let previousObj: Line | Curve | null = null
-        const arr = args as Line[] | Curve[]
-        arr.forEach((o: Line | Curve, i: number) => {
-          if (i === 0) {
-            this.appendSegment(Path.createSegment('M', o.start))
-          }
-          if (previousObj != null && !previousObj.end.equals(o.start)) {
-            this.appendSegment(Path.createSegment('M', o.start))
-          }
-
-          if (Line.isLine(o)) {
-            this.appendSegment(Path.createSegment('L', o.end))
-          } else if (Curve.isCurve(o)) {
-            this.appendSegment(
-              Path.createSegment('C', o.controlPoint1, o.controlPoint2, o.end),
-            )
-          }
-
-          previousObj = o
-        })
-      } else {
-        const arr = args as Segment[]
-        arr.forEach((s) => {
-          if (s.isSegment) {
-            this.appendSegment(s)
-          }
-        })
-      }
-    } else if (args != null) {
-      if (Line.isLine(args)) {
-        this.appendSegment(Path.createSegment('M', args.start))
-        this.appendSegment(Path.createSegment('L', args.end))
-      } else if (Curve.isCurve(args)) {
-        this.appendSegment(Path.createSegment('M', args.start))
-        this.appendSegment(
-          Path.createSegment(
-            'C',
-            args.controlPoint1,
-            args.controlPoint2,
-            args.end,
-          ),
-        )
-      } else if (Polyline.isPolyline(args)) {
-        if (args.points && args.points.length) {
-          args.points.forEach((point, index) => {
-            const segment =
-              index === 0
-                ? Path.createSegment('M', point)
-                : Path.createSegment('L', point)
-            this.appendSegment(segment)
-          })
-        }
-      } else if (args.isSegment) {
-        this.appendSegment(args)
-      }
-    }
+      throw new Error("STUB");
   }
 
   get start() {
@@ -237,21 +178,7 @@ export class Path extends Geometry {
   }
 
   get end() {
-    const segments = this.segments
-    const count = segments.length
-    if (count === 0) {
-      return null
-    }
-
-    for (let i = count - 1; i >= 0; i -= 1) {
-      const segment = segments[i]
-      if (segment.isVisible) {
-        return segment.end
-      }
-    }
-
-    // if no visible segment, return last segment end point
-    return segments[count - 1].end
+      throw new Error("STUB");
   }
 
   moveTo(x: number, y: number): this
@@ -298,7 +225,7 @@ export class Path extends Geometry {
     ...points: PointOptions[]
   ): this
   curveTo(...args: any[]) {
-    return this.appendSegment(CurveTo.create.call(null, ...args))
+      throw new Error("STUB");
   }
 
   arcTo(
@@ -327,45 +254,7 @@ export class Path extends Geometry {
     endX: number | PointLike,
     endY?: number,
   ) {
-    const start = this.end || new Point()
-    const points =
-      typeof endX === 'number'
-        ? PathUtil.arcToCurves(
-            start.x,
-            start.y,
-            rx,
-            ry,
-            xAxisRotation,
-            largeArcFlag,
-            sweepFlag,
-            endX,
-            endY as number,
-          )
-        : PathUtil.arcToCurves(
-            start.x,
-            start.y,
-            rx,
-            ry,
-            xAxisRotation,
-            largeArcFlag,
-            sweepFlag,
-            endX.x,
-            endX.y,
-          )
-
-    if (points != null) {
-      for (let i = 0, ii = points.length; i < ii; i += 6) {
-        this.curveTo(
-          points[i],
-          points[i + 1],
-          points[i + 2],
-          points[i + 3],
-          points[i + 4],
-          points[i + 5],
-        )
-      }
-    }
-    return this
+      throw new Error("STUB");
   }
 
   quadTo(controlPoint: PointLike, endPoint: PointLike): this
@@ -586,71 +475,19 @@ export class Path extends Geometry {
   }
 
   segmentAt(ratio: number, options: PathOptions = {}) {
-    const index = this.segmentIndexAt(ratio, options)
-    if (!index) {
-      return null
-    }
-
-    return this.getSegment(index)
+      throw new Error("STUB");
   }
 
   segmentAtLength(length: number, options: PathOptions = {}) {
-    const index = this.segmentIndexAtLength(length, options)
-    if (!index) return null
-
-    return this.getSegment(index)
+      throw new Error("STUB");
   }
 
   segmentIndexAt(ratio: number, options: PathOptions = {}) {
-    if (this.segments.length === 0) {
-      return null
-    }
-
-    const rate = clamp(ratio, 0, 1)
-    const opt = this.getOptions(options)
-    const len = this.length(opt)
-    const length = len * rate
-    return this.segmentIndexAtLength(length, opt)
+      throw new Error("STUB");
   }
 
   segmentIndexAtLength(length: number, options: PathOptions = {}) {
-    const count = this.segments.length
-    if (count === 0) {
-      return null
-    }
-
-    let fromStart = true
-    if (length < 0) {
-      fromStart = false
-      length = -length // eslint-disable-line
-    }
-
-    const precision = this.getPrecision(options)
-    const segmentSubdivisions = this.getSubdivisions(options)
-
-    let memo = 0
-    let lastVisibleIndex = null
-
-    for (let i = 0; i < count; i += 1) {
-      const index = fromStart ? i : count - 1 - i
-
-      const segment = this.segments[index]
-      const subdivisions = segmentSubdivisions[index]
-      const len = segment.length({ precision, subdivisions })
-
-      if (segment.isVisible) {
-        if (length <= memo + len) {
-          return index
-        }
-        lastVisibleIndex = index
-      }
-
-      memo += len
-    }
-
-    // If length requested is higher than the length of the path, return
-    // last visible segment index. If no visible segment, return null.
-    return lastVisibleIndex
+      throw new Error("STUB");
   }
 
   getSegmentSubdivisions(options: PathOptions = {}): Segment[][] {
@@ -784,39 +621,7 @@ export class Path extends Geometry {
   }
 
   closestPointTangent(p: PointLike, options: PathOptions = {}) {
-    if (this.segments.length === 0) {
-      return null
-    }
-
-    const precision = this.getPrecision(options)
-    const segmentSubdivisions = this.getSubdivisions(options)
-
-    let closestPointTangent
-    let minSquaredDistance = Infinity
-    for (let i = 0, ii = this.segments.length; i < ii; i += 1) {
-      const segment = this.segments[i]
-      const subdivisions = segmentSubdivisions[i]
-
-      if (segment.isDifferentiable()) {
-        const segmentClosestPointT = segment.closestPointT(p, {
-          precision,
-          subdivisions,
-        })
-        const segmentClosestPoint = segment.pointAtT(segmentClosestPointT)
-        const squaredDistance = squaredLength(segmentClosestPoint, p)
-
-        if (squaredDistance < minSquaredDistance) {
-          closestPointTangent = segment.tangentAtT(segmentClosestPointT)
-          minSquaredDistance = squaredDistance
-        }
-      }
-    }
-
-    if (closestPointTangent) {
-      return closestPointTangent
-    }
-
-    return null
+      throw new Error("STUB");
   }
 
   containsPoint(p: PointOptions, options: PathOptions = {}) {
@@ -1269,7 +1074,7 @@ export class Path extends Geometry {
         const divisions = segmentSubdivisions[i]
         if (divisions.length > 0) {
           // eslint-disable-next-line no-loop-func
-          divisions.forEach((c) => partialPoints.push(c.start))
+          divisions.forEach((c) => { throw new Error("STUB"); })
         } else {
           partialPoints.push(segment.start)
         }
@@ -1294,16 +1099,16 @@ export class Path extends Geometry {
       return null
     }
 
-    return points.map((arr) => new Polyline(arr))
+    return points.map((arr) => { throw new Error("STUB"); })
   }
 
   scale(sx: number, sy: number, origin?: PointOptions) {
-    this.segments.forEach((s) => s.scale(sx, sy, origin))
+    this.segments.forEach((s) => { throw new Error("STUB"); })
     return this
   }
 
   rotate(angle: number, origin?: PointOptions) {
-    this.segments.forEach((segment) => segment.rotate(angle, origin))
+    this.segments.forEach((segment) => { throw new Error("STUB"); })
     return this
   }
 
@@ -1311,16 +1116,16 @@ export class Path extends Geometry {
   translate(p: PointOptions): this
   translate(tx: number | PointOptions, ty?: number) {
     if (typeof tx === 'number') {
-      this.segments.forEach((s) => s.translate(tx, ty as number))
+      this.segments.forEach((s) => { throw new Error("STUB"); })
     } else {
-      this.segments.forEach((s) => s.translate(tx))
+      this.segments.forEach((s) => { throw new Error("STUB"); })
     }
     return this
   }
 
   clone() {
     const path = new Path()
-    this.segments.forEach((s) => path.appendSegment(s.clone()))
+    this.segments.forEach((s) => { throw new Error("STUB"); })
     return path
   }
 
@@ -1349,7 +1154,7 @@ export class Path extends Geometry {
   }
 
   toJSON() {
-    return this.segments.map((s) => s.toJSON())
+    return this.segments.map((s) => { throw new Error("STUB"); })
   }
 
   serialize() {
@@ -1357,7 +1162,7 @@ export class Path extends Geometry {
       throw new Error('Invalid path segments.')
     }
 
-    return this.segments.map((s) => s.serialize()).join(' ')
+    return this.segments.map((s) => { throw new Error("STUB"); }).join(' ')
   }
 
   toString() {

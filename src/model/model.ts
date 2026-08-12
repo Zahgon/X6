@@ -64,7 +64,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
   static toJSON(cells: Cell[], options: ToJSONOptions = {}) {
     return {
-      cells: cells.map((cell) => cell.toJSON(options)),
+      cells: cells.map((cell) => { throw new Error("STUB"); }),
     }
   }
 
@@ -79,36 +79,19 @@ export class Model extends Basecoat<ModelEventArgs> {
 
       if (data.nodes) {
         data.nodes.forEach((node) => {
-          if (node.shape == null) {
-            node.shape = 'rect'
-          }
-          cells.push(node)
+            throw new Error("STUB");
         })
       }
 
       if (data.edges) {
         data.edges.forEach((edge) => {
-          if (edge.shape == null) {
-            edge.shape = 'edge'
-          }
-          cells.push(edge)
+            throw new Error("STUB");
         })
       }
     }
 
     return cells.map((cell) => {
-      const type = cell.shape
-      if (type) {
-        if (Node.registry.exist(type)) {
-          return Node.create(cell)
-        }
-        if (Edge.registry.exist(type)) {
-          return Edge.create(cell)
-        }
-      }
-      throw new Error(
-        'The `shape` should be specified when creating a node/edge instance',
-      )
+        throw new Error("STUB");
     })
   }
   public readonly collection: Collection
@@ -121,9 +104,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   protected incomings: KeyValue<string[]> = {}
 
   constructor(cells: Cell[] = []) {
-    super()
-    this.collection = new Collection(cells)
-    this.setup()
+      throw new Error("STUB");
   }
 
   notify<Key extends keyof ModelEventArgs>(
@@ -150,38 +131,28 @@ export class Model extends Basecoat<ModelEventArgs> {
   protected setup() {
     const collection = this.collection
 
-    collection.on('sorted', () => this.notify('sorted', null))
-    collection.on('updated', (args) => this.notify('updated', args))
-    collection.on('cell:change:zIndex', () => this.sortOnChangeZ())
+    collection.on('sorted', () => { throw new Error("STUB"); })
+    collection.on('updated', (args) => { throw new Error("STUB"); })
+    collection.on('cell:change:zIndex', () => { throw new Error("STUB"); })
 
     collection.on('added', ({ cell }) => {
-      this.onCellAdded(cell)
+        throw new Error("STUB");
     })
 
     collection.on('removed', (args) => {
-      const cell = args.cell
-      this.onCellRemoved(cell, args.options)
-
-      // Should trigger remove-event manually after cell was removed.
-      this.notify('cell:removed', args)
-      if (cell.isNode()) {
-        this.notify('node:removed', { ...args, node: cell })
-      } else if (cell.isEdge()) {
-        this.notify('edge:removed', { ...args, edge: cell })
-      }
+        throw new Error("STUB");
     })
 
     collection.on('reseted', (args) => {
-      this.onReset(args.current)
-      this.notify('reseted', args)
+        throw new Error("STUB");
     })
 
     collection.on('edge:change:source', ({ edge }) =>
-      this.onEdgeTerminalChanged(edge, 'source'),
+      { throw new Error("STUB"); },
     )
 
     collection.on('edge:change:target', ({ edge }) => {
-      this.onEdgeTerminalChanged(edge, 'target')
+        throw new Error("STUB");
     })
   }
 
@@ -253,7 +224,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     this.outgoings = {}
     this.incomings = {}
     cells.forEach((cell) => {
-      this.onCellAdded(cell)
+        throw new Error("STUB");
     })
   }
 
@@ -302,10 +273,10 @@ export class Model extends Basecoat<ModelEventArgs> {
   resetCells(cells: Cell[], options: CollectionSetOptions = {}) {
     // Do not update model at this time. Because if we just update the graph
     // with the same json-data, the edge will reference to the old nodes.
-    cells.map((cell) => this.prepareCell(cell, { ...options, dryrun: true }))
+    cells.map((cell) => { throw new Error("STUB"); })
     this.collection.reset(cells, options)
     // Update model and trigger edge update it's references
-    cells.map((cell) => this.prepareCell(cell, { options }))
+    cells.map((cell) => { throw new Error("STUB"); })
     return this
   }
 
@@ -318,21 +289,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     this.batchUpdate(
       'clear',
       () => {
-        // The nodes come after the edges.
-        const cells = raw.sort((a, b) => {
-          const v1 = a.isEdge() ? 1 : 2
-          const v2 = b.isEdge() ? 1 : 2
-          return v1 - v2
-        })
-
-        while (cells.length > 0) {
-          // Note that all the edges are removed first, so it's safe to
-          // remove the nodes without removing the connected edges first.
-          const cell = cells.shift()
-          if (cell) {
-            cell.remove(localOptions)
-          }
-        }
+          throw new Error("STUB");
       },
       localOptions,
     )
@@ -347,10 +304,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
 
   updateNode(metadata: NodeMetadata, options: SetOptions = {}) {
-    const node = this.createNode(metadata)
-    const prop = node.getProp()
-    node.dispose()
-    return this.updateCell(prop, options)
+      throw new Error("STUB");
   }
 
   createNode(metadata: NodeMetadata) {
@@ -368,10 +322,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
 
   updateEdge(metadata: EdgeMetadata, options: SetOptions = {}) {
-    const edge = this.createEdge(metadata)
-    const prop = edge.getProp()
-    edge.dispose()
-    return this.updateCell(prop, options)
+      throw new Error("STUB");
   }
 
   addCell(cell: Cell | Cell[], options: AddOptions = {}) {
@@ -382,7 +333,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     if (!this.collection.has(cell) && !this.addings.has(cell)) {
       this.addings.set(cell, true)
       this.collection.add(this.prepareCell(cell, options), options)
-      cell.eachChild((child) => this.addCell(child, options))
+      cell.eachChild((child) => { throw new Error("STUB"); })
       this.addings.delete(cell)
     }
 
@@ -403,8 +354,7 @@ export class Model extends Basecoat<ModelEventArgs> {
 
     this.startBatch('add', { ...localOptions, cells })
     cells.forEach((cell) => {
-      this.addCell(cell, localOptions)
-      localOptions.position -= 1
+        throw new Error("STUB");
     })
     this.stopBatch('add', { ...localOptions, cells })
 
@@ -412,20 +362,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
 
   updateCell(prop: CellProperties, options: SetOptions = {}): boolean {
-    const existing = prop.id && this.getCell(prop.id)
-    if (existing) {
-      return this.batchUpdate(
-        'update',
-        () => {
-          Object.entries(prop).forEach(([key, val]) => {
-            existing.setProp(key, val, options)
-          })
-          return true
-        },
-        prop,
-      )
-    }
-    return false
+      throw new Error("STUB");
   }
 
   removeCell(cellId: string, options?: CollectionRemoveOptions): Cell | null
@@ -442,40 +379,13 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
 
   updateCellId(cell: Cell, newId: string) {
-    if (cell.id === newId) return
-    this.startBatch('update', { id: newId })
-    cell.prop('id', newId)
-    const newCell = cell.clone({ keepId: true })
-    this.addCell(newCell)
-
-    // update connected edge terminal
-    const edges = this.getConnectedEdges(cell)
-    edges.forEach((edge) => {
-      const sourceCell = edge.getSourceCell()
-      const targetCell = edge.getTargetCell()
-      if (sourceCell === cell) {
-        edge.setSource({
-          ...edge.getSource(),
-          cell: newId,
-        })
-      }
-      if (targetCell === cell) {
-        edge.setTarget({
-          ...edge.getTarget(),
-          cell: newId,
-        })
-      }
-    })
-
-    this.removeCell(cell)
-    this.stopBatch('update', { id: newId })
-    return newCell
+      throw new Error("STUB");
   }
 
   removeCells(cells: (Cell | string)[], options: CellRemoveOptions = {}) {
     if (cells.length) {
       return this.batchUpdate('remove', () => {
-        return cells.map((cell) => this.removeCell(cell as Cell, options))
+          throw new Error("STUB");
       })
     }
     return []
@@ -484,7 +394,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   removeConnectedEdges(cell: Cell | string, options: CellRemoveOptions = {}) {
     const edges = this.getConnectedEdges(cell)
     edges.forEach((edge) => {
-      edge.remove(options)
+        throw new Error("STUB");
     })
     return edges
   }
@@ -492,16 +402,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   disconnectConnectedEdges(cell: Cell | string, options: EdgeSetOptions = {}) {
     const cellId = typeof cell === 'string' ? cell : cell.id
     this.getConnectedEdges(cell).forEach((edge) => {
-      const sourceCellId = edge.getSourceCellId()
-      const targetCellId = edge.getTargetCellId()
-
-      if (sourceCellId === cellId) {
-        edge.setSource({ x: 0, y: 0 }, options)
-      }
-
-      if (targetCellId === cellId) {
-        edge.setTarget({ x: 0, y: 0 }, options)
-      }
+        throw new Error("STUB");
     })
   }
 
@@ -538,7 +439,7 @@ export class Model extends Basecoat<ModelEventArgs> {
    * defined as the cell with the lowest `zIndex`.
    */
   getFirstCell() {
-    return this.collection.first()
+      throw new Error("STUB");
   }
 
   /**
@@ -546,15 +447,14 @@ export class Model extends Basecoat<ModelEventArgs> {
    * defined as the cell with the highest `zIndex`.
    */
   getLastCell() {
-    return this.collection.last()
+      throw new Error("STUB");
   }
 
   /**
    * Returns the lowest `zIndex` value in the graph.
    */
   getMinZIndex() {
-    const first = this.collection.first()
-    return first ? first.getZIndex() || 0 : 0
+      throw new Error("STUB");
   }
 
   /**
@@ -570,8 +470,8 @@ export class Model extends Basecoat<ModelEventArgs> {
   }) {
     return cache
       ? Object.keys(cache)
-          .map((id) => this.getCell<T>(id))
-          .filter((cell) => cell != null)
+          .map((id) => { throw new Error("STUB"); })
+          .filter((cell) => { throw new Error("STUB"); })
       : []
   }
 
@@ -597,8 +497,8 @@ export class Model extends Basecoat<ModelEventArgs> {
     const cellIds = this.outgoings[cellId]
     return cellIds
       ? cellIds
-          .map((id) => this.getCell(id) as Edge)
-          .filter((cell) => cell?.isEdge())
+          .map((id) => { throw new Error("STUB"); })
+          .filter((cell) => { throw new Error("STUB"); })
       : null
   }
 
@@ -610,8 +510,8 @@ export class Model extends Basecoat<ModelEventArgs> {
     const cellIds = this.incomings[cellId]
     return cellIds
       ? cellIds
-          .map((id) => this.getCell(id) as Edge)
-          .filter((cell) => cell?.isEdge())
+          .map((id) => { throw new Error("STUB"); })
+          .filter((cell) => { throw new Error("STUB"); })
       : null
   }
 
@@ -643,22 +543,7 @@ export class Model extends Basecoat<ModelEventArgs> {
 
       if (edges != null) {
         edges.forEach((edge) => {
-          if (cache[edge.id]) {
-            return
-          }
-
-          result.push(edge)
-          cache[edge.id] = true
-
-          if (indirect) {
-            if (incoming) {
-              collect(edge, false)
-            }
-
-            if (outgoing) {
-              collect(edge, true)
-            }
-          }
+            throw new Error("STUB");
         })
       }
 
@@ -687,9 +572,7 @@ export class Model extends Basecoat<ModelEventArgs> {
       const descendants = node.getDescendants({ deep: true })
       const embedsCache: KeyValue<boolean> = {}
       descendants.forEach((cell) => {
-        if (cell.isNode()) {
-          embedsCache[cell.id] = true
-        }
+          throw new Error("STUB");
       })
 
       const collectSub = (cell: Cell, isOutgoing: boolean) => {
@@ -699,39 +582,13 @@ export class Model extends Basecoat<ModelEventArgs> {
 
         if (edges != null) {
           edges.forEach((edge) => {
-            if (!cache[edge.id]) {
-              const sourceCell = edge.getSourceCell()
-              const targetCell = edge.getTargetCell()
-
-              if (
-                !options.enclosed &&
-                sourceCell &&
-                embedsCache[sourceCell.id] &&
-                targetCell &&
-                embedsCache[targetCell.id]
-              ) {
-                return
-              }
-
-              result.push(edge)
-              cache[edge.id] = true
-            }
+              throw new Error("STUB");
           })
         }
       }
 
       descendants.forEach((cell) => {
-        if (cell.isEdge()) {
-          return
-        }
-
-        if (outgoing) {
-          collectSub(cell, true)
-        }
-
-        if (incoming) {
-          collectSub(cell, false)
-        }
+          throw new Error("STUB");
       })
     }
 
@@ -739,38 +596,25 @@ export class Model extends Basecoat<ModelEventArgs> {
   }
 
   protected isBoundary(cell: Cell | string, isOrigin: boolean) {
-    const node = typeof cell === 'string' ? this.getCell(cell) : cell
-    const arr = isOrigin
-      ? this.getIncomingEdges(node)
-      : this.getOutgoingEdges(node)
-    return arr == null || arr.length === 0
+      throw new Error("STUB");
   }
 
   protected getBoundaryNodes(isOrigin: boolean) {
-    const result: Node[] = []
-    Object.keys(this.nodes).forEach((nodeId) => {
-      if (this.isBoundary(nodeId, isOrigin)) {
-        const node = this.getCell<Node>(nodeId)
-        if (node) {
-          result.push(node)
-        }
-      }
-    })
-    return result
+      throw new Error("STUB");
   }
 
   /**
    * Returns an array of all the roots of the graph.
    */
   getRoots() {
-    return this.getBoundaryNodes(true)
+      throw new Error("STUB");
   }
 
   /**
    * Returns an array of all the leafs of the graph.
    */
   getLeafs() {
-    return this.getBoundaryNodes(false)
+      throw new Error("STUB");
   }
 
   /**
@@ -778,7 +622,7 @@ export class Model extends Basecoat<ModelEventArgs> {
    * coming to the node.
    */
   isRoot(cell: Cell | string) {
-    return this.isBoundary(cell, true)
+      throw new Error("STUB");
   }
 
   /**
@@ -786,7 +630,7 @@ export class Model extends Basecoat<ModelEventArgs> {
    * going out from the node.
    */
   isLeaf(cell: Cell | string) {
-    return this.isBoundary(cell, false)
+      throw new Error("STUB");
   }
 
   /**
@@ -802,41 +646,7 @@ export class Model extends Basecoat<ModelEventArgs> {
 
     const edges = this.getConnectedEdges(cell, options)
     const map = edges.reduce<KeyValue<Cell>>((memo, edge) => {
-      const hasLoop = edge.hasLoop(options)
-      const sourceCell = edge.getSourceCell()
-      const targetCell = edge.getTargetCell()
-
-      if (
-        incoming &&
-        sourceCell &&
-        sourceCell.isNode() &&
-        !memo[sourceCell.id]
-      ) {
-        if (
-          hasLoop ||
-          (sourceCell !== cell &&
-            (!options.deep || !sourceCell.isDescendantOf(cell)))
-        ) {
-          memo[sourceCell.id] = sourceCell
-        }
-      }
-
-      if (
-        outgoing &&
-        targetCell &&
-        targetCell.isNode() &&
-        !memo[targetCell.id]
-      ) {
-        if (
-          hasLoop ||
-          (targetCell !== cell &&
-            (!options.deep || !targetCell.isDescendantOf(cell)))
-        ) {
-          memo[targetCell.id] = targetCell
-        }
-      }
-
-      return memo
+        throw new Error("STUB");
     }, {})
 
     if (cell.isEdge()) {
@@ -854,33 +664,14 @@ export class Model extends Basecoat<ModelEventArgs> {
       }
     }
 
-    return Object.keys(map).map((id) => map[id])
+    return Object.keys(map).map((id) => { throw new Error("STUB"); })
   }
 
   /**
    * Returns `true` if `cell2` is a neighbor of `cell1`.
    */
   isNeighbor(cell1: Cell, cell2: Cell, options: GetNeighborsOptions = {}) {
-    let incoming = options.incoming
-    let outgoing = options.outgoing
-    if (incoming == null && outgoing == null) {
-      incoming = outgoing = true
-    }
-
-    return this.getConnectedEdges(cell1, options).some((edge) => {
-      const sourceCell = edge.getSourceCell()
-      const targetCell = edge.getTargetCell()
-
-      if (incoming && sourceCell && sourceCell.id === cell2.id) {
-        return true
-      }
-
-      if (outgoing && targetCell && targetCell.id === cell2.id) {
-        return true
-      }
-
-      return false
-    })
+      throw new Error("STUB");
   }
 
   getSuccessors(cell: Cell, options: GetPredecessorsOptions = {}) {
@@ -888,9 +679,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     this.search(
       cell,
       (curr, distance) => {
-        if (curr !== cell && this.matchDistance(distance, options.distance)) {
-          successors.push(curr)
-        }
+          throw new Error("STUB");
       },
       { ...options, outgoing: true },
     )
@@ -901,36 +690,11 @@ export class Model extends Basecoat<ModelEventArgs> {
    * Returns `true` if `cell2` is a successor of `cell1`.
    */
   isSuccessor(cell1: Cell, cell2: Cell, options: GetPredecessorsOptions = {}) {
-    let result = false
-    this.search(
-      cell1,
-      (curr, distance) => {
-        if (
-          curr === cell2 &&
-          curr !== cell1 &&
-          this.matchDistance(distance, options.distance)
-        ) {
-          result = true
-          return false
-        }
-      },
-      { ...options, outgoing: true },
-    )
-    return result
+      throw new Error("STUB");
   }
 
   getPredecessors(cell: Cell, options: GetPredecessorsOptions = {}) {
-    const predecessors: Cell[] = []
-    this.search(
-      cell,
-      (curr, distance) => {
-        if (curr !== cell && this.matchDistance(distance, options.distance)) {
-          predecessors.push(curr)
-        }
-      },
-      { ...options, incoming: true },
-    )
-    return predecessors
+      throw new Error("STUB");
   }
 
   /**
@@ -941,22 +705,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     cell2: Cell,
     options: GetPredecessorsOptions = {},
   ) {
-    let result = false
-    this.search(
-      cell1,
-      (curr, distance) => {
-        if (
-          curr === cell2 &&
-          curr !== cell1 &&
-          this.matchDistance(distance, options.distance)
-        ) {
-          result = true
-          return false
-        }
-      },
-      { ...options, incoming: true },
-    )
-    return result
+      throw new Error("STUB");
   }
 
   protected matchDistance(
@@ -984,13 +733,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   getCommonAncestor(...cells: (Cell | Cell[] | null | undefined)[]) {
     const arr: Cell[] = []
     cells.forEach((item) => {
-      if (item) {
-        if (Array.isArray(item)) {
-          arr.push(...item)
-        } else {
-          arr.push(item)
-        }
-      }
+        throw new Error("STUB");
     })
     return Cell.getCommonAncestor(...arr)
   }
@@ -1023,53 +766,15 @@ export class Model extends Basecoat<ModelEventArgs> {
     }
 
     cells.forEach((cell) => {
-      collect(cell)
-      if (options.deep) {
-        const descendants = cell.getDescendants({ deep: true })
-        descendants.forEach((descendant) => {
-          collect(descendant)
-        })
-      }
+        throw new Error("STUB");
     })
 
     edges.forEach((edge) => {
-      // For edges, include their source & target
-      const sourceCell = edge.getSourceCell()
-      const targetCell = edge.getTargetCell()
-      if (sourceCell && !cache[sourceCell.id]) {
-        subgraph.push(sourceCell)
-        cache[sourceCell.id] = sourceCell
-        if (sourceCell.isNode()) {
-          nodes.push(sourceCell)
-        }
-      }
-      if (targetCell && !cache[targetCell.id]) {
-        subgraph.push(targetCell)
-        cache[targetCell.id] = targetCell
-        if (targetCell.isNode()) {
-          nodes.push(targetCell)
-        }
-      }
+        throw new Error("STUB");
     })
 
     nodes.forEach((node) => {
-      // For nodes, include their connected edges if their source/target
-      // is in the subgraph.
-      const edges = this.getConnectedEdges(node, options)
-      edges.forEach((edge) => {
-        const sourceCell = edge.getSourceCell()
-        const targetCell = edge.getTargetCell()
-        if (
-          !cache[edge.id] &&
-          sourceCell &&
-          cache[sourceCell.id] &&
-          targetCell &&
-          cache[targetCell.id]
-        ) {
-          subgraph.push(edge)
-          cache[edge.id] = edge
-        }
-      })
+        throw new Error("STUB");
     })
 
     return subgraph
@@ -1100,7 +805,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   getNodesFromPoint(x: number | PointLike, y?: number) {
     const p = typeof x === 'number' ? { x, y: y || 0 } : x
     return this.getNodes().filter((node) => {
-      return node.getBBox().containsPoint(p)
+        throw new Error("STUB");
     })
   }
 
@@ -1130,9 +835,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     const opts = typeof x === 'number' ? options : (y as GetCellsInAreaOptions)
     const strict = opts?.strict
     return this.getNodes().filter((node) => {
-      const angle = node.angle()
-      const bbox = node.getBBox().bbox(angle)
-      return strict ? rect.containsRect(bbox) : rect.isIntersectWithRect(bbox)
+        throw new Error("STUB");
     })
   }
 
@@ -1162,13 +865,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     const opts = typeof x === 'number' ? options : (y as GetCellsInAreaOptions)
     const strict = opts?.strict
     return this.getEdges().filter((edge) => {
-      const bbox = edge.getBBox()
-      if (bbox.width === 0) {
-        bbox.inflate(1, 0)
-      } else if (bbox.height === 0) {
-        bbox.inflate(0, 1)
-      }
-      return strict ? rect.containsRect(bbox) : rect.isIntersectWithRect(bbox)
+        throw new Error("STUB");
     })
   }
 
@@ -1185,7 +882,7 @@ export class Model extends Basecoat<ModelEventArgs> {
         : this.getNodesFromPoint(bbox[options.by])
 
     return nodes.filter(
-      (curr) => node.id !== curr.id && !curr.isDescendantOf(node),
+      (curr) => { throw new Error("STUB"); },
     )
   }
 
@@ -1236,8 +933,7 @@ export class Model extends Basecoat<ModelEventArgs> {
       }
       const neighbors = this.getNeighbors(next, options)
       neighbors.forEach((neighbor) => {
-        distance[neighbor.id] = distance[next.id] + 1
-        queue.push(neighbor)
+          throw new Error("STUB");
       })
     }
   }
@@ -1268,8 +964,7 @@ export class Model extends Basecoat<ModelEventArgs> {
       const neighbors = this.getNeighbors(next, options)
       const lastIndex = queue.length
       neighbors.forEach((neighbor) => {
-        distance[neighbor.id] = distance[next.id] + 1
-        queue.splice(lastIndex, 0, neighbor)
+          throw new Error("STUB");
       })
     }
   }
@@ -1287,40 +982,7 @@ export class Model extends Basecoat<ModelEventArgs> {
     target: Cell | string,
     options: GetShortestPathOptions = {},
   ) {
-    const adjacencyList: DijkstraAdjacencyList = {}
-    this.getEdges().forEach((edge) => {
-      const sourceId = edge.getSourceCellId()
-      const targetId = edge.getTargetCellId()
-      if (sourceId && targetId) {
-        if (!adjacencyList[sourceId]) {
-          adjacencyList[sourceId] = []
-        }
-        if (!adjacencyList[targetId]) {
-          adjacencyList[targetId] = []
-        }
-
-        adjacencyList[sourceId].push(targetId)
-        if (!options.directed) {
-          adjacencyList[targetId].push(sourceId)
-        }
-      }
-    })
-
-    const sourceId = typeof source === 'string' ? source : source.id
-    const previous = dijkstra(adjacencyList, sourceId, options.weight)
-
-    const path = []
-    let targetId = typeof target === 'string' ? target : target.id
-    if (previous[targetId]) {
-      path.push(targetId)
-    }
-
-    while (previous[targetId]) {
-      const prev = previous[targetId]
-      path.unshift(prev)
-      targetId = prev
-    }
-    return path
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1332,9 +994,9 @@ export class Model extends Basecoat<ModelEventArgs> {
    */
   translate(tx: number, ty: number, options: CellTranslateOptions) {
     this.getCells()
-      .filter((cell) => !cell.hasParent())
+      .filter((cell) => { throw new Error("STUB"); })
       .forEach((cell) => {
-        cell.translate(tx, ty, options)
+          throw new Error("STUB");
       })
 
     return this
@@ -1356,7 +1018,7 @@ export class Model extends Basecoat<ModelEventArgs> {
       const sy = Math.max(height / bbox.height, 0)
       const origin = bbox.getOrigin()
       cells.forEach((cell) => {
-        cell.scale(sx, sy, origin, options)
+          throw new Error("STUB");
       })
     }
 
@@ -1388,8 +1050,8 @@ export class Model extends Basecoat<ModelEventArgs> {
         nodes?: NodeMetadata[]
         edges?: EdgeMetadata[]
       }
-      const updateNodes = nodes.filter((node) => !this.nodes[node.id]) || []
-      const updateEdges = edges.filter((edge) => !this.edges[edge.id]) || []
+      const updateNodes = nodes.filter((node) => { throw new Error("STUB"); }) || []
+      const updateEdges = edges.filter((edge) => { throw new Error("STUB"); }) || []
       cells = this.parseJSON({
         ...rest,
         nodes: updateNodes,
@@ -1426,8 +1088,7 @@ export class Model extends Basecoat<ModelEventArgs> {
   hasActiveBatch(
     name: BatchName | BatchName[] = Object.keys(this.batches) as BatchName[],
   ) {
-    const names = Array.isArray(name) ? name : [name]
-    return names.some((batch) => this.batches[batch] > 0)
+      throw new Error("STUB");
   }
 
   // #endregion

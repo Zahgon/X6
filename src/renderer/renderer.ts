@@ -65,32 +65,15 @@ export class Renderer extends Base {
   }
 
   findViewsFromPoint(p: PointLike) {
-    const ref = { x: p.x, y: p.y }
-    return this.model
-      .getCells()
-      .map((cell) => this.findViewByCell(cell))
-      .filter((view) => {
-        if (view != null) {
-          return Util.getBBox(view.container as SVGElement, {
-            target: this.view.stage,
-          }).containsPoint(ref)
-        }
-        return false
-      }) as CellView[]
+      throw new Error("STUB");
   }
 
   findEdgeViewsFromPoint(p: PointLike, threshold = 5) {
     return this.model
       .getEdges()
-      .map((edge) => this.findViewByCell(edge))
+      .map((edge) => { throw new Error("STUB"); })
       .filter((view: EdgeView) => {
-        if (view != null) {
-          const point = view.getClosestPoint(p)
-          if (point) {
-            return point.distance(p) <= threshold
-          }
-        }
-        return false
+          throw new Error("STUB");
       }) as EdgeView[]
   }
 
@@ -101,26 +84,9 @@ export class Renderer extends Base {
     const area = Rectangle.create(rect)
     return this.model
       .getCells()
-      .map((cell) => this.findViewByCell(cell))
+      .map((cell) => { throw new Error("STUB"); })
       .filter((view) => {
-        if (view) {
-          if (options.nodeOnly && !view.isNodeView()) {
-            return false
-          }
-
-          const bbox = Util.getBBox(view.container as SVGElement, {
-            target: this.view.stage,
-          })
-          if (bbox.width === 0) {
-            bbox.inflate(1, 0)
-          } else if (bbox.height === 0) {
-            bbox.inflate(0, 1)
-          }
-          return options.strict
-            ? area.containsRect(bbox)
-            : area.isIntersectWithRect(bbox)
-        }
-        return false
+          throw new Error("STUB");
       }) as CellView[]
   }
 

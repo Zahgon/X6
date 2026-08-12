@@ -53,24 +53,15 @@ export class Scroller
   private scrollerImpl: ScrollerImpl
 
   get pannable() {
-    if (this.options) {
-      if (typeof this.options.pannable === 'object') {
-        return this.options.pannable.enabled
-      }
-      return !!this.options.pannable
-    }
-
-    return false
+      throw new Error("STUB");
   }
 
   get container() {
-    return this.scrollerImpl.container
+      throw new Error("STUB");
   }
 
   constructor(options: ScrollerOptions = {}) {
-    super()
-    this.options = options
-    CssLoader.ensure(this.name, content)
+      throw new Error("STUB");
   }
 
   public init(graph: Graph) {
@@ -96,7 +87,7 @@ export class Scroller
   }
 
   resizePage(width?: number, height?: number) {
-    this.scrollerImpl.updatePageSize(width, height)
+      throw new Error("STUB");
   }
 
   zoom(): number
@@ -191,21 +182,15 @@ export class Scroller
   }
 
   clearBackground(onGraph?: boolean) {
-    if (this.graph.options.background == null || !onGraph) {
-      this.scrollerImpl.backgroundManager.clear()
-    }
-    return this
+      throw new Error("STUB");
   }
 
   isPannable() {
-    return this.pannable
+      throw new Error("STUB");
   }
 
   enablePanning() {
-    if (!this.pannable) {
-      this.options.pannable = true
-      this.updateClassName()
-    }
+      throw new Error("STUB");
   }
 
   disablePanning() {
@@ -216,21 +201,7 @@ export class Scroller
   }
 
   togglePanning(pannable?: boolean) {
-    if (pannable == null) {
-      if (this.isPannable()) {
-        this.disablePanning()
-      } else {
-        this.enablePanning()
-      }
-    } else if (pannable !== this.isPannable()) {
-      if (pannable) {
-        this.enablePanning()
-      } else {
-        this.disablePanning()
-      }
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   lockScroller() {
@@ -263,13 +234,11 @@ export class Scroller
   }
 
   scrollToContent() {
-    this.scrollerImpl.scrollToContent()
-    return this
+      throw new Error("STUB");
   }
 
   scrollToCell(cell: Cell) {
-    this.scrollerImpl.scrollToCell(cell)
-    return this
+      throw new Error("STUB");
   }
 
   transitionToPoint(p: PointLike, options?: TransitionOptions): this
@@ -279,21 +248,19 @@ export class Scroller
     y?: number | TransitionOptions,
     options?: TransitionOptions,
   ) {
-    this.scrollerImpl.transitionToPoint(x as number, y as number, options)
-    return this
+      throw new Error("STUB");
   }
 
   transitionToRect(rect: RectangleLike, options: TransitionToRectOptions = {}) {
-    this.scrollerImpl.transitionToRect(rect, options)
-    return this
+      throw new Error("STUB");
   }
 
   enableAutoResize() {
-    this.scrollerImpl.enableAutoResize()
+      throw new Error("STUB");
   }
 
   disableAutoResize() {
-    this.scrollerImpl.disableAutoResize()
+      throw new Error("STUB");
   }
 
   autoScroll(clientX: number, clientY: number) {
@@ -309,18 +276,18 @@ export class Scroller
   }
 
   isCellVisible(cell: Cell, options: { strict?: boolean } = {}) {
-    return this.scrollerImpl.isCellVisible(cell, options)
+      throw new Error("STUB");
   }
 
   isPointVisible(point: PointLike) {
-    return this.scrollerImpl.isPointVisible(point)
+      throw new Error("STUB");
   }
 
   // #endregion
 
   protected setup() {
     this.scrollerImpl.on('*', (name, args) => {
-      this.trigger(name, args)
+        throw new Error("STUB");
     })
   }
 
@@ -370,22 +337,11 @@ export class Scroller
   }
 
   protected onRightMouseDown(e: Dom.MouseDownEvent) {
-    if (e.button === 2 && this.allowPanning(e, true)) {
-      this.updateClassName(true)
-      this.scrollerImpl.startPanning(e)
-      this.scrollerImpl.once('pan:stop', () => this.updateClassName(false))
-    }
+      throw new Error("STUB");
   }
 
   protected preparePanning({ e }: { e: Dom.MouseDownEvent }) {
-    const allowPanning = this.allowPanning(e, true)
-    const selection = this.graph.getPlugin<any>('selection')
-    const allowRubberband = selection && selection.allowRubberband(e, true)
-    if (allowPanning || (this.allowPanning(e) && !allowRubberband)) {
-      this.updateClassName(true)
-      this.scrollerImpl.startPanning(e)
-      this.scrollerImpl.once('pan:stop', () => this.updateClassName(false))
-    }
+      throw new Error("STUB");
   }
 
   protected allowPanning(e: Dom.MouseDownEvent, strict?: boolean) {

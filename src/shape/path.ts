@@ -32,11 +32,6 @@ export const Path = Base.define({
     },
   },
   propHooks(metadata) {
-    const { path, ...others } = metadata
-    if (path) {
-      ObjectExt.setByPath(others, 'attrs/body/refD', path)
-    }
-
-    return others
+      throw new Error("STUB");
   },
 })

@@ -26,7 +26,7 @@ export class Vertices extends ToolItem<EdgeView, Options> {
       cursor: 'move',
       'stroke-width': 2,
     },
-    createHandle: (options) => new Handle(options),
+    createHandle: (options) => { throw new Error("STUB"); },
     markup: [
       {
         tagName: 'path',
@@ -48,7 +48,7 @@ export class Vertices extends ToolItem<EdgeView, Options> {
 
   protected handles: Handle[] = []
   protected get vertices() {
-    return this.cellView.cell.getVertices()
+      throw new Error("STUB");
   }
 
   protected onRender() {
@@ -82,8 +82,7 @@ export class Vertices extends ToolItem<EdgeView, Options> {
     this.handles = []
     if (handles) {
       handles.forEach((handle) => {
-        this.stopHandleListening(handle)
-        handle.remove()
+          throw new Error("STUB");
       })
     }
   }
@@ -97,7 +96,7 @@ export class Vertices extends ToolItem<EdgeView, Options> {
       const handle = createHandle({
         index: i,
         graph: this.graph,
-        guard: (evt: Dom.EventObject) => this.guard(evt), // eslint-disable-line no-loop-func
+        guard: (evt: Dom.EventObject) => { throw new Error("STUB"); }, // eslint-disable-line no-loop-func
         attrs: this.options.attrs || {},
       })
 
@@ -158,45 +157,19 @@ export class Vertices extends ToolItem<EdgeView, Options> {
   }
 
   protected getNeighborPoints(index: number) {
-    const edgeView = this.cellView
-    const vertices = this.vertices
-    const prev = index > 0 ? vertices[index - 1] : edgeView.sourceAnchor
-    const next =
-      index < vertices.length - 1 ? vertices[index + 1] : edgeView.targetAnchor
-    return {
-      prev: Point.create(prev),
-      next: Point.create(next),
-    }
+      throw new Error("STUB");
   }
 
   protected getMouseEventArgs<T extends Dom.EventObject>(evt: T) {
-    const e = this.normalizeEvent(evt)
-    const { x, y } = this.graph.snapToGrid(e.clientX!, e.clientY!)
-    return { e, x, y }
+      throw new Error("STUB");
   }
 
   protected onHandleChange({ e }: EventArgs['change']) {
-    this.focus()
-    const edgeView = this.cellView
-    edgeView.cell.startBatch('move-vertex', { ui: true, toolId: this.cid })
-    if (!this.options.stopPropagation) {
-      const { e: evt, x, y } = this.getMouseEventArgs(e)
-      this.eventData(evt, { start: { x, y } })
-      edgeView.notifyMouseDown(evt, x, y)
-    }
+      throw new Error("STUB");
   }
 
   protected onHandleChanging({ handle, e }: EventArgs['changing']) {
-    const edgeView = this.cellView
-    const index = handle.options.index
-    const { e: evt, x, y } = this.getMouseEventArgs(e)
-    const vertex = { x, y }
-    this.snapVertex(vertex, index)
-    edgeView.cell.setVertexAt(index, vertex, { ui: true, toolId: this.cid })
-    handle.updatePosition(vertex.x, vertex.y)
-    if (!this.options.stopPropagation) {
-      edgeView.notifyMouseMove(evt, x, y)
-    }
+      throw new Error("STUB");
   }
 
   protected stopBatch(vertexAdded: boolean) {
@@ -207,110 +180,23 @@ export class Vertices extends ToolItem<EdgeView, Options> {
   }
 
   protected onHandleChanged({ e }: EventArgs['changed']) {
-    const options = this.options
-    const edgeView = this.cellView
-
-    if (options.addable) {
-      this.updatePath()
-    }
-
-    if (options.removeRedundancies) {
-      const verticesRemoved = edgeView.removeRedundantLinearVertices({
-        ui: true,
-        toolId: this.cid,
-      })
-
-      if (verticesRemoved) {
-        this.render()
-      }
-    }
-
-    this.blur()
-
-    this.stopBatch(this.eventData(e).vertexAdded)
-
-    const { e: evt, x, y } = this.getMouseEventArgs(e)
-
-    if (!this.options.stopPropagation) {
-      edgeView.notifyMouseUp(evt, x, y)
-      const { start } = this.eventData(evt)
-      if (start) {
-        const { x: startX, y: startY } = start
-        if (startX === x && startY === y) {
-          edgeView.onClick(evt as unknown as Dom.ClickEvent, x, y)
-        }
-      }
-    }
-
-    edgeView.checkMouseleave(evt)
-
-    options.onChanged && options.onChanged({ edge: edgeView.cell, edgeView })
+      throw new Error("STUB");
   }
 
   protected snapVertex(vertex: PointLike, index: number) {
-    const snapRadius = this.options.snapRadius || 0
-    if (snapRadius > 0) {
-      const neighbors = this.getNeighborPoints(index)
-      const prev = neighbors.prev
-      const next = neighbors.next
-      if (Math.abs(vertex.x - prev.x) < snapRadius) {
-        vertex.x = prev.x
-      } else if (Math.abs(vertex.x - next.x) < snapRadius) {
-        vertex.x = next.x
-      }
-
-      if (Math.abs(vertex.y - prev.y) < snapRadius) {
-        vertex.y = neighbors.prev.y
-      } else if (Math.abs(vertex.y - next.y) < snapRadius) {
-        vertex.y = next.y
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected onHandleRemove({ handle, e }: EventArgs['remove']) {
-    if (this.options.removable) {
-      const index = handle.options.index
-      const edgeView = this.cellView
-      edgeView.cell.removeVertexAt(index, { ui: true })
-      if (this.options.addable) {
-        this.updatePath()
-      }
-      edgeView.checkMouseleave(this.normalizeEvent(e))
-    }
+      throw new Error("STUB");
   }
 
   protected allowAddVertex(e: Dom.MouseDownEvent) {
-    const guard = this.guard(e)
-    const addable = this.options.addable && this.cellView.can('vertexAddable')
-    const matchModifiers = this.options.modifiers
-      ? isModifierKeyMatch(e, this.options.modifiers)
-      : true
-    return !guard && addable && matchModifiers
+      throw new Error("STUB");
   }
 
   protected onPathMouseDown(evt: Dom.MouseDownEvent) {
-    const edgeView = this.cellView
-
-    if (!this.allowAddVertex(evt)) {
-      return
-    }
-
-    evt.stopPropagation()
-    evt.preventDefault()
-
-    const e = this.normalizeEvent(evt)
-    const vertex = this.graph.snapToGrid(e.clientX, e.clientY).toJSON()
-    edgeView.cell.startBatch('add-vertex', { ui: true, toolId: this.cid })
-    const index = edgeView.getVertexIndex(vertex.x, vertex.y)
-    this.snapVertex(vertex, index)
-    edgeView.cell.insertVertex(vertex, index, {
-      ui: true,
-      toolId: this.cid,
-    })
-    this.render()
-    const handle = this.handles[index]
-    this.eventData(e, { vertexAdded: true })
-    handle.onMouseDown(e)
+      throw new Error("STUB");
   }
 
   protected onRemove() {
@@ -333,17 +219,11 @@ interface Options extends ToolItemOptions {
 
 export class Handle extends View<EventArgs> {
   protected get graph() {
-    return this.options.graph
+      throw new Error("STUB");
   }
 
   constructor(public readonly options: HandleOptions) {
-    super()
-    this.render()
-    this.delegateEvents({
-      mousedown: 'onMouseDown',
-      touchstart: 'onMouseDown',
-      dblclick: 'onDoubleClick',
-    })
+      throw new Error("STUB");
   }
 
   render() {
@@ -400,7 +280,7 @@ export class Handle extends View<EventArgs> {
   }
 
   protected onDoubleClick(evt: Dom.DoubleClickEvent) {
-    this.emit('remove', { e: evt, handle: this })
+      throw new Error("STUB");
   }
 }
 

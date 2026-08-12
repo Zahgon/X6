@@ -5,21 +5,19 @@ export class Base extends Disposable {
   public readonly graph: Graph
 
   public get options() {
-    return this.graph.options
+      throw new Error("STUB");
   }
 
   public get model() {
-    return this.graph.model
+      throw new Error("STUB");
   }
 
   public get view() {
-    return this.graph.view
+      throw new Error("STUB");
   }
 
   constructor(graph: Graph) {
-    super()
-    this.graph = graph
-    this.init()
+      throw new Error("STUB");
   }
 
   protected init() {}

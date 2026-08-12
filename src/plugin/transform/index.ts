@@ -50,9 +50,7 @@ export class Transform
   private disabled = false
 
   constructor(options: Options = {}) {
-    super()
-    this.options = options
-    CssLoader.ensure(this.name, content)
+      throw new Error("STUB");
   }
 
   init(graph: Graph) {
@@ -97,18 +95,17 @@ export class Transform
     if (widget) {
       this.widgets.set(node, widget)
       widget.on('*', (name, args) => {
-        this.trigger(name, args)
-        this.graph.trigger(name, args)
+          throw new Error("STUB");
       })
     }
   }
 
   protected onNodeClick({ node }: EventArgs['node:click']) {
-    this.createWidget(node)
+      throw new Error("STUB");
   }
 
   protected onBlankMouseDown() {
-    this.clearWidgets()
+      throw new Error("STUB");
   }
 
   protected createTransform(node: Node) {
@@ -127,8 +124,7 @@ export class Transform
   >(graph: Graph, arg: T, options: S): K {
     const result: any = {}
     Object.keys(options || {}).forEach((key) => {
-      const val = options[key]
-      result[key] = typeof val === 'function' ? val.call(graph, arg) : val
+        throw new Error("STUB");
     })
     return result
   }
@@ -195,9 +191,7 @@ export class Transform
 
   clearWidgets() {
     this.widgets.forEach((widget, node) => {
-      if (this.graph.getCellById(node.id)) {
-        widget.dispose()
-      }
+        throw new Error("STUB");
     })
     this.widgets.clear()
   }

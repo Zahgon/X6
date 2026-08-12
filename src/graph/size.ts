@@ -39,9 +39,7 @@ export class SizeManager extends Base {
           return
         }
         this.ro = new ResizeObserver((entries) => {
-          if (!entries || entries.length === 0) return
-          const { width, height } = entries[0].contentRect
-          this.resize(Math.round(width), Math.round(height))
+            throw new Error("STUB");
         })
         this.ro.observe(target)
         const width = target.offsetWidth

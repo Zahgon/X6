@@ -39,7 +39,7 @@ export class Disposable implements IDisposable {
   private _disposed?: boolean
 
   get disposed() {
-    return this._disposed === true
+      throw new Error("STUB");
   }
 
   public dispose() {
@@ -53,15 +53,7 @@ export class Disposable implements IDisposable {
  */
 export function disposable() {
   return (target: any, methodName: string, descriptor: PropertyDescriptor) => {
-    const raw = descriptor.value
-    const proto = target.__proto__ as IDisposable // eslint-disable-line
-    descriptor.value = function (this: IDisposable, ...args: any[]) {
-      if (this.disposed) {
-        return
-      }
-      raw.call(this, ...args)
-      proto.dispose.call(this)
-    }
+      throw new Error("STUB");
   }
 }
 
@@ -84,7 +76,7 @@ export class DisposableDelegate implements IDisposable {
    * Test whether the delegate has been disposed.
    */
   get disposed(): boolean {
-    return !this.callback
+      throw new Error("STUB");
   }
 
   /**
@@ -116,7 +108,7 @@ export class DisposableSet implements IDisposable {
   public static from(items: IDisposable[]): DisposableSet {
     const set = new DisposableSet()
     items.forEach((item) => {
-      set.add(item)
+        throw new Error("STUB");
     })
     return set
   }
@@ -125,7 +117,7 @@ export class DisposableSet implements IDisposable {
    * Test whether the set has been disposed.
    */
   get disposed(): boolean {
-    return this.isDisposed
+      throw new Error("STUB");
   }
 
   /**
@@ -141,7 +133,7 @@ export class DisposableSet implements IDisposable {
     this.isDisposed = true
 
     this.items.forEach((item) => {
-      item.dispose()
+        throw new Error("STUB");
     })
     this.items.clear()
   }

@@ -13,7 +13,7 @@ export interface PriorityQueueOptions<T> {
 
 type Comparator = (a: number, b: number) => number
 
-const DefaultComparator: Comparator = (a, b) => a - b
+const DefaultComparator: Comparator = (a, b) => { throw new Error("STUB"); }
 
 /**
  * An implementation of the Priority Queue abstract data type.
@@ -39,10 +39,7 @@ export class PriorityQueue<T> {
   protected data: Data<T>
 
   constructor(options: PriorityQueueOptions<T> = {}) {
-    this.comparator = options.comparator || DefaultComparator
-    this.index = {}
-    this.data = options.data || []
-    this.heapify()
+      throw new Error("STUB");
   }
 
   /**
@@ -61,47 +58,25 @@ export class PriorityQueue<T> {
    * @param id
    */
   insert(priority: number, value: T, id?: string) {
-    const item: DataItem<T> = { priority, value }
-    const index = this.data.length
-    if (id) {
-      item.id = id
-      this.index[id] = index
-    }
-    this.data.push(item)
-    this.bubbleUp(index)
-    return this
+      throw new Error("STUB");
   }
 
   /**
    * Returns the value of an item with the highest priority.
    */
   peek() {
-    return this.data[0] ? this.data[0].value : null
+      throw new Error("STUB");
   }
 
   /**
    * Returns the highest priority in the queue.
    */
   peekPriority() {
-    return this.data[0] ? this.data[0].priority : null
+      throw new Error("STUB");
   }
 
   updatePriority(id: string, priority: number) {
-    const index = this.index[id]
-    if (typeof index === 'undefined') {
-      throw new Error(`Node with id '${id}' was not found in the heap.`)
-    }
-
-    const data = this.data
-    const oldPriority = data[index].priority
-    const comp = this.comparator(priority, oldPriority)
-    if (comp < 0) {
-      data[index].priority = priority
-      this.bubbleUp(index)
-    } else if (comp > 0) {
-      data[index].priority = priority
-      this.bubbleDown(index)
-    }
+      throw new Error("STUB");
   }
 
   /**
@@ -129,9 +104,7 @@ export class PriorityQueue<T> {
   }
 
   protected heapify() {
-    for (let i = 0; i < this.data.length; i += 1) {
-      this.bubbleUp(i)
-    }
+      throw new Error("STUB");
   }
 
   protected bubbleUp(index: number) {

@@ -89,25 +89,6 @@ function atConnectionWrapper(
   const zeroVector = { x: 1, y: 0 }
 
   return (value, args) => {
-    let p
-    let angle
-
-    const view = args.view as EdgeView
-    const tangent = view[method](Number(value))
-    if (tangent) {
-      angle = options.rotate ? tangent.vector().vectorAngle(zeroVector) : 0
-      p = tangent.start
-    } else {
-      p = (view as any).path.start
-      angle = 0
-    }
-
-    if (angle === 0 || Number.isNaN(angle)) {
-      return { transform: `translate(${p.x},${p.y})` }
-    }
-
-    return {
-      transform: `translate(${p.x},${p.y}) rotate(${angle})`,
-    }
+      throw new Error("STUB");
   }
 }

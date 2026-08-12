@@ -35,22 +35,6 @@ function createBBoxAnchor(
     | 'bottomRight',
 ): NodeAnchorDefinition<BBoxEndpointOptions> {
   return (view, magnet, ref, options: BBoxEndpointOptions = {}) => {
-    let bbox
-    if (view.cell.visible) {
-      bbox = options.rotate
-        ? view.getUnrotatedBBoxOfElement(magnet)
-        : view.getBBoxOfElement(magnet)
-    } else {
-      bbox = view.cell.getBBox()
-    }
-    const result = bbox[method]
-
-    result.x += NumberExt.normalizePercentage(options.dx, bbox.width)
-    result.y += NumberExt.normalizePercentage(options.dy, bbox.height)
-
-    const cell = view.cell
-    return options.rotate
-      ? result.rotate(-cell.getAngle(), cell.getBBox().getCenter())
-      : result
+      throw new Error("STUB");
   }
 }

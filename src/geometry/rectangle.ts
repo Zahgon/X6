@@ -98,35 +98,35 @@ export class Rectangle extends Geometry implements RectangleLike {
   public height: number
 
   public get left() {
-    return this.x
+      throw new Error("STUB");
   }
 
   public get top() {
-    return this.y
+      throw new Error("STUB");
   }
 
   public get right() {
-    return this.x + this.width
+      throw new Error("STUB");
   }
 
   public get bottom() {
-    return this.y + this.height
+      throw new Error("STUB");
   }
 
   public get origin() {
-    return new Point(this.x, this.y)
+      throw new Error("STUB");
   }
 
   public get topLeft() {
-    return new Point(this.x, this.y)
+      throw new Error("STUB");
   }
 
   public get topCenter() {
-    return new Point(this.x + this.width / 2, this.y)
+      throw new Error("STUB");
   }
 
   public get topRight() {
-    return new Point(this.x + this.width, this.y)
+      throw new Error("STUB");
   }
 
   public get center() {
@@ -134,43 +134,43 @@ export class Rectangle extends Geometry implements RectangleLike {
   }
 
   public get bottomLeft() {
-    return new Point(this.x, this.y + this.height)
+      throw new Error("STUB");
   }
 
   public get bottomCenter() {
-    return new Point(this.x + this.width / 2, this.y + this.height)
+      throw new Error("STUB");
   }
 
   public get bottomRight() {
-    return new Point(this.x + this.width, this.y + this.height)
+      throw new Error("STUB");
   }
 
   public get corner() {
-    return new Point(this.x + this.width, this.y + this.height)
+      throw new Error("STUB");
   }
 
   public get rightMiddle() {
-    return new Point(this.x + this.width, this.y + this.height / 2)
+      throw new Error("STUB");
   }
 
   public get leftMiddle() {
-    return new Point(this.x, this.y + this.height / 2)
+      throw new Error("STUB");
   }
 
   public get topLine() {
-    return new Line(this.topLeft, this.topRight)
+      throw new Error("STUB");
   }
 
   public get rightLine() {
-    return new Line(this.topRight, this.bottomRight)
+      throw new Error("STUB");
   }
 
   public get bottomLine() {
-    return new Line(this.bottomLeft, this.bottomRight)
+      throw new Error("STUB");
   }
 
   public get leftLine() {
-    return new Line(this.topLeft, this.bottomLeft)
+      throw new Error("STUB");
   }
 
   constructor(x?: number, y?: number, width?: number, height?: number) {
@@ -202,11 +202,11 @@ export class Rectangle extends Geometry implements RectangleLike {
   }
 
   getCenterX() {
-    return this.x + this.width / 2
+      throw new Error("STUB");
   }
 
   getCenterY() {
-    return this.y + this.height / 2
+      throw new Error("STUB");
   }
 
   getBottomLeft() {
@@ -234,19 +234,19 @@ export class Rectangle extends Geometry implements RectangleLike {
   }
 
   getTopLine() {
-    return this.topLine
+      throw new Error("STUB");
   }
 
   getRightLine() {
-    return this.rightLine
+      throw new Error("STUB");
   }
 
   getBottomLine() {
-    return this.bottomLine
+      throw new Error("STUB");
   }
 
   getLeftLine() {
-    return this.leftLine
+      throw new Error("STUB");
   }
 
   /**
@@ -397,14 +397,7 @@ export class Rectangle extends Geometry implements RectangleLike {
   }
 
   rotate90() {
-    const t = (this.width - this.height) / 2
-    this.x += t
-    this.y -= t
-    const tmp = this.width
-    this.width = this.height
-    this.height = tmp
-
-    return this
+      throw new Error("STUB");
   }
 
   /**
@@ -497,8 +490,7 @@ export class Rectangle extends Geometry implements RectangleLike {
     limit: RectangleLike | RectangleData,
     origin: Point = this.center,
   ) {
-    const scale = this.getMaxScaleToFit(limit, origin)
-    return Math.min(scale.sx, scale.sy)
+      throw new Error("STUB");
   }
 
   /**
@@ -556,11 +548,7 @@ export class Rectangle extends Geometry implements RectangleLike {
     const points: Point[] = []
     const dedupeArr: string[] = []
     rectLines.forEach((l) => {
-      const p = line.intersectsWithLine(l)
-      if (p !== null && dedupeArr.indexOf(p.toString()) < 0) {
-        points.push(p)
-        dedupeArr.push(p.toString())
-      }
+        throw new Error("STUB");
     })
 
     return points.length > 0 ? points : null

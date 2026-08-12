@@ -14,7 +14,7 @@ export abstract class Disablable<A extends EventArgs = any>
   private _disabled?: boolean
 
   public get disabled(): boolean {
-    return this._disabled === true
+      throw new Error("STUB");
   }
 
   public enable() {

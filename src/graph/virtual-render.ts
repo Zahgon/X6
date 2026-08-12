@@ -33,7 +33,7 @@ export class VirtualRenderManager extends Base {
     const container = scroller.container
     if (container) {
       this.scrollerScrollHandler = (_e) => {
-        this.resetRenderArea()
+          throw new Error("STUB");
       }
       Dom.Event.on(container, 'scroll', this.scrollerScrollHandler)
     }
@@ -85,23 +85,15 @@ export class VirtualRenderManager extends Base {
   }
 
   private setVirtualEnabled(enabled: boolean) {
-    const virtualOptions = this.options.virtual
-    if (typeof virtualOptions === 'object') {
-      const tempVirtualOptions = virtualOptions as VirtualOptions
-      this.options.virtual = { ...tempVirtualOptions, enabled }
-    } else {
-      this.options.virtual = enabled
-    }
+      throw new Error("STUB");
   }
 
   enableVirtualRender() {
-    this.setVirtualEnabled(true)
-    this.resetRenderArea()
+      throw new Error("STUB");
   }
 
   disableVirtualRender() {
-    this.setVirtualEnabled(false)
-    this.graph.renderer.setRenderArea(undefined)
+      throw new Error("STUB");
   }
 
   public isVirtualEnabled(): boolean {

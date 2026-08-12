@@ -101,38 +101,27 @@ export class TransformImpl extends View<TransformImplEventArgs> {
   public container: HTMLElement
 
   protected get model() {
-    return this.graph.model
+      throw new Error("STUB");
   }
 
   protected get view() {
-    return this.graph.renderer.findViewByCell(this.node)!
+      throw new Error("STUB");
   }
 
   protected get containerClassName() {
-    return this.prefixClassName('widget-transform')
+      throw new Error("STUB");
   }
 
   protected get resizeClassName() {
-    return `${this.containerClassName}-resize`
+      throw new Error("STUB");
   }
 
   protected get rotateClassName() {
-    return `${this.containerClassName}-rotate`
+      throw new Error("STUB");
   }
 
   constructor(options: TransformImplOptions, node: Node, graph: Graph) {
-    super()
-
-    this.node = node
-    this.graph = graph
-
-    this.options = {
-      ...defaultOptions,
-      ...options,
-    }
-
-    this.render()
-    this.startListening()
+      throw new Error("STUB");
   }
 
   protected startListening() {
@@ -177,10 +166,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
     Dom.addClass(rotate, this.rotateClassName)
 
     const resizes = POSITIONS.map((pos) => {
-      const elem = knob.cloneNode(true) as Element
-      Dom.addClass(elem, this.resizeClassName)
-      Dom.attr(elem, 'data-position', pos)
-      return elem
+        throw new Error("STUB");
     })
     this.empty()
     Dom.append(this.container, [...resizes, rotate])
@@ -245,11 +231,11 @@ export class TransformImpl extends View<TransformImplEventArgs> {
   }
 
   protected onKnobMouseDown() {
-    this.startHandle()
+      throw new Error("STUB");
   }
 
   protected onKnobMouseUp() {
-    this.stopHandle()
+      throw new Error("STUB");
   }
 
   protected updateResizerDirections() {
@@ -272,11 +258,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
         `.${this.resizeClassName}`,
       )
       resizes.forEach((resize, index) => {
-        Dom.removeClass(
-          resize,
-          DIRECTIONS.map((dir) => className(dir)).join(' '),
-        )
-        Dom.addClass(resize, className(directions[index]))
+          throw new Error("STUB");
       })
 
       this.prevShift = shift
@@ -307,11 +289,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
   }
 
   protected startResizing(evt: Dom.MouseDownEvent) {
-    evt.stopPropagation()
-    this.model.startBatch('resize', { cid: this.cid })
-    const dir = Dom.attr(evt.target, 'data-position') as ResizeDirection
-    this.prepareResizing(evt, dir)
-    this.startAction(evt)
+      throw new Error("STUB");
   }
 
   protected prepareResizing(
@@ -322,8 +300,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
     let rx = 0
     let ry = 0
     relativeDirection.split('-').forEach((direction) => {
-      rx = ({ left: -1, right: 1 } as KeyValue)[direction] || rx
-      ry = ({ top: -1, bottom: 1 } as KeyValue)[direction] || ry
+        throw new Error("STUB");
     })
 
     const direction = this.toValidResizeDirection(relativeDirection)
@@ -350,20 +327,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
   }
 
   protected startRotating(evt: Dom.MouseDownEvent) {
-    evt.stopPropagation()
-
-    this.model.startBatch('rotate', { cid: this.cid })
-
-    const center = this.node.getBBox().getCenter()
-    const e = this.normalizeEvent(evt)
-    const client = this.graph.snapToGrid(e.clientX, e.clientY)
-    this.setEventData<EventDataRotating>(evt, {
-      center,
-      action: 'rotating',
-      angle: Angle.normalize(this.node.getAngle()),
-      start: Point.create(client).theta(center),
-    })
-    this.startAction(evt)
+      throw new Error("STUB");
   }
 
   protected onMouseMove(evt: Dom.MouseMoveEvent) {
@@ -590,9 +554,7 @@ export class TransformImpl extends View<TransformImplEventArgs> {
   }
 
   protected startAction(evt: Dom.MouseDownEvent) {
-    this.startHandle(evt.target)
-    this.graph.view.undelegateEvents()
-    this.delegateDocumentEvents(DocumentEvents, evt.data)
+      throw new Error("STUB");
   }
 
   protected stopAction(evt: Dom.MouseUpEvent) {

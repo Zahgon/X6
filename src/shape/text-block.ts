@@ -64,11 +64,7 @@ export const TextBlockConfig: NodeConfig = {
     },
   },
   propHooks(metadata) {
-    const { text, ...others } = metadata
-    if (text) {
-      ObjectExt.setByPath(others, 'attrs/label/text', text)
-    }
-    return others
+      throw new Error("STUB");
   },
   attrHooks: {
     text: {

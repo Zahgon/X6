@@ -21,11 +21,11 @@ export class Base<
   Properties extends NodeProperties = NodeProperties,
 > extends Node<Properties> {
   get label() {
-    return this.getLabel()
+      throw new Error("STUB");
   }
 
   set label(val: string | undefined | null) {
-    this.setLabel(val)
+      throw new Error("STUB");
   }
 
   getLabel() {
@@ -33,29 +33,18 @@ export class Base<
   }
 
   setLabel(label?: string | null, options?: NodeSetOptions) {
-    if (label == null) {
-      this.removeLabel()
-    } else {
-      this.setAttrByPath('text/text', label, options)
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   removeLabel() {
-    this.removeAttrByPath('text/text')
-    return this
+      throw new Error("STUB");
   }
 }
 
 Base.config({
   attrs: { text: { ...BaseLabelAttr } },
   propHooks(metadata) {
-    const { label, ...others } = metadata
-    if (label != null) {
-      ObjectExt.setByPath(others, 'attrs/text/text', label)
-    }
-    return others
+      throw new Error("STUB");
   },
   visible: true,
 })

@@ -15,17 +15,9 @@ declare module '../../graph/events' {
 }
 
 Graph.prototype.createTransformWidget = function (node) {
-  const transform = this.getPlugin('transform') as Transform
-  if (transform) {
-    transform.createWidget(node)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.clearTransformWidgets = function () {
-  const transform = this.getPlugin('transform') as Transform
-  if (transform) {
-    transform.clearWidgets()
-  }
-  return this
+    throw new Error("STUB");
 }

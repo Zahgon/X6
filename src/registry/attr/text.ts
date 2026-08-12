@@ -10,8 +10,8 @@ import type { AttrDefinition, QualifyFunction } from './index'
 
 export const text: AttrDefinition = {
   qualify(_text, { attrs }) {
-    return attrs.textWrap == null || !ObjectExt.isPlainObject(attrs.textWrap)
-  },
+        throw new Error("STUB");
+    },
   set(text, { view, elem, attrs }) {
     const cacheName = 'x6-text'
     const cache = Dom.data(elem, cacheName)
@@ -129,7 +129,7 @@ export const textWrap: AttrDefinition = {
 }
 
 const isTextInUse: QualifyFunction = (_val, { attrs }) => {
-  return attrs.text !== undefined
+    throw new Error("STUB");
 }
 
 export const lineHeight: AttrDefinition = {

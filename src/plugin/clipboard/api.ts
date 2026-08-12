@@ -29,91 +29,50 @@ declare module '../../graph/events' {
 }
 
 Graph.prototype.isClipboardEnabled = function () {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    return clipboard.isEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableClipboard = function () {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.enable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableClipboard = function () {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.disable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleClipboard = function (enabled?: boolean) {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.toggleEnabled(enabled)
-  }
-
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isClipboardEmpty = function (options?: ClipboardOptions) {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    return clipboard.isEmpty(options)
-  }
-  return true
+    throw new Error("STUB");
 }
 
 Graph.prototype.getCellsInClipboard = function () {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    return clipboard.getCellsInClipboard()
-  }
-  return []
+    throw new Error("STUB");
 }
 
 Graph.prototype.cleanClipboard = function () {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.clean()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.copy = function (
   cells: Cell[],
   options?: ClipboardImplCopyOptions,
 ) {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.copy(cells, options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.cut = function (
   cells: Cell[],
   options?: ClipboardImplCopyOptions,
 ) {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    clipboard.cut(cells, options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.paste = function (
   options?: ClipboardImplPasteOptions,
   graph?: Graph,
 ) {
-  const clipboard = this.getPlugin('clipboard') as Clipboard
-  if (clipboard) {
-    return clipboard.paste(options, graph)
-  }
-  return []
+    throw new Error("STUB");
 }

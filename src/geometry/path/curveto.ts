@@ -92,34 +92,15 @@ export class CurveTo extends Segment {
     arg4?: number,
     arg5?: number,
   ) {
-    super()
-
-    if (Curve.isCurve(arg0)) {
-      this.controlPoint1 = arg0.controlPoint1.clone().round(2)
-      this.controlPoint2 = arg0.controlPoint2.clone().round(2)
-      this.endPoint = arg0.end.clone().round(2)
-    } else if (typeof arg0 === 'number') {
-      this.controlPoint1 = new Point(arg0, arg1 as number).round(2)
-      this.controlPoint2 = new Point(arg2 as number, arg3).round(2)
-      this.endPoint = new Point(arg4, arg5).round(2)
-    } else {
-      this.controlPoint1 = Point.create(arg0).round(2)
-      this.controlPoint2 = Point.create(arg1).round(2)
-      this.endPoint = Point.create(arg2).round(2)
-    }
+      throw new Error("STUB");
   }
 
   get type() {
-    return 'C'
+      throw new Error("STUB");
   }
 
   get curve() {
-    return new Curve(
-      this.start,
-      this.controlPoint1,
-      this.controlPoint2,
-      this.end,
-    )
+      throw new Error("STUB");
   }
 
   bbox() {
@@ -139,7 +120,7 @@ export class CurveTo extends Segment {
   }
 
   closestPointTangent(p: PointOptions) {
-    return this.curve.closestPointTangent(p)
+      throw new Error("STUB");
   }
 
   length() {

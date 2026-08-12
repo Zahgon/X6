@@ -17,19 +17,7 @@ import { formatKey, isGraphEvent, isInputEvent } from './util'
  * Create a Mousetrap instance for the keyboard.
  */
 export function createMousetrap(keyboard: KeyboardImpl) {
-  const mousetrap = new Mousetrap(keyboard.target as Element)
-  const stopCallback = mousetrap.stopCallback
-  mousetrap.stopCallback = (e, elem, combo) => {
-    if (keyboard.isEnabledForEvent(e)) {
-      if (stopCallback) {
-        return stopCallback.call(mousetrap, e, elem, combo)
-      }
-      return false
-    }
-    return true
-  }
-
-  return mousetrap
+    throw new Error("STUB");
 }
 
 export class KeyboardImpl extends Disposable implements IDisablable {
@@ -38,35 +26,17 @@ export class KeyboardImpl extends Disposable implements IDisablable {
   private readonly mousetrap: Mousetrap.MousetrapInstance
 
   private get graph() {
-    return this.options.graph
+      throw new Error("STUB");
   }
 
   constructor(
     private readonly options: KeyboardImplOptions & { graph: Graph },
   ) {
-    super()
-    const scroller = this.graph.getPlugin('scroller') as any
-    this.container = scroller ? scroller.container : this.graph.container
-
-    if (options.global) {
-      this.target = document
-    } else {
-      this.target = this.container
-      if (!this.disabled) {
-        // ensure the container focusable
-        this.target.setAttribute('tabindex', '-1')
-      }
-
-      // change to mouseup event，prevent page stalling caused by focus
-      this.graph.on('cell:mouseup', this.focus.bind(this), this)
-      this.graph.on('blank:mouseup', this.focus.bind(this), this)
-    }
-
-    this.mousetrap = createMousetrap(this)
+      throw new Error("STUB");
   }
 
   get disabled() {
-    return this.options.enabled !== true
+      throw new Error("STUB");
   }
 
   enable() {
@@ -123,23 +93,12 @@ export class KeyboardImpl extends Disposable implements IDisablable {
 
   private getKeys(keys: string | string[]) {
     return (Array.isArray(keys) ? keys : [keys]).map((key) =>
-      formatKey(key, this.options.format, this.graph),
+      { throw new Error("STUB"); },
     )
   }
 
   isEnabledForEvent(e: KeyboardEvent) {
-    const allowed =
-      !this.disabled && isGraphEvent(e, this.target as Element, this.container)
-    const isInput = isInputEvent(e)
-    if (allowed) {
-      if (isInput && (e.key === 'Backspace' || e.key === 'Delete')) {
-        return false
-      }
-      if (this.options.guard) {
-        return FunctionExt.call(this.options.guard, this.graph, e)
-      }
-    }
-    return allowed
+      throw new Error("STUB");
   }
 
   @disposable()

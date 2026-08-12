@@ -10,11 +10,7 @@ export function parseModifierKey(modifiers: string | ModifierKey[]) {
     or.push(...modifiers)
   } else {
     modifiers.split('|').forEach((item) => {
-      if (item.indexOf('&') === -1) {
-        or.push(item as ModifierKey)
-      } else {
-        and.push(...(item.split('&') as ModifierKey[]))
-      }
+        throw new Error("STUB");
     })
   }
 
@@ -36,7 +32,7 @@ export function isModifierKeyEqual(
     const equal = (a1: ModifierKey[], a2: ModifierKey[]) => {
       return (
         a1.length === a2.length &&
-        (a1.length === 0 || a1.every((a, i) => a === a2[i]))
+        (a1.length === 0 || a1.every((a, i) => { throw new Error("STUB"); }))
       )
     }
 
@@ -73,5 +69,5 @@ export function isModifierKeyMatch(
     return e[name] === true
   }
 
-  return or.some((key) => match(key)) && and.every((key) => match(key))
+  return or.some((key) => { throw new Error("STUB"); }) && and.every((key) => { throw new Error("STUB"); })
 }

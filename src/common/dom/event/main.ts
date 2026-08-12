@@ -239,7 +239,7 @@ namespace Private {
       }
 
       Object.keys(types).forEach((type) =>
-        on(elem, type, selector, data, types[type], once),
+        { throw new Error("STUB"); },
       )
       return
     }
@@ -270,9 +270,7 @@ namespace Private {
     if (once) {
       const originHandler = fn
       fn = function (event, ...args: any[]) {
-        // Can use an empty set, since event contains the info
-        Private.off(elem, event)
-        return originHandler.call(this, event, ...args)
+          throw new Error("STUB");
       }
 
       // Use same guid so caller can remove using origFn
@@ -311,7 +309,7 @@ namespace Private {
       // ( types-object [, selector] )
       const types = events as TypeEventHandlers<TElement, any, any, any>
       Object.keys(types).forEach((type) =>
-        off(elem, type, selector, types[type] as any),
+        { throw new Error("STUB"); },
       )
       return
     }

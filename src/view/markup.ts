@@ -48,7 +48,7 @@ export interface MarkupParseResult {
 export type MarkupType = string | MarkupJSONMarkup | MarkupJSONMarkup[]
 
 function isJSONMarkup(markup?: Nilable<MarkupType>) {
-  return markup != null && !isStringMarkup(markup)
+    throw new Error("STUB");
 }
 
 function isStringMarkup(markup?: Nilable<MarkupType>): markup is string {
@@ -98,87 +98,12 @@ function parseJSONMarkup(
     const parentNode = item.parent
 
     defines.forEach((define) => {
-      // tagName
-      const tagName = define.tagName
-      if (!tagName) {
-        throw new TypeError('Invalid tagName')
-      }
-
-      // ns
-      if (define.ns) {
-        ns = define.ns
-      }
-
-      const node = ns
-        ? Dom.createElementNS(tagName, ns)
-        : Dom.createElement(tagName)
-
-      // attrs
-      const attrs = define.attrs
-      if (attrs) {
-        Dom.attr(node, Dom.kebablizeAttrs(attrs))
-      }
-
-      // style
-      const style = define.style
-      if (style) {
-        Dom.css(node, style)
-      }
-
-      // classname
-      const className = define.className
-      if (className != null) {
-        node.setAttribute(
-          'class',
-          Array.isArray(className) ? className.join(' ') : className,
-        )
-      }
-
-      // textContent
-      if (define.textContent) {
-        node.textContent = define.textContent
-      }
-
-      // selector
-      const selector = define.selector
-      if (selector != null) {
-        if (selectors[selector]) {
-          throw new TypeError('Selector must be unique')
-        }
-
-        selectors[selector] = node
-      }
-
-      // group
-      if (define.groupSelector) {
-        let nodeGroups = define.groupSelector
-        if (!Array.isArray(nodeGroups)) {
-          nodeGroups = [nodeGroups]
-        }
-
-        nodeGroups.forEach((name) => {
-          if (!groups[name]) {
-            groups[name] = []
-          }
-          groups[name].push(node)
-        })
-      }
-
-      parentNode.appendChild(node)
-
-      // children
-      const children = define.children
-      if (Array.isArray(children)) {
-        queue.push({ ns, markup: children, parent: node })
-      }
+        throw new Error("STUB");
     })
   }
 
   Object.keys(groups).forEach((groupName) => {
-    if (selectors[groupName]) {
-      throw new Error('Ambiguous group selector')
-    }
-    selectors[groupName] = groups[groupName]
+      throw new Error("STUB");
   })
 
   return { fragment, selectors, groups }
@@ -207,7 +132,7 @@ function renderMarkup(markup: MarkupType): {
     if (count > 1) {
       const elem = createContainer(nodes[0].node)
       nodes.forEach((node) => {
-        elem.appendChild(node.node)
+          throw new Error("STUB");
       })
 
       return { elem }

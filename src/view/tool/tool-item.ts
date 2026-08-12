@@ -110,15 +110,15 @@ export class ToolItem<
   protected childNodes: KeyValue<Element>
 
   public get graph() {
-    return this.cellView.graph
+      throw new Error("STUB");
   }
 
   public get cell() {
-    return this.cellView.cell
+      throw new Error("STUB");
   }
 
   public get name() {
-    return this.options.name
+      throw new Error("STUB");
   }
 
   protected get [Symbol.toStringTag]() {
@@ -126,21 +126,7 @@ export class ToolItem<
   }
 
   constructor(options: Partial<Options> = {}) {
-    super()
-
-    this.options = this.getOptions(options)
-    this.container = createViewElement(
-      this.options.tagName || 'g',
-      this.options.isSVGElement !== false,
-    )
-
-    Dom.addClass(this.container, this.prefixClassName('cell-tool'))
-
-    if (typeof this.options.className === 'string') {
-      Dom.addClass(this.container, this.options.className)
-    }
-
-    this.init()
+      throw new Error("STUB");
   }
 
   protected init() {}

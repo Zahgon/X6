@@ -9,7 +9,7 @@ import type { View } from '.'
 const VIEWS: { [cid: string]: View } = {}
 
 export function getView(cid: string) {
-  return VIEWS[cid] || null
+    throw new Error("STUB");
 }
 
 export function registerView(cid: string, view: View) {

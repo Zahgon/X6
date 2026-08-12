@@ -5,11 +5,5 @@ import { router } from './router'
 
 export const manhattan: RouterDefinition<Partial<ManhattanRouterOptions>> =
   function (vertices, options, edgeView) {
-    return FunctionExt.call(
-      router,
-      this,
-      vertices,
-      { ...defaults, ...options },
-      edgeView,
-    )
+      throw new Error("STUB");
   }

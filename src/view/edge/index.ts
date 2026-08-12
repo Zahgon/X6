@@ -119,43 +119,15 @@ export class EdgeView<
   }
 
   protected getContainerClassName() {
-    return [super.getContainerClassName(), this.prefixClassName('edge')].join(
-      ' ',
-    )
+      throw new Error("STUB");
   }
 
   get sourceBBox() {
-    const sourceView = this.sourceView
-    if (!sourceView || !this.graph.renderer.isViewMounted(sourceView)) {
-      const sourceCell = this.cell.getSourceCell()
-      if (sourceCell) {
-        return sourceCell.getBBox()
-      }
-      const sourcePoint = this.cell.getSourcePoint()
-      return new Rectangle(sourcePoint.x, sourcePoint.y)
-    }
-    const sourceMagnet = this.sourceMagnet
-    if (sourceView.isEdgeElement(sourceMagnet)) {
-      return new Rectangle(this.sourceAnchor.x, this.sourceAnchor.y)
-    }
-    return sourceView.getBBoxOfElement(sourceMagnet || sourceView.container)
+      throw new Error("STUB");
   }
 
   get targetBBox() {
-    const targetView = this.targetView
-    if (!targetView || !this.graph.renderer.isViewMounted(targetView)) {
-      const targetCell = this.cell.getTargetCell()
-      if (targetCell) {
-        return targetCell.getBBox()
-      }
-      const targetPoint = this.cell.getTargetPoint()
-      return new Rectangle(targetPoint.x, targetPoint.y)
-    }
-    const targetMagnet = this.targetMagnet
-    if (targetView.isEdgeElement(targetMagnet)) {
-      return new Rectangle(this.targetAnchor.x, this.targetAnchor.y)
-    }
-    return targetView.getBBoxOfElement(targetMagnet || targetView.container)
+      throw new Error("STUB");
   }
 
   isEdgeView(): this is EdgeView {
@@ -183,9 +155,9 @@ export class EdgeView<
       ref = this.removeAction(ref, ['render', 'update', 'labels', 'tools'])
       return ref
     }
-    ref = this.handleAction(ref, 'update', () => this.update(options))
-    ref = this.handleAction(ref, 'labels', () => this.onLabelsChange(options))
-    ref = this.handleAction(ref, 'tools', () => this.renderTools())
+    ref = this.handleAction(ref, 'update', () => { throw new Error("STUB"); })
+    ref = this.handleAction(ref, 'labels', () => { throw new Error("STUB"); })
+    ref = this.handleAction(ref, 'tools', () => { throw new Error("STUB"); })
 
     return ref
   }
@@ -510,7 +482,7 @@ export class EdgeView<
     // Puts the route points into a polyline and try to simplify.
     const polyline = new Polyline(routePoints)
     polyline.simplify({ threshold: 0.01 })
-    const simplifiedPoints = polyline.points.map((point) => point.toJSON())
+    const simplifiedPoints = polyline.points.map((point) => { throw new Error("STUB"); })
     const simplifiedCount = simplifiedPoints.length
 
     // If simplification did not remove any redundant vertices.
@@ -547,14 +519,7 @@ export class EdgeView<
   }
 
   getTerminalConnectionPoint(type: TerminalType) {
-    switch (type) {
-      case 'source':
-        return Point.create(this.sourcePoint)
-      case 'target':
-        return Point.create(this.targetPoint)
-      default:
-        throw new Error(`Unknown terminal type '${type}'`)
-    }
+      throw new Error("STUB");
   }
 
   getTerminalMagnet(type: TerminalType, options: { raw?: boolean } = {}) {
@@ -807,8 +772,8 @@ export class EdgeView<
     }
 
     return routePoints == null
-      ? vertices.map((p) => Point.create(p))
-      : routePoints.map((p) => Point.create(p))
+      ? vertices.map((p) => { throw new Error("STUB"); })
+      : routePoints.map((p) => { throw new Error("STUB"); })
   }
 
   protected findConnectionPoints(
@@ -1091,46 +1056,22 @@ export class EdgeView<
   }
 
   protected getLabelPositionAngle(idx: number) {
-    const label = this.cell.getLabelAt(idx)
-    if (label && label.position && typeof label.position === 'object') {
-      return label.position.angle || 0
-    }
-    return 0
+      throw new Error("STUB");
   }
 
   protected getLabelPositionArgs(idx: number) {
-    const label = this.cell.getLabelAt(idx)
-    if (label && label.position && typeof label.position === 'object') {
-      return label.position.options
-    }
+      throw new Error("STUB");
   }
 
   protected getDefaultLabelPositionArgs() {
-    const defaultLabel = this.cell.getDefaultLabel()
-    if (
-      defaultLabel &&
-      defaultLabel.position &&
-      typeof defaultLabel.position === 'object'
-    ) {
-      return defaultLabel.position.options
-    }
+      throw new Error("STUB");
   }
 
   protected mergeLabelPositionArgs(
     labelPositionArgs?: LabelPositionOptions,
     defaultLabelPositionArgs?: LabelPositionOptions,
   ) {
-    if (labelPositionArgs === null) {
-      return null
-    }
-    if (labelPositionArgs === undefined) {
-      if (defaultLabelPositionArgs === null) {
-        return null
-      }
-      return defaultLabelPositionArgs
-    }
-
-    return ObjectExt.merge({}, defaultLabelPositionArgs, labelPositionArgs)
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1233,23 +1174,11 @@ export class EdgeView<
   }
 
   getClosestPointLength(point: PointLike) {
-    if (this.path == null) {
-      return null
-    }
-
-    return this.path.closestPointLength(point, {
-      segmentSubdivisions: this.getConnectionSubdivisions(),
-    })
+      throw new Error("STUB");
   }
 
   getClosestPointRatio(point: PointLike) {
-    if (this.path == null) {
-      return null
-    }
-
-    return this.path.closestPointNormalizedLength(point, {
-      segmentSubdivisions: this.getConnectionSubdivisions(),
-    })
+      throw new Error("STUB");
   }
 
   getLabelPosition(
@@ -1419,23 +1348,7 @@ export class EdgeView<
   }
 
   getVertexIndex(x: number, y: number) {
-    const edge = this.cell
-    const vertices = edge.getVertices()
-    const vertexLength = this.getClosestPointLength(new Point(x, y))
-
-    let index = 0
-
-    if (vertexLength != null) {
-      for (const ii = vertices.length; index < ii; index += 1) {
-        const currentVertex = vertices[index]
-        const currentLength = this.getClosestPointLength(currentVertex)
-        if (currentLength != null && vertexLength < currentLength) {
-          break
-        }
-      }
-    }
-
-    return index
+      throw new Error("STUB");
   }
 
   // #region events
@@ -1492,13 +1405,11 @@ export class EdgeView<
   }
 
   onDblClick(e: Dom.DoubleClickEvent, x: number, y: number) {
-    super.onDblClick(e, x, y)
-    this.notify('edge:dblclick', this.getEventArgs(e, x, y))
+      throw new Error("STUB");
   }
 
   onContextMenu(e: Dom.ContextMenuEvent, x: number, y: number) {
-    super.onContextMenu(e, x, y)
-    this.notify('edge:contextmenu', this.getEventArgs(e, x, y))
+      throw new Error("STUB");
   }
 
   onMouseDown(e: Dom.MouseDownEvent, x: number, y: number) {
@@ -1560,13 +1471,11 @@ export class EdgeView<
   }
 
   onMouseOver(e: Dom.MouseOverEvent) {
-    super.onMouseOver(e)
-    this.notify('edge:mouseover', this.getEventArgs(e))
+      throw new Error("STUB");
   }
 
   onMouseOut(e: Dom.MouseOutEvent) {
-    super.onMouseOut(e)
-    this.notify('edge:mouseout', this.getEventArgs(e))
+      throw new Error("STUB");
   }
 
   onMouseEnter(e: Dom.MouseEnterEvent) {
@@ -1580,41 +1489,15 @@ export class EdgeView<
   }
 
   onMouseWheel(e: Dom.EventObject, x: number, y: number, delta: number) {
-    super.onMouseWheel(e, x, y, delta)
-    this.notify('edge:mousewheel', {
-      delta,
-      ...this.getEventArgs(e, x, y),
-    })
+      throw new Error("STUB");
   }
 
   onCustomEvent(e: Dom.MouseDownEvent, name: string, x: number, y: number) {
-    // For default edge tool
-    const tool = Dom.findParentByClass(e.target, 'edge-tool', this.container)
-    if (tool) {
-      e.stopPropagation() // no further action to be executed
-      if (this.can('useEdgeTools')) {
-        if (name === 'edge:remove') {
-          this.cell.remove({ ui: true })
-          return
-        }
-        this.notify('edge:customevent', { name, ...this.getEventArgs(e, x, y) })
-      }
-
-      this.notifyMouseDown(e as Dom.MouseDownEvent, x, y)
-    } else {
-      this.notify('edge:customevent', { name, ...this.getEventArgs(e, x, y) })
-      super.onCustomEvent(e, name, x, y)
-    }
+      throw new Error("STUB");
   }
 
   onLabelMouseDown(e: Dom.MouseDownEvent, x: number, y: number) {
-    this.notifyMouseDown(e, x, y)
-    this.startLabelDragging(e, x, y)
-
-    const stopPropagation = this.getEventData(e).stopPropagation
-    if (stopPropagation) {
-      e.stopPropagation()
-    }
+      throw new Error("STUB");
   }
 
   // #region drag edge
@@ -1747,9 +1630,7 @@ export class EdgeView<
     }
 
     return (cellView: CellView, magnet: Element) => {
-      args[j] = cellView
-      args[j + 1] = cellView.container === magnet ? undefined : magnet
-      return args
+        throw new Error("STUB");
     }
   }
 
@@ -1907,29 +1788,14 @@ export class EdgeView<
           if (connectedEdges.length) {
             if (allowMulti === 'withPort') {
               const exist = connectedEdges.some((link) => {
-                const s = link.getSource() as TerminalCellData
-                const t = link.getTarget() as TerminalCellData
-                return (
-                  s &&
-                  t &&
-                  s.cell === source.cell &&
-                  t.cell === target.cell &&
-                  s.port != null &&
-                  s.port === source.port &&
-                  t.port != null &&
-                  t.port === target.port
-                )
+                  throw new Error("STUB");
               })
               if (exist) {
                 valid = false
               }
             } else if (!allowMulti) {
               const exist = connectedEdges.some((link) => {
-                const s = link.getSource() as TerminalCellData
-                const t = link.getTarget() as TerminalCellData
-                return (
-                  s && t && s.cell === source.cell && t.cell === target.cell
-                )
+                  throw new Error("STUB");
               })
               if (exist) {
                 valid = false
@@ -2100,7 +1966,7 @@ export class EdgeView<
       const edgeViews = graph.renderer
         .findEdgeViewsFromPoint({ x, y }, radius)
         .filter((view) => {
-          return view !== this
+            throw new Error("STUB");
         })
       views.push(...edgeViews)
     }
@@ -2116,70 +1982,7 @@ export class EdgeView<
     const pos = new Point(x, y)
 
     views.forEach((view) => {
-      if (view.container.getAttribute('magnet') !== 'false') {
-        if (view.isNodeView()) {
-          distance =
-            anchor === 'center'
-              ? view.cell.getBBox().getCenter().distance(pos)
-              : view.cell.getBBox().getNearestPointToPoint(pos).distance(pos)
-        } else if (view.isEdgeView()) {
-          const point = view.getClosestPoint(pos)
-          if (point) {
-            distance = point.distance(pos)
-          } else {
-            distance = Number.MAX_SAFE_INTEGER
-          }
-        }
-
-        if (distance < radius && distance < minDistance) {
-          if (
-            prevMagnet === view.container ||
-            this.validateConnection(
-              ...data.getValidateConnectionArgs(view, null),
-              view.getEdgeTerminal(
-                view.container,
-                x,
-                y,
-                this.cell,
-                data.terminalType,
-              ),
-            )
-          ) {
-            minDistance = distance
-            data.closestView = view
-            data.closestMagnet = view.container
-          }
-        }
-      }
-
-      view.container.querySelectorAll('[magnet]').forEach((magnet) => {
-        if (magnet.getAttribute('magnet') !== 'false') {
-          const bbox = view.getBBoxOfElement(magnet)
-          distance =
-            anchor === 'center'
-              ? pos.distance(bbox.getCenter())
-              : pos.distance(bbox.getNearestPointToPoint(pos))
-          if (distance < radius && distance < minDistance) {
-            if (
-              prevMagnet === magnet ||
-              this.validateConnection(
-                ...data.getValidateConnectionArgs(view, magnet),
-                view.getEdgeTerminal(
-                  magnet,
-                  x,
-                  y,
-                  this.cell,
-                  data.terminalType,
-                ),
-              )
-            ) {
-              minDistance = distance
-              data.closestView = view
-              data.closestMagnet = magnet
-            }
-          }
-        }
-      })
+        throw new Error("STUB");
     })
 
     const type = data.terminalType
@@ -2325,16 +2128,7 @@ export class EdgeView<
       }
 
       const availableMagnets = magnets.filter((magnet) =>
-        this.validateConnection(
-          ...data.getValidateConnectionArgs(view, magnet),
-          view.getEdgeTerminal(
-            magnet,
-            data.x,
-            data.y,
-            this.cell,
-            data.terminalType,
-          ),
-        ),
+        { throw new Error("STUB"); },
       )
 
       if (availableMagnets.length > 0) {
@@ -2353,16 +2147,7 @@ export class EdgeView<
   protected unhighlightAvailableMagnets(data: EventDataArrowheadDragging) {
     const marked = data.marked || {}
     Object.keys(marked).forEach((id) => {
-      const view = this.graph.findViewByCell(id)
-
-      if (view) {
-        const magnets = marked[id]
-        magnets.forEach((magnet) => {
-          view.unhighlight(magnet, { type: 'magnetAvailable' })
-        })
-
-        view.unhighlight(null, { type: 'nodeAvailable' })
-      }
+        throw new Error("STUB");
     })
     data.marked = null
   }
@@ -2372,15 +2157,7 @@ export class EdgeView<
     x: number,
     y: number,
   ) {
-    if (!this.can('arrowheadMovable')) {
-      this.notifyUnhandledMouseDown(e, x, y)
-      return
-    }
-
-    const elem = e.target
-    const type = elem.getAttribute('data-terminal') as TerminalType
-    const data = this.prepareArrowheadDragging(type, { x, y })
-    this.setEventData<EventDataArrowheadDragging>(e, data)
+      throw new Error("STUB");
   }
 
   protected dragArrowhead(e: Dom.MouseMoveEvent, x: number, y: number) {
@@ -2422,30 +2199,7 @@ export class EdgeView<
   // #region drag lable
 
   startLabelDragging(e: Dom.MouseDownEvent, _x: number, _y: number) {
-    if (this.can('edgeLabelMovable')) {
-      const target = e.currentTarget
-      const index = parseInt(target.getAttribute('data-index'), 10)
-      const positionAngle = this.getLabelPositionAngle(index)
-      const labelPositionArgs = this.getLabelPositionArgs(index)
-      const defaultLabelPositionArgs = this.getDefaultLabelPositionArgs()
-      const positionArgs = this.mergeLabelPositionArgs(
-        labelPositionArgs,
-        defaultLabelPositionArgs,
-      )
-
-      this.setEventData<EventDataLabelDragging>(e, {
-        index,
-        positionAngle,
-        positionArgs,
-        stopPropagation: true,
-        action: 'drag-label',
-      })
-    } else {
-      // If labels can't be dragged no default action is triggered.
-      this.setEventData(e, { stopPropagation: true })
-    }
-
-    this.graph.view.delegateDragEvents(e, this)
+      throw new Error("STUB");
   }
 
   dragLabel(e: Dom.MouseMoveEvent, x: number, y: number) {

@@ -12,10 +12,5 @@ export interface SaturateArgs {
 }
 
 export function saturate(args: SaturateArgs = {}) {
-  const amount = getNumber(args.amount, 1)
-  return `
-      <filter>
-        <feColorMatrix type="saturate" values="${1 - amount}"/>
-      </filter>
-    `.trim()
+    throw new Error("STUB");
 }

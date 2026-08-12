@@ -20,11 +20,11 @@ export class Clipboard
   public options: ClipboardOptions
 
   get disabled() {
-    return this.options.enabled !== true
+      throw new Error("STUB");
   }
 
   get cells() {
-    return this.clipboardImpl.cells
+      throw new Error("STUB");
   }
 
   constructor(options: ClipboardOptions = {}) {
@@ -116,8 +116,7 @@ export class Clipboard
   // #endregion
 
   protected get commonOptions() {
-    const { enabled, ...others } = this.options
-    return others
+      throw new Error("STUB");
   }
 
   protected notify<K extends keyof ClipboardEventArgs>(

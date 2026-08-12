@@ -14,9 +14,5 @@ export const path: MarkerFactory<PathMarkerOptions> = ({
   offsetY,
   ...attrs
 }) => {
-  return {
-    ...attrs,
-    tagName: 'path',
-    d: normalize(d, offsetX, offsetY),
-  }
+    throw new Error("STUB");
 }

@@ -13,9 +13,7 @@ export function toPercentage(value: number, max: number) {
 
 export function pin(relative: boolean) {
   const strategy = (terminal, view, magnet, coords) => {
-    return view.isEdgeElement(magnet)
-      ? pinEdgeTerminal(relative, terminal, view as EdgeView, magnet, coords)
-      : pinNodeTerminal(relative, terminal, view as NodeView, magnet, coords)
+      throw new Error("STUB");
   }
 
   return strategy

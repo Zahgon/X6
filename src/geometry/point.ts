@@ -98,14 +98,7 @@ export class Point extends Geometry implements PointLike {
     point: Point | PointOptions,
     origin: Point | PointOptions = new Point(),
   ) {
-    const p = Point.clone(point)
-    const o = Point.clone(origin)
-    const dx = p.x - o.x
-    const dy = p.y - o.y
-    return new Point(
-      Math.sqrt(dx * dx + dy * dy), // r
-      Angle.toRad(o.theta(p)),
-    )
+      throw new Error("STUB");
   }
 
   static equalPoints(p1: PointLike[], p2: PointLike[]) {
@@ -161,13 +154,7 @@ export class Point extends Geometry implements PointLike {
   }
 
   static isPointData(p: any): p is PointData {
-    return (
-      p != null &&
-      Array.isArray(p) &&
-      p.length === 2 &&
-      typeof p[0] === 'number' &&
-      typeof p[1] === 'number'
-    )
+      throw new Error("STUB");
   }
   public x: number
   public y: number
@@ -249,11 +236,7 @@ export class Point extends Geometry implements PointLike {
     let ret: PointOptions | null = null
     let min = Infinity
     points.forEach((p) => {
-      const dist = this.squaredDistance(p)
-      if (dist < min) {
-        ret = p
-        min = dist
-      }
+        throw new Error("STUB");
     })
 
     return ret ? Point.create(ret) : null
@@ -346,16 +329,14 @@ export class Point extends Geometry implements PointLike {
    * point `(0,0)` or if `p` is `(0,0)`.
    */
   vectorAngle(p: PointOptions) {
-    const zero = new Point(0, 0)
-    return zero.angleBetween(this, p)
+      throw new Error("STUB");
   }
 
   /**
    * Converts rectangular to polar coordinates.
    */
   toPolar(origin?: PointOptions) {
-    this.update(Point.toPolar(this, origin))
-    return this
+      throw new Error("STUB");
   }
 
   /**
@@ -376,8 +357,7 @@ export class Point extends Geometry implements PointLike {
    * point are the same (i.e. both `dx` and `dy` are `0`).
    */
   changeInAngle(dx: number, dy: number, ref: PointOptions = new Point()) {
-    // Revert the translation and measure the change in angle around x-axis.
-    return this.clone().translate(-dx, -dy).theta(ref) - this.theta(ref)
+      throw new Error("STUB");
   }
 
   /**
@@ -398,26 +378,7 @@ export class Point extends Geometry implements PointLike {
    * @see https://en.wikipedia.org/wiki/Cardinal_direction
    */
   bearing(p: PointOptions) {
-    const ref = Point.create(p)
-    const lat1 = Angle.toRad(this.y)
-    const lat2 = Angle.toRad(ref.y)
-    const lon1 = this.x
-    const lon2 = ref.x
-    const dLon = Angle.toRad(lon2 - lon1)
-    const y = Math.sin(dLon) * Math.cos(lat2)
-    const x =
-      Math.cos(lat1) * Math.sin(lat2) -
-      Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon)
-
-    const brng = Angle.toDeg(Math.atan2(y, x))
-    const bearings = ['NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N']
-
-    let index = brng - 22.5
-    if (index < 0) {
-      index += 360
-    }
-    index = parseInt((index / 45) as any, 10)
-    return bearings[index] as PointBearing
+      throw new Error("STUB");
   }
 
   /**

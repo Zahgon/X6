@@ -103,9 +103,7 @@ export class PortManager {
   groups: { [name: string]: Group }
 
   constructor(data: Metadata) {
-    this.ports = []
-    this.groups = {}
-    this.init(ObjectExt.cloneDeep(data))
+      throw new Error("STUB");
   }
 
   getPorts() {
@@ -118,7 +116,7 @@ export class PortManager {
 
   getPortsByGroup(groupName?: string): Port[] {
     return this.ports.filter(
-      (p) => p.group === groupName || (p.group == null && groupName == null),
+      (p) => { throw new Error("STUB"); },
     )
   }
 
@@ -141,24 +139,12 @@ export class PortManager {
     }
 
     const portsArgs = ports.map(
-      (port) => (port && port.position && port.position.args) || {},
+      (port) => { throw new Error("STUB"); },
     )
     const groupArgs = (groupPosition && groupPosition.args) || {}
     const layouts = layoutFn(portsArgs, elemBBox, groupArgs)
     return layouts.map<LayoutResult>((portLayout, index) => {
-      const port = ports[index]
-      return {
-        portLayout,
-        portId: port.id!,
-        portSize: port.size,
-        portAttrs: port.attrs,
-        labelSize: port.label.size,
-        labelLayout: this.getPortLabelLayout(
-          port,
-          Point.create(portLayout.position),
-          elemBBox,
-        ),
-      }
+        throw new Error("STUB");
     })
   }
 
@@ -167,13 +153,13 @@ export class PortManager {
 
     if (groups != null) {
       Object.keys(groups).forEach((key) => {
-        this.groups[key] = this.parseGroup(groups[key])
+          throw new Error("STUB");
       })
     }
 
     if (Array.isArray(items)) {
       items.forEach((item) => {
-        this.ports.push(this.parsePort(item) as unknown as Port)
+          throw new Error("STUB");
       })
     }
   }

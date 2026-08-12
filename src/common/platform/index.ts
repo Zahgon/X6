@@ -69,7 +69,9 @@ if (typeof document === 'object') {
     })
     const div = document.createElement('div')
     if (div.addEventListener) {
-      div.addEventListener('click', () => {}, options)
+      div.addEventListener('click', () => {
+          throw new Error("STUB");
+      }, options)
     }
   } catch (err) {
     // pass
@@ -145,12 +147,5 @@ const TAGNAMES: { [event: string]: string } = {
 }
 
 export function isEventSupported(event: string) {
-  const elem = document.createElement(TAGNAMES[event] || 'div')
-  const eventName = `on${event}`
-  let isSupported = eventName in elem
-  if (!isSupported) {
-    elem.setAttribute(eventName, 'return;')
-    isSupported = typeof (elem as any)[eventName] === 'function'
-  }
-  return isSupported
+    throw new Error("STUB");
 }

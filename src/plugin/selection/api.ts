@@ -61,262 +61,138 @@ declare module '../../graph/events' {
 }
 
 Graph.prototype.isSelectionEnabled = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableSelection = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.enable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableSelection = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.disable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleSelection = function (enabled?: boolean) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.toggleEnabled(enabled)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isMultipleSelection = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isMultipleSelection()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableMultipleSelection = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.enableMultipleSelection()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableMultipleSelection = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.disableMultipleSelection()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleMultipleSelection = function (multiple?: boolean) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.toggleMultipleSelection(multiple)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isSelectionMovable = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isSelectionMovable()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableSelectionMovable = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.enableSelectionMovable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableSelectionMovable = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.disableSelectionMovable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleSelectionMovable = function (movable?: boolean) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.toggleSelectionMovable(movable)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isRubberbandEnabled = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isRubberbandEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableRubberband = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.enableRubberband()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableRubberband = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.disableRubberband()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleRubberband = function (enabled?: boolean) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.toggleRubberband(enabled)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isStrictRubberband = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isStrictRubberband()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableStrictRubberband = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.enableStrictRubberband()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableStrictRubberband = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.disableStrictRubberband()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleStrictRubberband = function (strict?: boolean) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.toggleStrictRubberband(strict)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.setRubberbandModifiers = function (
   modifiers?: string | ModifierKey[] | null,
 ) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.setRubberbandModifiers(modifiers)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.setSelectionFilter = function (filter?: SelectionFilter) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.setSelectionFilter(filter)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.setSelectionDisplayContent = function (
   content?: SelectionContent,
 ) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.setSelectionDisplayContent(content)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.isSelectionEmpty = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isEmpty()
-  }
-  return true
+    throw new Error("STUB");
 }
 
 Graph.prototype.cleanSelection = function (options?: SelectionSetOptions) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.clean(options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.resetSelection = function (
   cells?: Cell | string | (Cell | string)[],
   options?: SelectionSetOptions,
 ) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.reset(cells, options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.getSelectedCells = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.getSelectedCells()
-  }
-  return []
+    throw new Error("STUB");
 }
 
 Graph.prototype.getSelectedCellCount = function () {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.getSelectedCellCount()
-  }
-  return 0
+    throw new Error("STUB");
 }
 
 Graph.prototype.isSelected = function (cell: Cell | string) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    return selection.isSelected(cell)
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.select = function (
   cells: Cell | string | (Cell | string)[],
   options?: SelectionAddOptions,
 ) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.select(cells, options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.unselect = function (
   cells: Cell | string | (Cell | string)[],
   options?: SelectionRemoveOptions,
 ) {
-  const selection = this.getPlugin('selection') as Selection
-  if (selection) {
-    selection.unselect(cells, options)
-  }
-  return this
+    throw new Error("STUB");
 }

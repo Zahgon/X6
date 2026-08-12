@@ -19,94 +19,7 @@ export const orth: RouterDefinition<OrthRouterOptions> = (
   options,
   edgeView,
 ) => {
-  let sourceBBox = Util.getSourceBBox(edgeView, options)
-  let targetBBox = Util.getTargetBBox(edgeView, options)
-  const sourceAnchor = Util.getSourceAnchor(edgeView, options)
-  const targetAnchor = Util.getTargetAnchor(edgeView, options)
-
-  // If anchor lies outside of bbox, the bbox expands to include it
-  sourceBBox = sourceBBox.union(Util.getPointBBox(sourceAnchor))
-  targetBBox = targetBBox.union(Util.getPointBBox(targetAnchor))
-
-  const points = vertices.map((p) => Point.create(p))
-  points.unshift(sourceAnchor)
-  points.push(targetAnchor)
-
-  // bearing of previous route segment
-  let bearing: Bearings | null = null
-  const result = []
-
-  for (let i = 0, len = points.length - 1; i < len; i += 1) {
-    let route = null
-
-    const from = points[i]
-    const to = points[i + 1]
-    const isOrthogonal = getBearing(from, to) != null
-
-    if (i === 0) {
-      // source
-
-      if (i + 1 === len) {
-        // source -> target
-
-        // Expand one of the nodes by 1px to detect situations when the two
-        // nodes are positioned next to each other with no gap in between.
-        if (sourceBBox.intersectsWithRect(targetBBox.clone().inflate(1))) {
-          route = insideNode(from, to, sourceBBox, targetBBox)
-        } else if (!isOrthogonal) {
-          route = nodeToNode(from, to, sourceBBox, targetBBox)
-        }
-      } else {
-        // source -> vertex
-        if (sourceBBox.containsPoint(to)) {
-          route = insideNode(
-            from,
-            to,
-            sourceBBox,
-            Util.getPointBBox(to).moveAndExpand(Util.getPaddingBox(options)),
-          )
-        } else if (!isOrthogonal) {
-          route = nodeToVertex(from, to, sourceBBox)
-        }
-      }
-    } else if (i + 1 === len) {
-      // vertex -> target
-
-      // prevent overlaps with previous line segment
-      const isOrthogonalLoop = isOrthogonal && getBearing(to, from) === bearing
-
-      if (targetBBox.containsPoint(from) || isOrthogonalLoop) {
-        route = insideNode(
-          from,
-          to,
-          Util.getPointBBox(from).moveAndExpand(Util.getPaddingBox(options)),
-          targetBBox,
-          bearing,
-        )
-      } else if (!isOrthogonal) {
-        route = vertexToNode(from, to, targetBBox, bearing)
-      }
-    } else if (!isOrthogonal) {
-      // vertex -> vertex
-      route = vertexToVertex(from, to, bearing)
-    }
-
-    // set bearing for next iteration
-    if (route) {
-      result.push(...route.points)
-      bearing = route.direction as Bearings
-    } else {
-      // orthogonal route and not looped
-      bearing = getBearing(from, to)
-    }
-
-    // push `to` point to identified orthogonal vertices array
-    if (i + 1 < len) {
-      result.push(to)
-    }
-  }
-
-  return result
+    throw new Error("STUB");
 }
 
 /**
@@ -196,9 +109,9 @@ function vertexToNode(
   bearing: Bearings,
 ) {
   const points = [new Point(from.x, to.y), new Point(to.x, from.y)]
-  const freePoints = points.filter((p) => !toBBox.containsPoint(p))
+  const freePoints = points.filter((p) => { throw new Error("STUB"); })
   const freeBearingPoints = freePoints.filter(
-    (p) => getBearing(p, from) !== bearing,
+    (p) => { throw new Error("STUB"); },
   )
 
   let p
@@ -206,7 +119,7 @@ function vertexToNode(
   if (freeBearingPoints.length > 0) {
     // Try to pick a point which bears the same direction as the previous segment.
 
-    p = freeBearingPoints.filter((p) => getBearing(from, p) === bearing).pop()
+    p = freeBearingPoints.filter((p) => { throw new Error("STUB"); }).pop()
     p = p || freeBearingPoints[0]
 
     return {

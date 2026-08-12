@@ -58,7 +58,7 @@ export function on(
   let mainHandler = store.handler
   if (mainHandler == null) {
     mainHandler = store.handler = function (e, ...args: any[]) {
-      return triggered !== e.type ? dispatch(elem, e, ...args) : undefined
+        throw new Error("STUB");
     }
   }
 
@@ -67,66 +67,7 @@ export function on(
 
   // Handle multiple events separated by a space
   splitType(types).forEach((item) => {
-    const { originType, namespaces } = normalizeType(item)
-
-    // There *must* be a type, no attaching namespace-only handlers
-    if (!originType) {
-      return
-    }
-
-    let type = originType
-    let hook = get(type)
-
-    // If selector defined, determine special event type, otherwise given type
-    type = (selector ? hook.delegateType : hook.bindType) || type
-
-    // Update hook based on newly reset type
-    hook = get(type)
-
-    // handleObj is passed to all event handlers
-    const handleObj: HandlerObject = {
-      type,
-      originType,
-      data,
-      selector,
-      guid,
-      handler: handler as EventHandler<any, any>,
-      namespace: namespaces.join('.'),
-      ...handlerData,
-    }
-
-    // Init the event handler queue if we're the first
-    const events = store.events
-    let bag = events[type]
-    if (!bag) {
-      bag = events[type] = { handlers: [], delegateCount: 0 }
-
-      // Only use addEventListener if the `hook.steup` returns false
-      if (
-        !hook.setup ||
-        hook.setup(elem, data, namespaces, mainHandler!) === false
-      ) {
-        addEventListener(
-          elem as Element,
-          type,
-          mainHandler as any as EventListener,
-        )
-      }
-    }
-
-    if (hook.add) {
-      removeHandlerId(handleObj.handler)
-      hook.add(elem, handleObj)
-      setHandlerId(handleObj.handler, guid)
-    }
-
-    // Add to the element's handler list, delegates in front
-    if (selector) {
-      bag.handlers.splice(bag.delegateCount, 0, handleObj)
-      bag.delegateCount += 1
-    } else {
-      bag.handlers.push(handleObj)
-    }
+      throw new Error("STUB");
   })
 }
 
@@ -149,67 +90,7 @@ export function off(
 
   // Once for each type.namespace in types; type may be omitted
   splitType(types).forEach((item) => {
-    const { originType, namespaces } = normalizeType(item)
-
-    // Unbind all events (on this namespace, if provided) for the element
-    if (!originType) {
-      Object.keys(events).forEach((key) => {
-        off(elem, key + item, handler, selector, true)
-      })
-      return
-    }
-
-    let type = originType
-    const hook = get(type)
-    type = (selector ? hook.delegateType : hook.bindType) || type
-    const bag = events[type]
-    if (!bag) {
-      return
-    }
-    const rns =
-      namespaces.length > 0
-        ? new RegExp(`(^|\\.)${namespaces.join('\\.(?:.*\\.|)')}(\\.|$)`)
-        : null
-
-    // Remove matching events
-    const originHandlerCount = bag.handlers.length
-    for (let i = bag.handlers.length - 1; i >= 0; i -= 1) {
-      const handleObj = bag.handlers[i]
-      if (
-        (mappedTypes || originType === handleObj.originType) &&
-        (!handler || getHandlerId(handler) === handleObj.guid) &&
-        (rns == null ||
-          (handleObj.namespace && rns.test(handleObj.namespace))) &&
-        (selector == null ||
-          selector === handleObj.selector ||
-          (selector === '**' && handleObj.selector))
-      ) {
-        bag.handlers.splice(i, 1)
-
-        if (handleObj.selector) {
-          bag.delegateCount -= 1
-        }
-
-        if (hook.remove) {
-          hook.remove(elem, handleObj)
-        }
-      }
-    }
-
-    if (originHandlerCount && bag.handlers.length === 0) {
-      if (
-        !hook.teardown ||
-        hook.teardown(elem, namespaces, store.handler!) === false
-      ) {
-        removeEventListener(
-          elem as Element,
-          type,
-          store.handler as any as EventListener,
-        )
-      }
-
-      delete events[type]
-    }
+      throw new Error("STUB");
   })
 
   // Remove data and the expando if it's no longer used

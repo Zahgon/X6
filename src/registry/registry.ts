@@ -38,7 +38,7 @@ export class Registry<
   }
 
   get names() {
-    return Object.keys(this.data)
+      throw new Error("STUB");
   }
 
   register(
@@ -58,7 +58,7 @@ export class Registry<
   ) {
     if (typeof name === 'object') {
       Object.entries(name).forEach(([key, val]) => {
-        this.register(key, val, options)
+          throw new Error("STUB");
       })
       return
     }
@@ -80,9 +80,7 @@ export class Registry<
   unregister<K extends keyof Presets>(name: K): Entity | null
   unregister(name: string): Entity | null
   unregister(name: string): Entity | null {
-    const entity = name ? this.data[name] : null
-    delete this.data[name]
-    return entity
+      throw new Error("STUB");
   }
 
   get<K extends keyof Presets>(name: K): Entity | null
@@ -136,7 +134,7 @@ export class Registry<
     return StringExt.getSpellingSuggestion(
       name,
       Object.keys(this.data),
-      (candidate) => candidate,
+      (candidate) => { throw new Error("STUB"); },
     )
   }
 }

@@ -23,23 +23,5 @@ export const circlePlus: MarkerFactory<CircleMarkerOptions> = ({
   r,
   ...attrs
 }) => {
-  const radius = r || 5
-  const path = new Path()
-
-  path.moveTo(radius, 0).lineTo(radius, radius * 2)
-  path.moveTo(0, radius).lineTo(radius * 2, radius)
-
-  return {
-    children: [
-      {
-        ...circle({ r: radius }),
-        fill: 'none',
-      },
-      {
-        ...attrs,
-        tagName: 'path',
-        d: normalize(path.serialize(), -radius),
-      },
-    ] as any,
-  }
+    throw new Error("STUB");
 }

@@ -97,7 +97,7 @@ export const stroke: HighlighterDefinition<StrokeHighlighterOptions> = {
     Dom.addClass(path, Config.prefix('highlight-stroke'))
 
     const cell = cellView.cell
-    const removeHandler = () => removeHighlighter(id)
+    const removeHandler = () => { throw new Error("STUB"); }
 
     cell.on('removed', removeHandler)
     if (cell.model) {

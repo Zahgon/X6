@@ -27,7 +27,7 @@ export function imageToDataUri(
   // No need to convert to data uri if it is already in data uri.
   if (!url || isDataUrl(url)) {
     // Keep the async nature of the function.
-    setTimeout(() => callback(null, url))
+    setTimeout(() => { throw new Error("STUB"); })
     return
   }
 
@@ -38,50 +38,17 @@ export function imageToDataUri(
   const onLoad = window.FileReader
     ? // chrome, IE10+
       (xhr: XMLHttpRequest) => {
-        if (xhr.status === 200) {
-          const reader = new FileReader()
-          reader.onload = (evt) => {
-            const dataUri = evt.target!.result as string
-            callback(null, dataUri)
-          }
-
-          reader.onerror = onError
-          reader.readAsDataURL(xhr.response)
-        } else {
-          onError()
-        }
+          throw new Error("STUB");
       }
     : (xhr: XMLHttpRequest) => {
-        const toString = (u8a: Uint8Array) => {
-          const CHUNK_SZ = 0x8000
-          const c = []
-          for (let i = 0; i < u8a.length; i += CHUNK_SZ) {
-            c.push(
-              String.fromCharCode.apply(null, u8a.subarray(i, i + CHUNK_SZ)),
-            )
-          }
-          return c.join('')
-        }
-
-        if (xhr.status === 200) {
-          let suffix = url.split('.').pop() || 'png'
-          if (suffix === 'svg') {
-            suffix = 'svg+xml'
-          }
-          const meta = `data:image/${suffix};base64,`
-          const bytes = new Uint8Array(xhr.response)
-          const base64 = meta + btoa(toString(bytes))
-          callback(null, base64)
-        } else {
-          onError()
-        }
-      }
+        throw new Error("STUB");
+    }
 
   const xhr = new XMLHttpRequest()
   xhr.responseType = window.FileReader ? 'blob' : 'arraybuffer'
   xhr.open('GET', url, true)
   xhr.addEventListener('error', onError)
-  xhr.addEventListener('load', () => onLoad(xhr))
+  xhr.addEventListener('load', () => { throw new Error("STUB"); })
   xhr.send()
 }
 

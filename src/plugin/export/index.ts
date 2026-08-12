@@ -24,7 +24,7 @@ export class Export extends Basecoat<ExportEventArgs> implements GraphPlugin {
   private graph: Graph
 
   get view() {
-    return this.graph.view
+      throw new Error("STUB");
   }
 
   init(graph: Graph) {
@@ -33,19 +33,19 @@ export class Export extends Basecoat<ExportEventArgs> implements GraphPlugin {
 
   exportPNG(fileName = 'chart', options: ExportToImageOptions = {}) {
     this.toPNG((dataUri) => {
-      DataUri.downloadDataUri(dataUri, fileName)
+        throw new Error("STUB");
     }, options)
   }
 
   exportJPEG(fileName = 'chart', options: ExportToImageOptions = {}) {
     this.toJPEG((dataUri) => {
-      DataUri.downloadDataUri(dataUri, fileName)
+        throw new Error("STUB");
     }, options)
   }
 
   exportSVG(fileName = 'chart', options: ExportToSVGOptions = {}) {
     this.toSVG((svg: string) => {
-      DataUri.downloadDataUri(DataUri.svgToDataUrl(svg), fileName)
+        throw new Error("STUB");
     }, options)
   }
 
@@ -110,36 +110,16 @@ export class Export extends Basecoat<ExportEventArgs> implements GraphPlugin {
 
       const defaultComputedStyles: KeyValue<KeyValue<string>> = {}
       isolatedRaws.forEach((elem, index) => {
-        const computedStyle = window.getComputedStyle(elem, null)
-        const defaultComputedStyle: KeyValue<string> = {}
-        // Use the style declaration list for reliable property names.
-        for (let i = 0; i < computedStyle.length; i += 1) {
-          const prop = computedStyle[i]
-          const val = computedStyle.getPropertyValue(prop)
-          defaultComputedStyle[prop] = val
-        }
-        defaultComputedStyles[index] = defaultComputedStyle
+          throw new Error("STUB");
       })
 
       const customStyles: KeyValue<KeyValue<string>> = {}
       raws.forEach((elem, index) => {
-        const computedStyle = window.getComputedStyle(elem, null)
-        const defaultComputedStyle = defaultComputedStyles[index] || {}
-        const customStyle: KeyValue<string> = {}
-
-        for (let i = 0; i < computedStyle.length; i += 1) {
-          const prop = computedStyle[i]
-          const val = computedStyle.getPropertyValue(prop)
-          if (val !== defaultComputedStyle[prop]) {
-            customStyle[prop] = val
-          }
-        }
-
-        customStyles[index] = customStyle
+          throw new Error("STUB");
       })
 
       clones.forEach((elem, index) => {
-        Dom.css(elem, customStyles[index])
+          throw new Error("STUB");
       })
     }
 
@@ -179,16 +159,7 @@ export class Export extends Basecoat<ExportEventArgs> implements GraphPlugin {
 
     if (options.serializeImages) {
       const deferrals = vSVG.find('image').map((vImage) => {
-        return new Promise<void>((resolve) => {
-          const url = vImage.attr('xlink:href') || vImage.attr('href')
-          DataUri.imageToDataUri(url, (err, dataUri) => {
-            if (!err && dataUri) {
-              vImage.attr('xlink:href', dataUri)
-              vImage.attr('href', dataUri)
-            }
-            resolve()
-          })
-        })
+          throw new Error("STUB");
       })
 
       Promise.all(deferrals).then(format)
@@ -257,27 +228,13 @@ export class Export extends Basecoat<ExportEventArgs> implements GraphPlugin {
 
     const img = new Image()
     img.onload = () => {
-      const canvas = document.createElement('canvas')
-      canvas.width = size.width
-      canvas.height = size.height
-
-      const context = canvas.getContext('2d')!
-      context.fillStyle = options.backgroundColor || 'white'
-      context.fillRect(0, 0, size.width, size.height)
-
-      try {
-        context.drawImage(img, 0, 0, size.width, size.height)
-        const dataUri = canvas.toDataURL(options.type, options.quality)
-        callback(dataUri)
-      } catch (error) {
-        // pass
-      }
+        throw new Error("STUB");
     }
 
     this.toSVG(
       (dataUri) => {
-        img.src = `data:image/svg+xml,${encodeURIComponent(dataUri)}`
-      },
+            throw new Error("STUB");
+        },
       {
         ...options,
         viewBox,

@@ -1,11 +1,7 @@
 import { getVendorPrefixedName } from './prefix'
 
 export function setPrefixedStyle(style: any, name: string, value: string) {
-  const vendor = getVendorPrefixedName(name)
-  if (vendor != null) {
-    style[vendor] = value
-  }
-  style[name] = value
+    throw new Error("STUB");
 }
 
 export function getComputedStyle(elem: Element, name?: string) {
@@ -25,8 +21,5 @@ export function getComputedStyle(elem: Element, name?: string) {
 }
 
 export function hasScrollbars(container: HTMLElement) {
-  const style = getComputedStyle(container)
-  return (
-    style != null && (style.overflow === 'scroll' || style.overflow === 'auto')
-  )
+    throw new Error("STUB");
 }

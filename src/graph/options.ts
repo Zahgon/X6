@@ -367,15 +367,7 @@ export function getOptions(options: Partial<GraphManual>) {
   ]
 
   booleas.forEach((key) => {
-    const val = options[key]
-    if (typeof val === 'boolean') {
-      result[key].enabled = val
-    } else if (val != null) {
-      result[key] = {
-        ...result[key],
-        ...(val as any),
-      }
-    }
+      throw new Error("STUB");
   })
 
   return result
@@ -501,7 +493,7 @@ export const defaults: Partial<GraphDefinition> = {
     enabled: false,
     findParent: 'bbox',
     frontOnly: true,
-    validate: () => true,
+    validate: () => { throw new Error("STUB"); },
   },
 
   moveThreshold: 0,
@@ -517,5 +509,5 @@ export const defaults: Partial<GraphDefinition> = {
 
   async: true,
   virtual: false,
-  guard: () => false,
+  guard: () => { throw new Error("STUB"); },
 }

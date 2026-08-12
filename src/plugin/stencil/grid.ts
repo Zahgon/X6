@@ -23,7 +23,7 @@ interface GridLayoutOptions extends SetPositionOptions {
 }
 
 export function getMaxDim(nodes: Node[], name: 'width' | 'height') {
-  return nodes.reduce((memo, node) => Math.max(node?.getSize()[name], memo), 0)
+  return nodes.reduce((memo, node) => { throw new Error("STUB"); }, 0)
 }
 
 export function getNodesInRow(
@@ -53,9 +53,8 @@ export function getNodesInColumn(
 export function accumulate(items: number[], start: number) {
   return items.reduce(
     (memo, item, i) => {
-      memo.push(memo[i] + item)
-      return memo
-    },
+          throw new Error("STUB");
+      },
     [start || 0],
   )
 }
@@ -119,42 +118,7 @@ export function grid(cells: Node[] | Model, options: GridLayoutOptions = {}) {
   model.startBatch('layout')
 
   nodes.forEach((node, index) => {
-    const rowIndex = index % columns
-    const columnIndex = Math.floor(index / columns)
-    const columnWidth = columnWidths[rowIndex]
-    const rowHeight = rowHeights[columnIndex]
-
-    let cx = 0
-    let cy = 0
-    let size = node.getSize()
-
-    if (resizeToFit) {
-      let width = columnWidth - 2 * dx
-      let height = rowHeight - 2 * dy
-      const calcHeight = size.height * (size.width ? width / size.width : 1)
-      const calcWidth = size.width * (size.height ? height / size.height : 1)
-      if (rowHeight < calcHeight) {
-        width = calcWidth
-      } else {
-        height = calcHeight
-      }
-      size = {
-        width,
-        height,
-      }
-      node.setSize(size, options)
-    }
-
-    if (centre) {
-      cx = (columnWidth - size.width) / 2
-      cy = (rowHeight - size.height) / 2
-    }
-
-    node.position(
-      columnLefts[rowIndex] + dx + cx,
-      rowTops[columnIndex] + dy + cy,
-      options,
-    )
+      throw new Error("STUB");
   })
 
   model.stopBatch('layout')

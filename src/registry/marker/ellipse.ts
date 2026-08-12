@@ -11,13 +11,5 @@ export const ellipse: MarkerFactory<EllipseMarkerOptions> = ({
   ry,
   ...attrs
 }) => {
-  const radiusX = rx || 5
-  const radiusy = ry || 5
-  return {
-    cx: radiusX,
-    ...attrs,
-    tagName: 'ellipse',
-    rx: radiusX,
-    ry: radiusy,
-  }
+    throw new Error("STUB");
 }

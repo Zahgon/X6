@@ -17,7 +17,7 @@ export class BackgroundManager extends Base {
   protected optionsCache: BackgroundManagerOptions | null
 
   protected get elem() {
-    return this.view.background
+      throw new Error("STUB");
   }
 
   protected init() {
@@ -167,7 +167,7 @@ export class BackgroundManager extends Base {
     if (opts.image) {
       this.optionsCache = ObjectExt.clone(opts)
       const img = document.createElement('img')
-      img.onload = () => this.drawBackgroundImage(img, options)
+      img.onload = () => { throw new Error("STUB"); }
       img.setAttribute('crossorigin', 'anonymous')
       img.src = opts.image
     } else {

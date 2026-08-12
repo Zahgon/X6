@@ -80,8 +80,8 @@ function findRoute(
   }
 
   // take into account only accessible rect points (those not under obstacles)
-  startPoints = startPoints.filter((p) => map.isAccessible(p))
-  endPoints = endPoints.filter((p) => map.isAccessible(p))
+  startPoints = startPoints.filter((p) => { throw new Error("STUB"); })
+  endPoints = endPoints.filter((p) => { throw new Error("STUB"); })
 
   // There is an accessible route point on both sides.
   if (startPoints.length > 0 && endPoints.length > 0) {
@@ -111,7 +111,7 @@ function findRoute(
     let directionChange: number
     const directions = util.getGridOffsets(grid, options)
     const numDirections = directions.length
-    const endPointsKeys = endPoints.map((endPoint) => util.getKey(endPoint))
+    const endPointsKeys = endPoints.map((endPoint) => { throw new Error("STUB"); })
 
     // main route finding loop
     const sameStartEndPoints = Point.equalPoints(startPoints, endPoints)
@@ -295,86 +295,5 @@ export const router: RouterDefinition<ManhattanRouterOptions> = function (
   optionsRaw,
   edgeView,
 ) {
-  const options = resolveOptions(optionsRaw)
-  const sourceBBox = util.getSourceBBox(edgeView, options)
-  const targetBBox = util.getTargetBBox(edgeView, options)
-  const sourceEndpoint = util.getSourceEndpoint(edgeView, options)
-
-  // pathfinding
-  const map = getSharedObstacleMap(edgeView.graph.model, edgeView.cell, options)
-
-  const oldVertices = vertices.map((p) => Point.create(p))
-  const newVertices: Point[] = []
-
-  // The origin of first route's grid, does not need snapping
-  let tailPoint = sourceEndpoint
-
-  let from: Point | Rectangle
-  let to: Point | Rectangle | undefined
-
-  for (let i = 0, len = oldVertices.length; i <= len; i += 1) {
-    let partialRoute: Point[] | null = null
-
-    from = to || sourceBBox
-    to = oldVertices[i]
-
-    // This is the last iteration
-    if (to == null) {
-      to = targetBBox
-
-      // If the target is a point, we should use dragging route
-      // instead of main routing method if it has been provided.
-      const edge = edgeView.cell
-      const isEndingAtPoint =
-        edge.getSourceCellId() == null || edge.getTargetCellId() == null
-
-      if (isEndingAtPoint && typeof options.draggingRouter === 'function') {
-        const dragFrom = from === sourceBBox ? sourceEndpoint : from
-        const dragTo = to.getOrigin()
-        partialRoute = FunctionExt.call(
-          options.draggingRouter,
-          edgeView,
-          dragFrom,
-          dragTo,
-          options,
-        )
-      }
-    }
-
-    // Find the partial route
-    if (partialRoute == null) {
-      partialRoute = findRoute(edgeView, from, to, map, options)
-    }
-
-    // Cannot found the partial route.
-    if (partialRoute === null) {
-      // eslint-next-line
-      console.warn(`Unable to execute manhattan algorithm, use orth instead`)
-
-      return FunctionExt.call(
-        options.fallbackRouter,
-        this,
-        vertices,
-        options,
-        edgeView,
-      )
-    }
-
-    // Remove the first point if the previous partial route has
-    // the same point as last.
-    const leadPoint = partialRoute[0]
-    if (leadPoint?.equals(tailPoint)) {
-      partialRoute.shift()
-    }
-
-    // Save tailPoint for next iteration
-    tailPoint = partialRoute[partialRoute.length - 1] || tailPoint
-    newVertices.push(...partialRoute)
-  }
-
-  if (options.snapToGrid) {
-    return snap(newVertices, edgeView.graph.grid.getGridSize())
-  }
-
-  return newVertices
+    throw new Error("STUB");
 }

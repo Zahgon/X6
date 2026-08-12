@@ -41,128 +41,7 @@ function a2c(
   y2: number,
   recursive?: [number, number, number, number],
 ): any[] {
-  // for more information of where this math came from visit:
-  // http://www.w3.org/TR/SVG11/implnote.html#ArcImplementationNotes
-  const v120 = (Math.PI * 120) / 180
-  const rad = (Math.PI / 180) * (+angle || 0)
-  let res = []
-  let xy
-  let f1
-  let f2
-  let cx
-  let cy
-
-  if (!recursive) {
-    xy = rotate(x1, y1, -rad)
-    x1 = xy.x // eslint-disable-line
-    y1 = xy.y // eslint-disable-line
-
-    xy = rotate(x2, y2, -rad)
-    x2 = xy.x // eslint-disable-line
-    y2 = xy.y // eslint-disable-line
-
-    const x = (x1 - x2) / 2
-    const y = (y1 - y2) / 2
-    let h = (x * x) / (rx * rx) + (y * y) / (ry * ry)
-
-    if (h > 1) {
-      h = Math.sqrt(h)
-      rx = h * rx // eslint-disable-line
-      ry = h * ry // eslint-disable-line
-    }
-
-    const rx2 = rx * rx
-    const ry2 = ry * ry
-
-    const k =
-      (largeArcFlag === sweepFlag ? -1 : 1) *
-      Math.sqrt(
-        Math.abs(
-          (rx2 * ry2 - rx2 * y * y - ry2 * x * x) / (rx2 * y * y + ry2 * x * x),
-        ),
-      )
-
-    cx = (k * rx * y) / ry + (x1 + x2) / 2
-    cy = (k * -ry * x) / rx + (y1 + y2) / 2
-
-    f1 = Math.asin((y1 - cy) / ry)
-    f2 = Math.asin((y2 - cy) / ry)
-
-    f1 = x1 < cx ? Math.PI - f1 : f1
-    f2 = x2 < cx ? Math.PI - f2 : f2
-
-    if (f1 < 0) {
-      f1 = Math.PI * 2 + f1
-    }
-
-    if (f2 < 0) {
-      f2 = Math.PI * 2 + f2
-    }
-
-    if (sweepFlag && f1 > f2) {
-      f1 -= Math.PI * 2
-    }
-
-    if (!sweepFlag && f2 > f1) {
-      f2 -= Math.PI * 2
-    }
-  } else {
-    f1 = recursive[0]
-    f2 = recursive[1]
-    cx = recursive[2]
-    cy = recursive[3]
-  }
-
-  let df = f2 - f1
-  if (Math.abs(df) > v120) {
-    const f2old = f2
-    const x2old = x2
-    const y2old = y2
-    f2 = f1 + v120 * (sweepFlag && f2 > f1 ? 1 : -1)
-    x2 = cx + rx * Math.cos(f2) // eslint-disable-line
-    y2 = cy + ry * Math.sin(f2) // eslint-disable-line
-    res = a2c(x2, y2, rx, ry, angle, 0, sweepFlag, x2old, y2old, [
-      f2,
-      f2old,
-      cx,
-      cy,
-    ])
-  }
-
-  df = f2 - f1
-
-  const c1 = Math.cos(f1)
-  const s1 = Math.sin(f1)
-  const c2 = Math.cos(f2)
-  const s2 = Math.sin(f2)
-  const t = Math.tan(df / 4)
-  const hx = (4 / 3) * (rx * t)
-  const hy = (4 / 3) * (ry * t)
-  const m1 = [x1, y1]
-  const m2 = [x1 + hx * s1, y1 - hy * c1]
-  const m3 = [x2 + hx * s2, y2 - hy * c2]
-  const m4 = [x2, y2]
-
-  m2[0] = 2 * m1[0] - m2[0]
-  m2[1] = 2 * m1[1] - m2[1]
-
-  if (recursive) {
-    return [m2, m3, m4].concat(res)
-  }
-
-  {
-    res = [m2, m3, m4].concat(res).join().split(',')
-
-    const newres = []
-    const ii = res.length
-    for (let i = 0; i < ii; i += 1) {
-      newres[i] =
-        i % 2
-          ? rotate(+res[i - 1], +res[i], rad).y
-          : rotate(+res[i], +res[i + 1], rad).x
-    }
-    return newres
-  }
+    throw new Error("STUB");
 }
 
 function parse(pathData: string) {
@@ -202,31 +81,7 @@ function parse(pathData: string) {
   const segmetns: Segment[] = []
 
   pathData.replace(segmentReg, (input: string, cmd: string, args: string) => {
-    const params: number[] = []
-    let command = cmd.toLowerCase()
-
-    args.replace(commandParamReg, (a: string, b: string) => {
-      if (b) {
-        params.push(+b)
-      }
-      return a
-    })
-
-    if (command === 'm' && params.length > 2) {
-      segmetns.push([cmd, ...params.splice(0, 2)])
-      command = 'l'
-      cmd = cmd === 'm' ? 'l' : 'L' // eslint-disable-line
-    }
-
-    const count = paramsCount[command as keyof typeof paramsCount]
-    while (params.length >= count) {
-      segmetns.push([cmd, ...params.splice(0, count)])
-      if (!count) {
-        break
-      }
-    }
-
-    return input
+      throw new Error("STUB");
   })
 
   return segmetns
@@ -493,7 +348,7 @@ function normalize(path: string) {
 export function normalizePathData(pathData: string) {
   return normalize(pathData)
     .map((segment: Segment) =>
-      segment.map((item) => (typeof item === 'string' ? item : round(item, 2))),
+      { throw new Error("STUB"); },
     )
     .join(',')
     .split(',')

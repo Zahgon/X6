@@ -16,7 +16,7 @@ const DefaultOptions: Partial<MiniMapOptions> = {
   minScale: 0.01,
   maxScale: 16,
   graphOptions: {},
-  createGraph: (options) => new Graph(options),
+  createGraph: (options) => { throw new Error("STUB"); },
 }
 
 const DocumentEvents = {
@@ -46,25 +46,15 @@ export class MiniMap extends View implements GraphPlugin {
   private targetGraphTransforming: boolean
 
   protected get scroller() {
-    return this.graph.getPlugin<any>('scroller')
+      throw new Error("STUB");
   }
 
   protected get graphContainer() {
-    if (this.scroller) {
-      return this.scroller.container
-    }
-    return this.graph.container
+      throw new Error("STUB");
   }
 
   constructor(options: Partial<MiniMapOptions>) {
-    super()
-
-    this.options = {
-      ...DefaultOptions,
-      ...options,
-    } as MiniMapOptions
-
-    CssLoader.ensure(this.name, content)
+      throw new Error("STUB");
   }
 
   public init(graph: Graph) {
@@ -164,13 +154,11 @@ export class MiniMap extends View implements GraphPlugin {
   }
 
   protected onTransform(options: { ui: boolean }) {
-    if (options.ui || this.targetGraphTransforming || !this.scroller) {
-      this.updateViewport()
-    }
+      throw new Error("STUB");
   }
 
   protected onModelUpdated() {
-    this.targetGraph.zoomToFit()
+      throw new Error("STUB");
   }
 
   protected updatePaper(width: number, height: number): this
@@ -241,70 +229,11 @@ export class MiniMap extends View implements GraphPlugin {
   }
 
   protected startAction(evt: Dom.MouseDownEvent) {
-    const e = this.normalizeEvent(evt)
-    const action = e.target === this.zoomHandle ? 'zooming' : 'panning'
-    const { tx, ty } = this.sourceGraph.translate()
-    const eventData: MiniMapEventData = {
-      action,
-      clientX: e.clientX,
-      clientY: e.clientY,
-      scrollLeft: this.graphContainer.scrollLeft,
-      scrollTop: this.graphContainer.scrollTop,
-      zoom: this.sourceGraph.zoom(),
-      scale: this.sourceGraph.transform.getScale(),
-      geometry: this.geometry,
-      translateX: tx,
-      translateY: ty,
-    }
-    this.targetGraphTransforming = true
-    this.delegateDocumentEvents(DocumentEvents, eventData)
+      throw new Error("STUB");
   }
 
   protected doAction(evt: Dom.MouseMoveEvent) {
-    const e = this.normalizeEvent(evt)
-    const clientX = e.clientX
-    const clientY = e.clientY
-    const data = e.data as MiniMapEventData
-    switch (data.action) {
-      case 'panning': {
-        const scale = this.sourceGraph.transform.getScale()
-        const rx = (clientX - data.clientX) * scale.sx
-        const ry = (clientY - data.clientY) * scale.sy
-        if (this.scroller) {
-          this.graphContainer.scrollLeft = data.scrollLeft + rx / this.ratio
-          this.graphContainer.scrollTop = data.scrollTop + ry / this.ratio
-        } else {
-          this.sourceGraph.translate(
-            data.translateX - rx / this.ratio,
-            data.translateY - ry / this.ratio,
-          )
-        }
-        break
-      }
-
-      case 'zooming': {
-        const startScale = data.scale
-        const startGeometry = data.geometry
-        const delta =
-          1 + (data.clientX - clientX) / startGeometry.width / startScale.sx
-
-        if (data.frameId) {
-          cancelAnimationFrame(data.frameId)
-        }
-
-        data.frameId = requestAnimationFrame(() => {
-          this.sourceGraph.zoom(delta * data.zoom, {
-            absolute: true,
-            minScale: this.options.minScale,
-            maxScale: this.options.maxScale,
-          })
-        })
-        break
-      }
-
-      default:
-        break
-    }
+      throw new Error("STUB");
   }
 
   protected stopAction() {
@@ -313,26 +242,7 @@ export class MiniMap extends View implements GraphPlugin {
   }
 
   protected scrollTo(evt: Dom.MouseDownEvent) {
-    const e = this.normalizeEvent(evt)
-
-    let x: number
-    let y: number
-
-    const ts = this.targetGraph.translate()
-    ts.ty = ts.ty || 0
-
-    if (e.offsetX == null) {
-      const offset = Dom.offset(this.targetGraph.container)
-      x = e.pageX - offset.left
-      y = e.pageY - offset.top
-    } else {
-      x = e.offsetX
-      y = e.offsetY
-    }
-
-    const cx = (x - ts.tx) / this.ratio
-    const cy = (y - ts.ty) / this.ratio
-    this.sourceGraph.centerPoint(cx, cy)
+      throw new Error("STUB");
   }
 
   @disposable()

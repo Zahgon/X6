@@ -74,31 +74,7 @@ export class GraphView extends View {
   ]
 
   static snapshoot(elem: Element) {
-    const cloned = elem.cloneNode() as Element
-    elem.childNodes.forEach((child) => {
-      cloned.appendChild(child)
-    })
-
-    return () => {
-      // remove all children
-      Dom.empty(elem)
-
-      // remove all attributes
-      while (elem.attributes.length > 0) {
-        elem.removeAttribute(elem.attributes[0].name)
-      }
-
-      // restore attributes
-      for (let i = 0, l = cloned.attributes.length; i < l; i += 1) {
-        const attr = cloned.attributes[i]
-        elem.setAttribute(attr.name, attr.value)
-      }
-
-      // restore children
-      cloned.childNodes.forEach((child) => {
-        elem.appendChild(child)
-      })
-    }
+      throw new Error("STUB");
   }
   static events = {
     dblclick: 'onDblClick',
@@ -159,33 +135,15 @@ export class GraphView extends View {
 
   /** Graph's `this.container` is from outer, should not dispose */
   protected get disposeContainer(): boolean {
-    return false
+      throw new Error("STUB");
   }
 
   protected get options() {
-    return this.graph.options
+      throw new Error("STUB");
   }
 
   constructor(protected readonly graph: Graph) {
-    super()
-
-    const { selectors, fragment } = Markup.parseJSONMarkup(GraphView.markup)
-    this.background = selectors.background as HTMLDivElement
-    this.grid = selectors.grid as HTMLDivElement
-    this.svg = selectors.svg as SVGSVGElement
-    this.defs = selectors.defs as SVGDefsElement
-    this.viewport = selectors.viewport as SVGGElement
-    this.primer = selectors.primer as SVGGElement
-    this.stage = selectors.stage as SVGGElement
-    this.decorator = selectors.decorator as SVGGElement
-    this.overlay = selectors.overlay as SVGGElement
-    this.container = this.options.container
-    this.restore = GraphView.snapshoot(this.container)
-
-    Dom.addClass(this.container, this.prefixClassName('graph'))
-    Dom.append(this.container, fragment)
-
-    this.delegateEvents()
+      throw new Error("STUB");
   }
 
   delegateEvents() {
@@ -232,28 +190,7 @@ export class GraphView extends View {
   }
 
   protected onDblClick(evt: Dom.DoubleClickEvent) {
-    if (this.options.preventDefaultDblClick) {
-      evt.preventDefault()
-    }
-
-    const e = this.normalizeEvent(evt)
-    const view = this.findView(e.target)
-
-    if (this.guard(e, view)) {
-      return
-    }
-
-    const localPoint = this.graph.snapToGrid(e.clientX, e.clientY)
-
-    if (view) {
-      view.onDblClick(e, localPoint.x, localPoint.y)
-    } else {
-      this.graph.trigger('blank:dblclick', {
-        e,
-        x: localPoint.x,
-        y: localPoint.y,
-      })
-    }
+      throw new Error("STUB");
   }
 
   protected onClick(evt: Dom.ClickEvent) {
@@ -278,41 +215,11 @@ export class GraphView extends View {
   }
 
   protected isPreventDefaultContextMenu(view: CellView | null) {
-    let preventDefaultContextMenu = this.options.preventDefaultContextMenu
-    if (typeof preventDefaultContextMenu === 'function') {
-      preventDefaultContextMenu = FunctionExt.call(
-        preventDefaultContextMenu,
-        this.graph,
-        { view },
-      )
-    }
-
-    return preventDefaultContextMenu
+      throw new Error("STUB");
   }
 
   protected onContextMenu(evt: Dom.ContextMenuEvent) {
-    const e = this.normalizeEvent(evt)
-    const view = this.findView(e.target)
-
-    if (this.isPreventDefaultContextMenu(view)) {
-      evt.preventDefault()
-    }
-
-    if (this.guard(e, view)) {
-      return
-    }
-
-    const localPoint = this.graph.snapToGrid(e.clientX, e.clientY)
-
-    if (view) {
-      view.onContextMenu(e, localPoint.x, localPoint.y)
-    } else {
-      this.graph.trigger('blank:contextmenu', {
-        e,
-        x: localPoint.x,
-        y: localPoint.y,
-      })
-    }
+      throw new Error("STUB");
   }
 
   delegateDragEvents(e: Dom.MouseDownEvent, view: CellView | null) {
@@ -442,39 +349,11 @@ export class GraphView extends View {
   }
 
   protected onMouseOver(evt: Dom.MouseOverEvent) {
-    const e = this.normalizeEvent(evt)
-    const view = this.findView(e.target)
-    if (this.guard(e, view)) {
-      return
-    }
-
-    if (view) {
-      view.onMouseOver(e)
-    } else {
-      // prevent border of paper from triggering this
-      if (this.container === e.target) {
-        return
-      }
-      this.graph.trigger('blank:mouseover', { e })
-    }
+      throw new Error("STUB");
   }
 
   protected onMouseOut(evt: Dom.MouseOutEvent) {
-    const e = this.normalizeEvent(evt)
-    const view = this.findView(e.target)
-
-    if (this.guard(e, view)) {
-      return
-    }
-
-    if (view) {
-      view.onMouseOut(e)
-    } else {
-      if (this.container === e.target) {
-        return
-      }
-      this.graph.trigger('blank:mouseout', { e })
-    }
+      throw new Error("STUB");
   }
 
   protected onMouseEnter(evt: Dom.MouseEnterEvent) {
@@ -523,52 +402,11 @@ export class GraphView extends View {
   }
 
   protected onMouseWheel(evt: Dom.EventObject) {
-    const e = this.normalizeEvent(evt)
-    const view = this.findView(e.target)
-    if (this.guard(e, view)) {
-      return
-    }
-
-    const originalEvent = e.originalEvent as WheelEvent
-    const localPoint = this.graph.snapToGrid(
-      originalEvent.clientX,
-      originalEvent.clientY,
-    )
-    const delta = Math.max(
-      -1,
-      Math.min(1, (originalEvent as any).wheelDelta || -originalEvent.detail),
-    )
-
-    if (view) {
-      view.onMouseWheel(e, localPoint.x, localPoint.y, delta)
-    } else {
-      this.graph.trigger('blank:mousewheel', {
-        e,
-        delta,
-        x: localPoint.x,
-        y: localPoint.y,
-      })
-    }
+      throw new Error("STUB");
   }
 
   protected onCustomEvent(evt: Dom.MouseDownEvent) {
-    const elem = evt.currentTarget
-    const event = elem.getAttribute('event') || elem.getAttribute('data-event')
-    if (event) {
-      const view = this.findView(elem)
-      if (view) {
-        const e = this.normalizeEvent(evt)
-        if (this.guard(e, view)) {
-          return
-        }
-
-        const localPoint = this.graph.snapToGrid(
-          e.clientX as number,
-          e.clientY as number,
-        )
-        view.onCustomEvent(e, event, localPoint.x, localPoint.y)
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected handleMagnetEvent<T extends Dom.EventObject>(
@@ -582,74 +420,27 @@ export class GraphView extends View {
       y: number,
     ) => void,
   ) {
-    const magnetElem = evt.currentTarget
-    const magnetValue = magnetElem.getAttribute('magnet') as string
-    if (magnetValue && magnetValue.toLowerCase() !== 'false') {
-      const view = this.findView(magnetElem)
-      if (view) {
-        const e = this.normalizeEvent(evt)
-        if (this.guard(e, view)) {
-          return
-        }
-        const localPoint = this.graph.snapToGrid(
-          e.clientX as number,
-          e.clientY as number,
-        )
-        FunctionExt.call(
-          handler,
-          this.graph,
-          view,
-          e,
-          magnetElem,
-          localPoint.x,
-          localPoint.y,
-        )
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected onMagnetMouseDown(e: Dom.MouseDownEvent) {
-    this.handleMagnetEvent(e, (view, e, magnet, x, y) => {
-      view.onMagnetMouseDown(e, magnet, x, y)
-    })
+      throw new Error("STUB");
   }
 
   protected onMagnetDblClick(e: Dom.DoubleClickEvent) {
-    this.handleMagnetEvent(e, (view, e, magnet, x, y) => {
-      view.onMagnetDblClick(e, magnet, x, y)
-    })
+      throw new Error("STUB");
   }
 
   protected onMagnetContextMenu(e: Dom.ContextMenuEvent) {
-    const view = this.findView(e.target)
-    if (this.isPreventDefaultContextMenu(view)) {
-      e.preventDefault()
-    }
-
-    this.handleMagnetEvent(e, (view, e, magnet, x, y) => {
-      view.onMagnetContextMenu(e, magnet, x, y)
-    })
+      throw new Error("STUB");
   }
 
   protected onLabelMouseDown(evt: Dom.MouseDownEvent) {
-    const labelNode = evt.currentTarget
-    const view = this.findView(labelNode)
-    if (view) {
-      const e = this.normalizeEvent(evt)
-      if (this.guard(e, view)) {
-        return
-      }
-
-      const localPoint = this.graph.snapToGrid(e.clientX, e.clientY)
-      view.onLabelMouseDown(e, localPoint.x, localPoint.y)
-    }
+      throw new Error("STUB");
   }
 
   protected onImageDragStart() {
-    // This is the only way to prevent image dragging in Firefox that works.
-    // Setting -moz-user-select: none, draggable="false" attribute or
-    // user-drag: none didn't help.
-    return false
+      throw new Error("STUB");
   }
 
   @disposable()
@@ -657,6 +448,8 @@ export class GraphView extends View {
     this.undelegateEvents()
     this.undelegateDocumentEvents()
     this.restore()
-    this.restore = () => {}
+    this.restore = () => {
+        throw new Error("STUB");
+    }
   }
 }

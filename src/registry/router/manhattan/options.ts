@@ -160,39 +160,19 @@ export const defaults: ManhattanRouterOptions = {
   },
 
   cost() {
-    const step = resolve(this.step, this)
-    return step
+      throw new Error("STUB");
   },
 
   directions() {
-    const step = resolve(this.step, this)
-    const cost = resolve(this.cost, this)
-
-    return [
-      { cost, offsetX: step, offsetY: 0 },
-      { cost, offsetX: -step, offsetY: 0 },
-      { cost, offsetX: 0, offsetY: step },
-      { cost, offsetX: 0, offsetY: -step },
-    ]
+      throw new Error("STUB");
   },
 
   penalties() {
-    const step = resolve(this.step, this)
-    return {
-      0: 0,
-      45: step / 2,
-      90: step / 2,
-    }
+      throw new Error("STUB");
   },
 
   paddingBox() {
-    const step = resolve(this.step, this)
-    return {
-      x: -step,
-      y: -step,
-      width: 2 * step,
-      height: 2 * step,
-    }
+      throw new Error("STUB");
   },
 
   fallbackRouter: orth,
@@ -213,18 +193,8 @@ export function resolve<T>(
 export function resolveOptions(options: ManhattanRouterOptions) {
   const result = Object.keys(options).reduce(
     (memo, key: keyof ResolvedOptions) => {
-      const ret = memo as any
-      if (
-        key === 'fallbackRouter' ||
-        key === 'draggingRouter' ||
-        key === 'fallbackRoute'
-      ) {
-        ret[key] = options[key]
-      } else {
-        ret[key] = resolve(options[key], options)
-      }
-      return memo
-    },
+          throw new Error("STUB");
+      },
     {} as ResolvedOptions,
   )
 
@@ -239,9 +209,7 @@ export function resolveOptions(options: ManhattanRouterOptions) {
   }
 
   result.directions.forEach((direction) => {
-    const point1 = new Point(0, 0)
-    const point2 = new Point(direction.offsetX, direction.offsetY)
-    direction.angle = normalize(point1.theta(point2))
+      throw new Error("STUB");
   })
 
   return result

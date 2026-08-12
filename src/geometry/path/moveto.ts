@@ -67,16 +67,7 @@ export class MoveTo extends Segment {
   constructor(x: number, y: number)
   constructor(p: PointOptions)
   constructor(x: number | Curve | Line | PointOptions, y?: number) {
-    super()
-
-    this.isVisible = false
-    this.isSubpathStart = true
-
-    if (Line.isLine(x) || Curve.isCurve(x)) {
-      this.endPoint = x.end.clone().round(2)
-    } else {
-      this.endPoint = Point.create(x, y).round(2)
-    }
+      throw new Error("STUB");
   }
 
   get start(): Point {
@@ -86,7 +77,7 @@ export class MoveTo extends Segment {
   }
 
   get type() {
-    return 'M'
+      throw new Error("STUB");
   }
 
   bbox() {
@@ -110,7 +101,7 @@ export class MoveTo extends Segment {
   }
 
   closestPointTangent() {
-    return null
+      throw new Error("STUB");
   }
 
   length() {

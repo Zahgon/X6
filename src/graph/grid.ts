@@ -14,7 +14,7 @@ export class GridManager extends Base {
   protected patterns: GridDefinition[]
 
   protected get elem() {
-    return this.view.grid
+      throw new Error("STUB");
   }
 
   protected get grid() {
@@ -89,55 +89,7 @@ export class GridManager extends Base {
     const items = Array.isArray(options) ? options : [options]
 
     this.patterns.forEach((settings, index) => {
-      const id = `pattern_${index}`
-      const sx = ctm.a || 1
-      const sy = ctm.d || 1
-
-      const { update, markup, ...others } = settings
-      const options = {
-        ...others,
-        ...items[index],
-        sx,
-        sy,
-        ox: ctm.e || 0,
-        oy: ctm.f || 0,
-        width: gridSize * sx,
-        height: gridSize * sy,
-      }
-
-      if (!grid.has(id)) {
-        grid.add(
-          id,
-          Vector.create(
-            'pattern',
-            { id, patternUnits: 'userSpaceOnUse' },
-            Vector.createVectors(markup),
-          ).node,
-        )
-      }
-
-      const patternElem = grid.get(id)
-
-      if (typeof update === 'function') {
-        update(patternElem.childNodes[0] as Element, options)
-      }
-
-      let x = options.ox % options.width
-      if (x < 0) {
-        x += options.width
-      }
-
-      let y = options.oy % options.height
-      if (y < 0) {
-        y += options.height
-      }
-
-      Dom.attr(patternElem, {
-        x,
-        y,
-        width: options.width,
-        height: options.height,
-      })
+        throw new Error("STUB");
     })
 
     const base64 = new XMLSerializer().serializeToString(grid.root)
@@ -176,7 +128,7 @@ export class GridManager extends Base {
       }
 
       return Array.isArray(items)
-        ? items.map((item, index) => ({ ...item, ...args[index] }))
+        ? items.map((item, index) => { throw new Error("STUB"); })
         : [{ ...items, ...args[0] }]
     }
 

@@ -89,27 +89,7 @@ export class Events<Args extends EventArgs = any> {
     const names = name ? [name] : Object.keys(listeners)
 
     names.forEach((n) => {
-      const cache = listeners[n]
-      if (!cache) {
-        return
-      }
-
-      // remove all events with specified name.
-      if (!(handler || context)) {
-        delete listeners[n]
-        return
-      }
-
-      for (let i = cache.length - 2; i >= 0; i -= 2) {
-        if (
-          !(
-            (handler && cache[i] !== handler) ||
-            (context && cache[i + 1] !== context)
-          )
-        ) {
-          cache.splice(i, 2)
-        }
-      }
+        throw new Error("STUB");
     })
 
     return this

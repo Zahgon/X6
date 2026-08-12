@@ -18,18 +18,16 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
   protected selectors: MarkupSelectors
 
   public get priority() {
-    return 2
+      throw new Error("STUB");
   }
 
   /** If need remove `this.container` DOM */
   protected get disposeContainer() {
-    return true
+      throw new Error("STUB");
   }
 
   constructor() {
-    super()
-    this.cid = StringExt.uniqueId('v')
-    registerView(this.cid, this)
+      throw new Error("STUB");
   }
 
   confirmUpdate(flag: number, options: any): number {
@@ -63,9 +61,7 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
   protected onRemove() {}
 
   setClass(className: string | string[], elem: Element = this.container) {
-    elem.classList.value = Array.isArray(className)
-      ? className.join(' ')
-      : className
+      throw new Error("STUB");
   }
 
   addClass(className: string | string[], elem: Element = this.container) {
@@ -88,8 +84,7 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
     style: Record<string, string | number>,
     elem: Element = this.container,
   ) {
-    Dom.css(elem, style)
-    return this
+      throw new Error("STUB");
   }
 
   setAttrs(attrs?: SimpleAttrs | null, elem: Element = this.container) {
@@ -198,15 +193,7 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
 
     const splitter = /^(\S+)\s*(.*)$/
     Object.keys(events).forEach((key) => {
-      const match = key.match(splitter)
-      if (match == null) {
-        return
-      }
-
-      const method = this.getEventHandler(events[key])
-      if (typeof method === 'function') {
-        this.delegateEvent(match[1], match[2], method)
-      }
+        throw new Error("STUB");
     })
 
     return this
@@ -275,15 +262,7 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
 
     const ns = this.getEventNamespace()
     Object.keys(events).forEach((eventName) => {
-      const method = this.getEventHandler(events[eventName])
-      if (typeof method === 'function') {
-        Dom.Event.on<string, KeyValue | undefined>(
-          elem as Element,
-          eventName + ns,
-          data,
-          method as any,
-        )
-      }
+        throw new Error("STUB");
     })
 
     return this
@@ -305,10 +284,10 @@ export abstract class View<A extends EventArgs = any> extends Basecoat<A> {
     if (typeof handler === 'string') {
       const fn = (this as any)[handler]
       if (typeof fn === 'function') {
-        method = (...args: any) => fn.call(this, ...args)
+        method = (...args: any) => { throw new Error("STUB"); }
       }
     } else {
-      method = (...args: any) => handler.call(this, ...args)
+      method = (...args: any) => { throw new Error("STUB"); }
     }
 
     return method

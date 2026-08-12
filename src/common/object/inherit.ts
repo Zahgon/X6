@@ -2,15 +2,10 @@ const extendStatics =
   Object.setPrototypeOf ||
   ({ __proto__: [] } instanceof Array &&
     function (d, b) {
-      d.__proto__ = b // eslint-disable-line no-proto
+        throw new Error("STUB");
     }) ||
   function (d, b) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const p in b) {
-      if (Object.prototype.hasOwnProperty.call(b, p)) {
-        d[p] = (b as any)[p]
-      }
-    }
+      throw new Error("STUB");
   }
 
 /**
@@ -20,7 +15,7 @@ const extendStatics =
 export function inherit(cls: Function, base: Function) {
   extendStatics(cls, base)
   function tmp() {
-    this.constructor = cls
+      throw new Error("STUB");
   }
   cls.prototype =
     base === null
@@ -44,7 +39,7 @@ export function createClass<T extends new (...args: any[]) => any>(
     cls = class extends base {}
   } else {
     cls = function () {
-      return base.apply(this, arguments) // eslint-disable-line
+        throw new Error("STUB");
     }
     inherit(cls, base)
   }

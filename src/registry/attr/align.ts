@@ -26,20 +26,6 @@ function offsetWrapper(
   corner: 'right' | 'bottom',
 ): AttrOffsetFunction {
   return (value, { refBBox }) => {
-    const point = new Point()
-    let delta
-    if (value === 'middle') {
-      delta = refBBox[dimension] / 2
-    } else if (value === corner) {
-      delta = refBBox[dimension]
-    } else if (typeof value === 'number' && Number.isFinite(value)) {
-      delta = value > -1 && value < 1 ? -refBBox[dimension] * value : -value
-    } else if (NumberExt.isPercentage(value)) {
-      delta = (refBBox[dimension] * parseFloat(value)) / 100
-    } else {
-      delta = 0
-    }
-    point[axis] = -(refBBox[axis] + delta)
-    return point
+      throw new Error("STUB");
   }
 }

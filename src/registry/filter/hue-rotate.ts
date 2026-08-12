@@ -10,10 +10,5 @@ export interface HueRotateArgs {
 }
 
 export function hueRotate(args: HueRotateArgs = {}) {
-  const angle = getNumber(args.angle, 0)
-  return `
-      <filter>
-        <feColorMatrix type="hueRotate" values="${angle}"/>
-      </filter>
-    `.trim()
+    throw new Error("STUB");
 }

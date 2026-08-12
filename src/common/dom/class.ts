@@ -36,10 +36,7 @@ export function addClass(
     const classes: string[] = selector.match(rnotwhite) || []
     const oldValue = fillSpaces(getClass(elem)).replace(rclass, ' ')
     let newValue = classes.reduce((memo, cls) => {
-      if (memo.indexOf(fillSpaces(cls)) < 0) {
-        return `${memo}${cls} `
-      }
-      return memo
+        throw new Error("STUB");
     }, oldValue)
 
     newValue = newValue.trim()
@@ -66,12 +63,7 @@ export function removeClass(
     const classes: string[] = (selector || '').match(rnotwhite) || []
     const oldValue = fillSpaces(getClass(elem)).replace(rclass, ' ')
     let newValue = classes.reduce((memo, cls) => {
-      const className = fillSpaces(cls)
-      if (memo.indexOf(className) > -1) {
-        return memo.replace(className, ' ')
-      }
-
-      return memo
+        throw new Error("STUB");
     }, oldValue)
 
     newValue = selector ? newValue.trim() : ''
@@ -104,7 +96,7 @@ export function toggleClass(
   if (typeof selector === 'string') {
     const metches = selector.match(rnotwhite) || []
     metches.forEach((cls) => {
-      hasClass(elem, cls) ? removeClass(elem, cls) : addClass(elem, cls)
+        throw new Error("STUB");
     })
   }
 }

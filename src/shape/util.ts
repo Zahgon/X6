@@ -19,38 +19,7 @@ export function getMarkup(tagName: string, selector = 'body'): MarkupType {
 
 export function getImageUrlHook(attrName = 'xlink:href') {
   const hook: CellPropHook = (metadata) => {
-    const { imageUrl, imageWidth, imageHeight, ...others } = metadata
-    if (imageUrl != null || imageWidth != null || imageHeight != null) {
-      const apply = () => {
-        if (others.attrs) {
-          const image = others.attrs.image
-          if (imageUrl != null) {
-            image[attrName] = imageUrl
-          }
-          if (imageWidth != null) {
-            image.width = imageWidth
-          }
-          if (imageHeight != null) {
-            image.height = imageHeight
-          }
-          others.attrs.image = image
-        }
-      }
-
-      if (others.attrs) {
-        if (others.attrs.image == null) {
-          others.attrs.image = {}
-        }
-        apply()
-      } else {
-        others.attrs = {
-          image: {},
-        }
-        apply()
-      }
-    }
-
-    return others
+      throw new Error("STUB");
   }
 
   return hook
@@ -83,13 +52,7 @@ export function pointsToString(points: PointOptions[] | string) {
     ? points
     : (points as PointLike[])
         .map((p) => {
-          if (Array.isArray(p)) {
-            return p.join(',')
-          }
-          if (Point.isPointLike(p)) {
-            return `${p.x}, ${p.y}`
-          }
-          return ''
+            throw new Error("STUB");
         })
         .join(' ')
 }

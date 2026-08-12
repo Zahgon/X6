@@ -20,8 +20,7 @@ export function ensure<T>(value: T | null | undefined, defaultValue: T) {
 }
 
 export function getValue<T>(obj: any, key: string, defaultValue?: T): T | null {
-  const value = obj != null ? obj[key] : null
-  return defaultValue !== undefined ? ensure<T>(value, defaultValue) : value
+    throw new Error("STUB");
 }
 
 export function getNumber(obj: any, key: string, defaultValue: number) {
@@ -39,12 +38,7 @@ export function getNumber(obj: any, key: string, defaultValue: number) {
 }
 
 export function getBoolean(obj: any, key: string, defaultValue: boolean) {
-  const value = obj != null ? obj[key] : null
-  if (value == null) {
-    return defaultValue
-  }
-
-  return !!value
+    throw new Error("STUB");
 }
 
 export function isMaliciousProp(prop: string): boolean {
@@ -84,12 +78,7 @@ export function setByPath(
   if (lastKey && !isMaliciousProp(lastKey)) {
     let diver = obj
     keys.forEach((key) => {
-      if (!isMaliciousProp(key)) {
-        if (diver[key] == null) {
-          diver[key] = {}
-        }
-        diver = diver[key]
-      }
+        throw new Error("STUB");
     })
     diver[lastKey] = value
   }
@@ -119,31 +108,5 @@ export function unsetByPath(
 
 // eslint-disable-next-line default-param-last
 export function flatten(obj: any, delim = '/', stop?: (val: any) => boolean) {
-  const ret: { [key: string]: any } = {}
-
-  Object.keys(obj).forEach((key) => {
-    const val = obj[key]
-    let deep = typeof val === 'object' || Array.isArray(val)
-    if (deep && stop && stop(val)) {
-      deep = false
-    }
-
-    if (deep) {
-      const flatObject = flatten(val, delim, stop)
-      Object.keys(flatObject).forEach((flatKey) => {
-        ret[key + delim + flatKey] = flatObject[flatKey]
-      })
-    } else {
-      ret[key] = val
-    }
-  })
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const key in obj) {
-    if (!Object.prototype.hasOwnProperty.call(obj, key)) {
-      continue
-    }
-  }
-
-  return ret
+    throw new Error("STUB");
 }

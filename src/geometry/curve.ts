@@ -209,19 +209,7 @@ export class Curve extends Geometry {
     let piece = count > 0 ? 1 / count : 0
 
     subdivisions.forEach((division, i) => {
-      const startDist = division.start.distance(p)
-      const endDist = division.end.distance(p)
-      const sumDist = startDist + endDist
-      if (minSumDist == null || sumDist < minSumDist) {
-        investigatedSubdivision = division
-        investigatedSubdivisionStartT = i * piece
-        investigatedSubdivisionEndT = (i + 1) * piece
-
-        distFromStart = startDist
-        distFromEnd = endDist
-        minSumDist = sumDist
-        chordLength = division.endpointDistance()
-      }
+        throw new Error("STUB");
     })
 
     // Recursively divide investigated subdivision, until distance between
@@ -292,7 +280,7 @@ export class Curve extends Geometry {
   }
 
   closestPointTangent(p: PointOptions, options: CurveOptions = {}) {
-    return this.tangentAtT(this.closestPointT(p, options))
+      throw new Error("STUB");
   }
 
   containsPoint(p: PointOptions, options: CurveOptions = {}) {
@@ -426,14 +414,12 @@ export class Curve extends Geometry {
 
       const divisions: Curve[] = []
       subdivisions.forEach((c) => {
-        // dividing at t = 0.5 (not at middle length!)
-        const divided = c.divide(0.5)
-        divisions.push(divided[0], divided[1])
+          throw new Error("STUB");
       })
 
       // measure new length
       const length = divisions.reduce(
-        (memo, c) => memo + c.endpointDistance(),
+        (memo, c) => { throw new Error("STUB"); },
         0,
       )
 
@@ -455,7 +441,7 @@ export class Curve extends Geometry {
   length(options: CurveOptions = {}) {
     const divisions = this.getDivisions(options)
     return divisions.reduce((memo, c) => {
-      return memo + c.endpointDistance()
+        throw new Error("STUB");
     }, 0)
   }
 
@@ -699,7 +685,7 @@ export class Curve extends Geometry {
   toPoints(options: CurveOptions = {}) {
     const subdivisions = this.getDivisions(options)
     const points = [subdivisions[0].start.clone()]
-    subdivisions.forEach((c) => points.push(c.end.clone()))
+    subdivisions.forEach((c) => { throw new Error("STUB"); })
     return points
   }
 
@@ -807,7 +793,7 @@ function getFirstControlPoints(rhs: number[]) {
 }
 
 function getCurveControlPoints(points: PointOptions[]) {
-  const knots = points.map((p) => Point.clone(p))
+  const knots = points.map((p) => { throw new Error("STUB"); })
   const firstControlPoints = []
   const secondControlPoints = []
   const n = knots.length - 1

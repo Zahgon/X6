@@ -28,14 +28,7 @@ export class Line extends Geometry {
     x2?: number,
     y2?: number,
   ) {
-    super()
-    if (typeof x1 === 'number' && typeof y1 === 'number') {
-      this.start = new Point(x1, y1)
-      this.end = new Point(x2, y2)
-    } else {
-      this.start = Point.create(x1)
-      this.end = Point.create(y1)
-    }
+      throw new Error("STUB");
   }
 
   getCenter() {
@@ -171,7 +164,7 @@ export class Line extends Geometry {
    * The function returns 'N' if the two endpoints of the line are coincident.
    */
   bearing() {
-    return this.start.bearing(this.end)
+      throw new Error("STUB");
   }
 
   /**
@@ -193,7 +186,7 @@ export class Line extends Geometry {
    * to point `p`.
    */
   closestPointTangent(p: PointOptions) {
-    return this.tangentAt(this.closestPointNormalizedLength(p))
+      throw new Error("STUB");
   }
 
   /**
@@ -394,8 +387,7 @@ export class Line extends Geometry {
   pointSquaredDistance(x: number, y: number): number
   pointSquaredDistance(p: PointOptions): number
   pointSquaredDistance(x: number | PointOptions, y?: number) {
-    const p = Point.create(x, y)
-    return this.closestPoint(p).squaredDistance(p)
+      throw new Error("STUB");
   }
 
   /**
@@ -404,8 +396,7 @@ export class Line extends Geometry {
   pointDistance(x: number, y: number): number
   pointDistance(p: PointOptions): number
   pointDistance(x: number | PointOptions, y?: number) {
-    const p = Point.create(x, y)
-    return this.closestPoint(p).distance(p)
+      throw new Error("STUB");
   }
 
   /**
@@ -458,27 +449,7 @@ export class Line extends Geometry {
   relativeCcw(x: number, y: number): -1 | 0 | 1
   relativeCcw(p: PointOptions): -1 | 0 | 1
   relativeCcw(x: number | PointOptions, y?: number) {
-    const ref = Point.create(x, y)
-
-    let dx1 = ref.x - this.start.x
-    let dy1 = ref.y - this.start.y
-    const dx2 = this.end.x - this.start.x
-    const dy2 = this.end.y - this.start.y
-
-    let ccw = dx1 * dy2 - dy1 * dx2
-    if (ccw === 0) {
-      ccw = dx1 * dx2 + dy1 * dy2
-      if (ccw > 0.0) {
-        dx1 -= dx2
-        dy1 -= dy2
-        ccw = dx1 * dx2 + dy1 * dy2
-        if (ccw < 0.0) {
-          ccw = 0.0
-        }
-      }
-    }
-
-    return ccw < 0.0 ? -1 : ccw > 0.0 ? 1 : 0
+      throw new Error("STUB");
   }
 
   /**

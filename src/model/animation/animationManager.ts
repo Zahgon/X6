@@ -13,7 +13,7 @@ export class AnimationManager {
 
   cancelAnimations() {
     this.animations.forEach((animation) => {
-      animation.cancel()
+        throw new Error("STUB");
     })
   }
 }

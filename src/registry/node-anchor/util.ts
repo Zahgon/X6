@@ -15,22 +15,7 @@ export function resolve<S extends Function, T>(fn: S): T {
     ref: any,
     options: ResolveOptions,
   ) {
-    if (ref instanceof Element) {
-      const refView = this.graph.findViewByElem(ref)
-      let refPoint
-      if (refView) {
-        if (refView.isEdgeElement(ref)) {
-          const distance = options.fixedAt != null ? options.fixedAt : '50%'
-          refPoint = getPointAtEdge(refView as EdgeView, distance)
-        } else {
-          refPoint = refView.getBBoxOfElement(ref).getCenter()
-        }
-      } else {
-        refPoint = new Point()
-      }
-      return fn.call(this, view, magnet, refPoint, options)
-    }
-    return fn.apply(this, arguments) // eslint-disable-line
+      throw new Error("STUB");
   } as any as T
 }
 

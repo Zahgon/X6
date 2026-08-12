@@ -12,44 +12,21 @@ declare module '../../graph/graph' {
 }
 
 Graph.prototype.lockScroller = function () {
-  const scroller = this.getPlugin('scroller') as Scroller
-  if (scroller) {
-    scroller.lockScroller()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.unlockScroller = function () {
-  const scroller = this.getPlugin('scroller') as Scroller
-  if (scroller) {
-    scroller.unlockScroller()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.updateScroller = function () {
-  const scroller = this.getPlugin('scroller') as Scroller
-  if (scroller) {
-    scroller.updateScroller()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.getScrollbarPosition = function () {
-  const scroller = this.getPlugin('scroller') as Scroller
-  if (scroller) {
-    return scroller.getScrollbarPosition()
-  }
-  return {
-    left: 0,
-    top: 0,
-  }
+    throw new Error("STUB");
 }
 
 Graph.prototype.setScrollbarPosition = function (left?: number, top?: number) {
-  const scroller = this.getPlugin('scroller') as Scroller
-  if (scroller) {
-    scroller.setScrollbarPosition(left, top)
-  }
-  return this
+    throw new Error("STUB");
 }

@@ -94,15 +94,11 @@ export class EventObject<
         typeof hook === 'function'
           ? // eslint-disable-next-line
             function (this: EventObject) {
-              if (this.originalEvent) {
-                return (hook as any)(this.originalEvent)
-              }
+                throw new Error("STUB");
             }
           : // eslint-disable-next-line
             function (this: EventObject) {
-              if (this.originalEvent) {
-                return this.originalEvent[name as 'type']
-              }
+                throw new Error("STUB");
             },
       set(value) {
         Object.defineProperty(this, name, {
@@ -136,32 +132,7 @@ export class EventObject<
   isSimulated = false
 
   constructor(e: TEvent | string, props?: Record<string, any> | null) {
-    if (typeof e === 'string') {
-      this.type = e
-    } else if (e.type) {
-      this.originalEvent = e
-      this.type = e.type
-
-      // Events bubbling up the document may have been marked as prevented
-      // by a handler lower down the tree; reflect the correct value.
-      this.isDefaultPrevented = e.defaultPrevented ? returnTrue : returnFalse
-
-      // Create target properties
-      this.target = e.target as any as TTarget
-      this.currentTarget = e.currentTarget as any as TCurrentTarget
-      this.relatedTarget = (e as any as MouseEvent).relatedTarget
-      this.timeStamp = e.timeStamp
-    }
-
-    // Put explicitly provided properties onto the event object
-    if (props) {
-      Object.assign(this, props)
-    }
-
-    // Create a timestamp if incoming event doesn't have one
-    if (!this.timeStamp) {
-      this.timeStamp = Date.now()
-    }
+      throw new Error("STUB");
   }
 
   preventDefault = () => {
@@ -185,15 +156,7 @@ export class EventObject<
   }
 
   stopImmediatePropagation = () => {
-    const e = this.originalEvent
-
-    this.isImmediatePropagationStopped = returnTrue
-
-    if (e && !this.isSimulated) {
-      e.stopImmediatePropagation()
-    }
-
-    this.stopPropagation()
+      throw new Error("STUB");
   }
 }
 
@@ -239,5 +202,5 @@ const commonProps = {
 }
 
 Object.keys(commonProps).forEach((name: keyof typeof commonProps) =>
-  EventObject.addProperty(name, commonProps[name]),
+  { throw new Error("STUB"); },
 )

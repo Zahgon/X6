@@ -9,20 +9,12 @@ export type Definition<T> = (from: T, to: T) => (time: number) => T
 export const number: Definition<number> = (a, b) => {
   const d = b - a
   return (t: number) => {
-    return a + d * t
+      throw new Error("STUB");
   }
 }
 
 export const object: Definition<{ [key: string]: number }> = (a, b) => {
-  const keys = Object.keys(a)
-  return (t) => {
-    const ret: { [key: string]: number } = {}
-    for (let i = keys.length - 1; i !== -1; i -= 1) {
-      const key = keys[i]
-      ret[key] = a[key] + (b[key] - a[key]) * t
-    }
-    return ret
-  }
+    throw new Error("STUB");
 }
 
 export const unit: Definition<string> = (a, b) => {
@@ -41,26 +33,12 @@ export const unit: Definition<string> = (a, b) => {
   const u = ma ? ma[2] : ''
 
   return (t) => {
-    return (aa + d * t).toFixed(precision) + u
+      throw new Error("STUB");
   }
 }
 
 export const color: Definition<string> = (a, b) => {
-  const ca = parseInt(a.slice(1), 16)
-  const cb = parseInt(b.slice(1), 16)
-  const ra = ca & 0x0000ff
-  const rd = (cb & 0x0000ff) - ra
-  const ga = ca & 0x00ff00
-  const gd = (cb & 0x00ff00) - ga
-  const ba = ca & 0xff0000
-  const bd = (cb & 0xff0000) - ba
-
-  return (t) => {
-    const r = (ra + rd * t) & 0x000000ff
-    const g = (ga + gd * t) & 0x0000ff00
-    const b = (ba + bd * t) & 0x00ff0000
-    return `#${((1 << 24) | r | g | b).toString(16).slice(1)}`
-  }
+    throw new Error("STUB");
 }
 
 export const transform: Definition<string> = (a, b) => {
@@ -86,55 +64,10 @@ export const transform: Definition<string> = (a, b) => {
   const from = parseTransform(a)
   const to = parseTransform(b)
   if (from.length === 0 || to.length === 0) {
-    return () => a // 如果无法解析，返回初始值
+    return () => { throw new Error("STUB"); } // 如果无法解析，返回初始值
   }
 
   return (t: number) => {
-    const transforms: string[] = []
-
-    // 对每个 transform 函数进行插值
-    for (let i = 0; i < Math.min(from.length, to.length); i++) {
-      const fromFunc = from[i]
-      const toFunc = to[i]
-      if (!fromFunc || !toFunc) continue
-
-      if (
-        fromFunc.name === toFunc.name &&
-        fromFunc.values.length > 0 &&
-        fromFunc.values.length === toFunc.values.length
-      ) {
-        const values: string[] = []
-
-        // 对每个参数进行插值
-        for (let j = 0; j < fromFunc.values.length; j++) {
-          const fromVal = fromFunc.values[j]
-          const toVal = toFunc.values[j]
-          if (fromVal === undefined || toVal === undefined) continue
-
-          // 检查是否是带单位的值
-          if (unitReg.test(fromVal) || unitReg.test(toVal)) {
-            // 使用 unit 插值函数处理带单位的值
-            const interpolate = unit(fromVal, toVal)
-            values.push(interpolate(t))
-          } else if (
-            !Number.isNaN(parseFloat(fromVal)) &&
-            !Number.isNaN(parseFloat(toVal))
-          ) {
-            // 使用 number 插值函数处理纯数字
-            const interpolate = number(parseFloat(fromVal), parseFloat(toVal))
-            values.push(interpolate(t).toString())
-          } else {
-            // 无法解析的值保持原样
-            values.push(fromVal)
-          }
-        }
-
-        if (values.length > 0) {
-          transforms.push(`${fromFunc.name}(${values.join(', ')})`)
-        }
-      }
-    }
-
-    return transforms.length > 0 ? transforms.join(' ') : a
+      throw new Error("STUB");
   }
 }

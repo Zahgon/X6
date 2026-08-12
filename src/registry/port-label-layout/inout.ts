@@ -13,25 +13,25 @@ export const outside: PortLabelLayoutDefinition<InOutArgs> = (
   portPosition,
   elemBBox,
   args,
-) => outsideLayout(portPosition, elemBBox, false, args)
+) => { throw new Error("STUB"); }
 
 export const outsideOriented: PortLabelLayoutDefinition<InOutArgs> = (
   portPosition,
   elemBBox,
   args,
-) => outsideLayout(portPosition, elemBBox, true, args)
+) => { throw new Error("STUB"); }
 
 export const inside: PortLabelLayoutDefinition<InOutArgs> = (
   portPosition,
   elemBBox,
   args,
-) => insideLayout(portPosition, elemBBox, false, args)
+) => { throw new Error("STUB"); }
 
 export const insideOriented: PortLabelLayoutDefinition<InOutArgs> = (
   portPosition,
   elemBBox,
   args,
-) => insideLayout(portPosition, elemBBox, true, args)
+) => { throw new Error("STUB"); }
 
 function outsideLayout(
   portPosition: Point,

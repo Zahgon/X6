@@ -10,16 +10,11 @@ export class Collection extends Basecoat<CollectionEventArgs> {
   private map: { [id: string]: Cell }
 
   constructor(cells: Cell | Cell[], options: Options = {}) {
-    super()
-    this.comparator = options.comparator || 'zIndex'
-    this.clean()
-    if (cells) {
-      this.reset(cells, { silent: true })
-    }
+      throw new Error("STUB");
   }
 
   toJSON() {
-    return this.cells.map((cell) => cell.toJSON())
+    return this.cells.map((cell) => { throw new Error("STUB"); })
   }
 
   add(cells: Cell | Cell[], options?: CollectionAddOptions): this
@@ -59,25 +54,7 @@ export class Collection extends Basecoat<CollectionEventArgs> {
     const merged: Cell[] = []
 
     entities.forEach((cell) => {
-      const existing = this.get(cell)
-      if (existing) {
-        if (localOptions.merge && !cell.isSameStore(existing)) {
-          existing.setProp(cell.getProp(), options) // merge
-          merged.push(existing)
-          if (sortable && !sort) {
-            if (sortAttr == null || typeof sortAttr === 'function') {
-              sort = existing.hasChanged()
-            } else if (typeof sortAttr === 'string') {
-              sort = existing.hasChanged(sortAttr)
-            } else {
-              sort = sortAttr.some((key) => existing.hasChanged(key))
-            }
-          }
-        }
-      } else {
-        added.push(cell)
-        this.reference(cell)
-      }
+        throw new Error("STUB");
     })
 
     if (added.length) {
@@ -94,15 +71,7 @@ export class Collection extends Basecoat<CollectionEventArgs> {
 
     if (!localOptions.silent) {
       added.forEach((cell, i) => {
-        const args = {
-          cell,
-          index: localIndex + i,
-          options: localOptions,
-        }
-        this.trigger('added', args)
-        if (!localOptions.dryrun) {
-          cell.notify('added', { ...args })
-        }
+          throw new Error("STUB");
       })
 
       if (sort) {
@@ -174,8 +143,7 @@ export class Collection extends Basecoat<CollectionEventArgs> {
     const previous = this.cells.slice()
     if (!options.diff) {
       previous.forEach((cell) => {
-        this.unreference(cell)
-        cell.remove()
+          throw new Error("STUB");
       })
       this.clean()
     }
@@ -192,17 +160,11 @@ export class Collection extends Basecoat<CollectionEventArgs> {
       const removed: Cell[] = []
 
       current.forEach((a) => {
-        const exist = previous.some((b) => b.id === a.id)
-        if (!exist) {
-          added.push(a)
-        }
+          throw new Error("STUB");
       })
 
       previous.forEach((a) => {
-        const exist = current.some((b) => b.id === a.id)
-        if (!exist) {
-          removed.push(a)
-        }
+          throw new Error("STUB");
       })
 
       this.trigger('updated', { options, added, removed, merged: [] })
@@ -251,7 +213,7 @@ export class Collection extends Basecoat<CollectionEventArgs> {
   }
 
   first() {
-    return this.at(0)
+      throw new Error("STUB");
   }
 
   last() {
@@ -300,15 +262,7 @@ export class Collection extends Basecoat<CollectionEventArgs> {
     name: K,
     args: CellBaseEventArgs[K],
   ) {
-    const cell = args.cell
-    this.trigger(`cell:${name}`, args)
-    if (cell) {
-      if (cell.isNode()) {
-        this.trigger(`node:${name}`, { ...args, node: cell })
-      } else if (cell.isEdge()) {
-        this.trigger(`edge:${name}`, { ...args, edge: cell })
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected clean() {

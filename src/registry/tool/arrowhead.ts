@@ -24,11 +24,11 @@ class Arrowhead extends ToolItem<EdgeView, Options> {
   }
 
   protected get type() {
-    return this.options.type!
+      throw new Error("STUB");
   }
 
   protected get ratio() {
-    return this.options.ratio!
+      throw new Error("STUB");
   }
 
   protected init() {

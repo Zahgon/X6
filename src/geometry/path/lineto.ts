@@ -24,7 +24,7 @@ export class LineTo extends Segment {
       }
 
       // poly-line segment
-      return args.map((arg) => new LineTo(arg as PointOptions))
+      return args.map((arg) => { throw new Error("STUB"); })
     }
 
     // coordinates provided
@@ -45,21 +45,15 @@ export class LineTo extends Segment {
   constructor(x: number, y: number)
   constructor(p: PointOptions)
   constructor(x: number | Line | PointOptions, y?: number) {
-    super()
-
-    if (Line.isLine(x)) {
-      this.endPoint = x.end.clone().round(2)
-    } else {
-      this.endPoint = Point.create(x, y).round(2)
-    }
+      throw new Error("STUB");
   }
 
   get type() {
-    return 'L'
+      throw new Error("STUB");
   }
 
   get line() {
-    return new Line(this.start, this.end)
+      throw new Error("STUB");
   }
 
   bbox() {
@@ -79,7 +73,7 @@ export class LineTo extends Segment {
   }
 
   closestPointTangent(p: PointOptions) {
-    return this.line.closestPointTangent(p)
+      throw new Error("STUB");
   }
 
   length() {

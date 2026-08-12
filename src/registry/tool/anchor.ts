@@ -10,7 +10,7 @@ import * as Util from './util'
 
 class Anchor extends ToolItem<EdgeView, Options> {
   protected get type() {
-    return this.options.type!
+      throw new Error("STUB");
   }
   public static defaults: Options = {
     ...ToolItem.getDefaults(),
@@ -132,7 +132,7 @@ class Anchor extends ToolItem<EdgeView, Options> {
 
     if (anchorAttrs) {
       Object.keys(anchorAttrs).forEach((attrName) => {
-        anchorNode.setAttribute(attrName, anchorAttrs[attrName] as string)
+          throw new Error("STUB");
       })
     }
   }
@@ -315,11 +315,7 @@ class Anchor extends ToolItem<EdgeView, Options> {
   }
 
   protected onDblClick() {
-    const anchor = this.options.resetAnchor
-    if (anchor) {
-      this.resetAnchor(anchor === true ? undefined : anchor)
-    }
-    this.update()
+      throw new Error("STUB");
   }
 }
 

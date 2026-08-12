@@ -11,8 +11,5 @@ export const normal: ConnectorDefinition = (
   routePoints,
   options = {},
 ) => {
-  const points = [sourcePoint, ...routePoints, targetPoint]
-  const polyline = new Polyline(points)
-  const path = new Path(polyline)
-  return options.raw ? path : path.serialize()
+    throw new Error("STUB");
 }

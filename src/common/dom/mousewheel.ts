@@ -32,31 +32,10 @@ export class MouseWheelHandle {
   }
 
   private onWheel(e: WheelEvent) {
-    if (this.onWheelGuard != null && !this.onWheelGuard(e)) {
-      return
-    }
-
-    this.deltaX += e.deltaX
-    this.deltaY += e.deltaY
-    e.preventDefault()
-
-    let changed
-    if (this.deltaX !== 0 || this.deltaY !== 0) {
-      e.stopPropagation()
-      changed = true
-    }
-
-    if (changed === true && this.animationFrameId === 0) {
-      this.animationFrameId = requestAnimationFrame(() => {
-        this.didWheel(e)
-      })
-    }
+      throw new Error("STUB");
   }
 
   private didWheel(e: WheelEvent) {
-    this.animationFrameId = 0
-    this.onWheelCallback(e, this.deltaX, this.deltaY)
-    this.deltaX = 0
-    this.deltaY = 0
+      throw new Error("STUB");
   }
 }

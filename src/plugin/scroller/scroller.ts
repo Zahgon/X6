@@ -104,13 +104,8 @@ export const transitionEventName = 'transitionend.graph-scroller-transition'
 
 export const defaultOptions: Partial<Options> = {
   padding() {
-    const size = this.getClientSize()
-    const minWidth = Math.max(this.options.minVisibleWidth || 0, 1) || 1
-    const minHeight = Math.max(this.options.minVisibleHeight || 0, 1) || 1
-    const left = Math.max(size.width - minWidth, 0)
-    const top = Math.max(size.height - minHeight, 0)
-    return { left, top, right: left, bottom: top }
-  },
+        throw new Error("STUB");
+    },
   minVisibleWidth: 50,
   minVisibleHeight: 50,
   pageVisible: false,
@@ -146,11 +141,11 @@ export class ScrollerImpl extends View<EventArgs> {
   public readonly backgroundManager: ScrollerImplBackground
 
   public get graph() {
-    return this.options.graph
+      throw new Error("STUB");
   }
 
   private get model() {
-    return this.graph.model
+      throw new Error("STUB");
   }
 
   protected sx: number
@@ -165,64 +160,7 @@ export class ScrollerImpl extends View<EventArgs> {
   protected delegatedHandlers: { [name: string]: (...args: any) => any }
 
   constructor(options: Options) {
-    super()
-
-    this.options = getOptions(options)
-    this.onUpdate = FunctionExt.debounce(this.onUpdate, 200)
-
-    const scale = this.graph.transform.getScale()
-    this.sx = scale.sx
-    this.sy = scale.sy
-
-    const width = this.options.width || this.graph.options.width
-    const height = this.options.height || this.graph.options.height
-    this.container = document.createElement('div')
-    Dom.addClass(this.container, this.prefixClassName(containerClass))
-    Dom.css(this.container, { width, height })
-
-    if (this.options.pageVisible) {
-      Dom.addClass(this.container, this.prefixClassName(pagedClass))
-    }
-
-    if (this.options.className) {
-      Dom.addClass(this.container, this.options.className)
-    }
-
-    const graphContainer = this.graph.container
-
-    if (graphContainer.parentNode) {
-      Dom.before(graphContainer, this.container)
-    }
-
-    this.content = document.createElement('div')
-    Dom.addClass(this.content, this.prefixClassName(contentClass))
-    Dom.css(this.content, {
-      width: this.graph.options.width,
-      height: this.graph.options.height,
-    })
-
-    // custom background
-    this.background = document.createElement('div')
-    Dom.addClass(this.background, this.prefixClassName(backgroundClass))
-    Dom.append(this.content, this.background)
-
-    if (!this.options.pageVisible) {
-      Dom.append(this.content, this.graph.view.grid)
-    }
-    Dom.append(this.content, graphContainer)
-    Dom.appendTo(this.content, this.container)
-
-    this.startListening()
-
-    if (!this.options.pageVisible) {
-      this.graph.grid.update()
-    }
-
-    this.backgroundManager = new ScrollerImplBackground(this)
-
-    if (!this.options.autoResize) {
-      this.update()
-    }
+      throw new Error("STUB");
   }
 
   protected startListening() {
@@ -264,17 +202,15 @@ export class ScrollerImpl extends View<EventArgs> {
   }
 
   public enableAutoResize() {
-    this.options.autoResize = true
+      throw new Error("STUB");
   }
 
   public disableAutoResize() {
-    this.options.autoResize = false
+      throw new Error("STUB");
   }
 
   protected onUpdate() {
-    if (this.options.autoResize) {
-      this.update()
-    }
+      throw new Error("STUB");
   }
 
   protected delegateBackgroundEvents(events?: ViewEvents) {
@@ -282,92 +218,39 @@ export class ScrollerImpl extends View<EventArgs> {
     this.delegatedHandlers = Object.keys(evts).reduce<{
       [name: string]: (...args: any) => any
     }>((memo, name) => {
-      const handler = evts[name]
-      if (name.indexOf(' ') === -1) {
-        if (typeof handler === 'function') {
-          memo[name] = handler as (...args: any) => any
-        } else {
-          let method = this.graph.view[handler as keyof GraphView]
-          if (typeof method === 'function') {
-            method = method.bind(this.graph.view)
-            memo[name] = method as (...args: any) => any
-          }
-        }
-      }
-      return memo
+        throw new Error("STUB");
     }, {})
 
     this.onBackgroundEvent = this.onBackgroundEvent.bind(this)
     Object.keys(this.delegatedHandlers).forEach((name) => {
-      this.delegateEvent(
-        name,
-        {
-          guarded: false,
-        },
-        this.onBackgroundEvent,
-      )
+        throw new Error("STUB");
     })
   }
 
   protected undelegateBackgroundEvents() {
     Object.keys(this.delegatedHandlers).forEach((name) => {
-      this.undelegateEvent(name, this.onBackgroundEvent)
+        throw new Error("STUB");
     })
   }
 
   protected onBackgroundEvent(e: Dom.EventObject) {
-    let valid = false
-    const target = e.target
-
-    if (!this.options.pageVisible) {
-      const view = this.graph.view
-      valid = view.background === target || view.grid === target
-    } else if (this.options.background) {
-      valid = this.background === target
-    } else {
-      valid = this.content === target
-    }
-
-    if (valid) {
-      const handler = this.delegatedHandlers[e.type]
-      if (typeof handler === 'function') {
-        handler.apply(this.graph, arguments) // eslint-disable-line
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected onResize() {
-    if (this.cachedCenterPoint) {
-      this.centerPoint(this.cachedCenterPoint.x, this.cachedCenterPoint.y)
-      this.updatePageBreak()
-    }
+      throw new Error("STUB");
   }
 
   protected onScale({ sx, sy, ox, oy }: TEventArgs['scale']) {
-    this.updateScale(sx, sy)
-
-    if (ox || oy) {
-      this.centerPoint(ox, oy)
-      this.updatePageBreak()
-    }
-
-    const autoResizeOptions = this.options.autoResizeOptions
-
-    if (typeof autoResizeOptions === 'function') {
-      this.update()
-    }
+      throw new Error("STUB");
   }
 
   protected storeScrollPosition() {
-    this.cachedScrollLeft = this.container.scrollLeft
-    this.cachedScrollTop = this.container.scrollTop
+      throw new Error("STUB");
   }
 
   protected restoreScrollPosition() {
-    this.container.scrollLeft = this.cachedScrollLeft!
-    this.container.scrollTop = this.cachedScrollTop!
-    this.cachedScrollLeft = null
-    this.cachedScrollTop = null
+      throw new Error("STUB");
   }
 
   protected storeClientSize() {
@@ -394,65 +277,11 @@ export class ScrollerImpl extends View<EventArgs> {
   }
 
   public updatePageSize(width?: number, height?: number) {
-    if (width != null) {
-      this.options.pageWidth = width
-    }
-
-    if (height != null) {
-      this.options.pageHeight = height
-    }
-
-    this.updatePageBreak()
+      throw new Error("STUB");
   }
 
   protected updatePageBreak() {
-    if (this.pageBreak && this.pageBreak.parentNode) {
-      this.pageBreak.parentNode.removeChild(this.pageBreak)
-    }
-
-    this.pageBreak = null
-
-    if (this.options.pageVisible && this.options.pageBreak) {
-      const graphWidth = this.graph.options.width
-      const graphHeight = this.graph.options.height
-      const pageWidth = this.options.pageWidth! * this.sx
-      const pageHeight = this.options.pageHeight! * this.sy
-
-      if (pageWidth === 0 || pageHeight === 0) {
-        return
-      }
-
-      if (graphWidth > pageWidth || graphHeight > pageHeight) {
-        let hasPageBreak = false
-        const container = document.createElement('div')
-
-        for (let i = 1, l = Math.floor(graphWidth / pageWidth); i < l; i += 1) {
-          const div = document.createElement('div')
-          Dom.addClass(div, this.prefixClassName(`graph-pagebreak-vertical`))
-          Dom.css(div, { left: i * pageWidth })
-          Dom.appendTo(div, container)
-          hasPageBreak = true
-        }
-
-        for (
-          let i = 1, l = Math.floor(graphHeight / pageHeight);
-          i < l;
-          i += 1
-        ) {
-          const div = document.createElement('div')
-          Dom.addClass(div, this.prefixClassName(`graph-pagebreak-horizontal`))
-          Dom.css(div, { top: i * pageHeight })
-          Dom.appendTo(div, container)
-          hasPageBreak = true
-        }
-
-        if (hasPageBreak) {
-          Dom.addClass(container, this.prefixClassName('graph-pagebreak'))
-          Dom.after(this.graph.view.grid, container)
-          this.pageBreak = container
-        }
-      }
-    }
+      throw new Error("STUB");
   }
 
   update() {
@@ -505,16 +334,7 @@ export class ScrollerImpl extends View<EventArgs> {
   }
 
   protected updateScale(sx: number, sy: number) {
-    const options = this.graph.options
-
-    const dx = sx / this.sx
-    const dy = sy / this.sy
-
-    this.sx = sx
-    this.sy = sy
-
-    this.graph.translate(options.x * dx, options.y * dy)
-    this.graph.transform.resize(options.width * dx, options.height * dy)
+      throw new Error("STUB");
   }
 
   scrollbarPosition(): { left: number; top: number }
@@ -570,10 +390,7 @@ export class ScrollerImpl extends View<EventArgs> {
    * center of the viewport.
    */
   scrollToContent() {
-    const sx = this.sx
-    const sy = this.sy
-    const center = this.graph.getContentArea().getCenter()
-    return this.scrollToPoint(center.x * sx, center.y * sy)
+      throw new Error("STUB");
   }
 
   /**
@@ -581,10 +398,7 @@ export class ScrollerImpl extends View<EventArgs> {
    * the viewport.
    */
   scrollToCell(cell: Cell) {
-    const sx = this.sx
-    const sy = this.sy
-    const center = cell.getBBox().getCenter()
-    return this.scrollToPoint(center.x * sx, center.y * sy)
+      throw new Error("STUB");
   }
 
   /**
@@ -872,121 +686,22 @@ export class ScrollerImpl extends View<EventArgs> {
     y?: number | TransitionOptions,
     options?: TransitionOptions,
   ) {
-    if (typeof x === 'object') {
-      options = y as TransitionOptions // eslint-disable-line
-      y = x.y // eslint-disable-line
-      x = x.x // eslint-disable-line
-    } else {
-      y = y as number // eslint-disable-line
-    }
-
-    if (options == null) {
-      options = {} // eslint-disable-line
-    }
-
-    let transform
-    let transformOrigin
-    const scale = this.sx
-    const targetScale = Math.max(options.scale || scale, 0.000001)
-    const clientSize = this.getClientSize()
-    const targetPoint = new Point(x, y)
-    const localPoint = this.clientToLocalPoint(
-      clientSize.width / 2,
-      clientSize.height / 2,
-    )
-
-    if (scale === targetScale) {
-      const translate = localPoint.diff(targetPoint).scale(scale, scale).round()
-      transform = `translate(${translate.x}px,${translate.y}px)`
-    } else {
-      const delta =
-        (targetScale / (scale - targetScale)) * targetPoint.distance(localPoint)
-      const range = localPoint.clone().move(targetPoint, delta)
-      const origin = this.localToBackgroundPoint(range).round()
-      transform = `scale(${targetScale / scale})`
-      transformOrigin = `${origin.x}px ${origin.y}px`
-    }
-
-    const onTransitionEnd = options.onTransitionEnd
-    Dom.addClass(this.container, transitionClassName)
-    Dom.Event.off(this.content, transitionEventName)
-    Dom.Event.on(this.content, transitionEventName, (e) => {
-      this.syncTransition(targetScale, { x: x as number, y: y as number })
-      if (typeof onTransitionEnd === 'function') {
-        FunctionExt.call(
-          onTransitionEnd,
-          this,
-          e.originalEvent as TransitionEvent,
-        )
-      }
-    })
-    Dom.css(this.content, {
-      transform,
-      transformOrigin,
-      transition: 'transform',
-      transitionDuration: options.duration || '1s',
-      transitionDelay: options.delay,
-      transitionTimingFunction: options.timing,
-    } as Record<string, string>)
-
-    return this
+      throw new Error("STUB");
   }
 
   protected syncTransition(scale: number, p: PointLike) {
-    this.beforeManipulation()
-    this.graph.scale(scale)
-    this.removeTransition()
-    this.centerPoint(p.x, p.y)
-    this.afterManipulation()
-    return this
+      throw new Error("STUB");
   }
 
   protected removeTransition() {
-    Dom.removeClass(this.container, transitionClassName)
-    Dom.Event.off(this.content, transitionEventName)
-    Dom.css(this.content, {
-      transform: '',
-      transformOrigin: '',
-      transition: '',
-      transitionDuration: '',
-      transitionDelay: '',
-      transitionTimingFunction: '',
-    })
-    return this
+      throw new Error("STUB");
   }
 
   transitionToRect(
     rectangle: RectangleLike,
     options: TransitionToRectOptions = {},
   ) {
-    const rect = Rectangle.create(rectangle)
-    const maxScale = options.maxScale || Infinity
-    const minScale = options.minScale || Number.MIN_VALUE
-    const scaleGrid = options.scaleGrid || null
-    const PIXEL_SIZE = options.visibility || 1
-    const center = options.center
-      ? Point.create(options.center)
-      : rect.getCenter()
-    const clientSize = this.getClientSize()
-    const w = clientSize.width * PIXEL_SIZE
-    const h = clientSize.height * PIXEL_SIZE
-    let scale = new Rectangle(
-      center.x - w / 2,
-      center.y - h / 2,
-      w,
-      h,
-    ).getMaxUniformScaleToFit(rect, center)
-
-    scale = Math.min(scale, maxScale)
-    if (scaleGrid) {
-      scale = Math.floor(scale / scaleGrid) * scaleGrid
-    }
-    scale = Math.max(minScale, scale)
-
-    return this.transitionToPoint(center, {
-      scale,
-      ...options,
-    })
+      throw new Error("STUB");
   }
 
   startPanning(evt: Dom.MouseDownEvent) {
@@ -1003,20 +718,11 @@ export class ScrollerImpl extends View<EventArgs> {
   }
 
   pan(evt: Dom.MouseMoveEvent) {
-    const e = this.normalizeEvent(evt)
-    const dx = e.clientX - this.clientX
-    const dy = e.clientY - this.clientY
-    this.container.scrollTop -= dy
-    this.container.scrollLeft -= dx
-    this.clientX = e.clientX
-    this.clientY = e.clientY
-    this.trigger('panning', { e })
+      throw new Error("STUB");
   }
 
   stopPanning(e: Dom.MouseUpEvent) {
-    Dom.Event.off(document.body, '.panning')
-    Dom.Event.off(window as any, '.panning')
-    this.trigger('pan:stop', { e })
+      throw new Error("STUB");
   }
 
   clientToLocalPoint(p: PointLike): Point
@@ -1036,10 +742,7 @@ export class ScrollerImpl extends View<EventArgs> {
   localToBackgroundPoint(p: PointLike): Point
   localToBackgroundPoint(x: number, y: number): Point
   localToBackgroundPoint(x: number | PointLike, y?: number) {
-    const p = typeof x === 'object' ? Point.create(x) : new Point(x, y)
-    const ctm = this.graph.matrix()
-    const padding = this.padding
-    return Util.transformPoint(p, ctm).translate(padding.left, padding.top)
+      throw new Error("STUB");
   }
 
   resize(width?: number, height?: number) {
@@ -1162,15 +865,11 @@ export class ScrollerImpl extends View<EventArgs> {
   }
 
   isCellVisible(cell: Cell, options: { strict?: boolean } = {}) {
-    const bbox = cell.getBBox()
-    const area = this.getVisibleArea()
-    return options.strict
-      ? area.containsRect(bbox)
-      : area.isIntersectWithRect(bbox)
+      throw new Error("STUB");
   }
 
   isPointVisible(point: PointLike) {
-    return this.getVisibleArea().containsPoint(point)
+      throw new Error("STUB");
   }
 
   /**
@@ -1204,16 +903,11 @@ export class ScrollerImplBackground extends BackgroundManager {
   protected readonly scroller: ScrollerImpl
 
   protected get elem() {
-    return this.scroller.background
+      throw new Error("STUB");
   }
 
   constructor(scroller: ScrollerImpl) {
-    super(scroller.graph)
-
-    this.scroller = scroller
-    if (scroller.options.background) {
-      this.draw(scroller.options.background)
-    }
+      throw new Error("STUB");
   }
 
   protected init() {

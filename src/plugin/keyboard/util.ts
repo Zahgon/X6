@@ -51,15 +51,5 @@ export function isInputEvent(e: KeyboardEvent | Dom.MouseUpEvent) {
  * @returns
  */
 export function isGraphEvent(e: KeyboardEvent, t: Element, container: Element) {
-  const target = e.target as Element
-  const currentTarget = e.currentTarget as Element
-  if (target) {
-    if (target === t || currentTarget === t || target === document.body) {
-      return true
-    }
-
-    return Dom.contains(container, target)
-  }
-
-  return false
+    throw new Error("STUB");
 }

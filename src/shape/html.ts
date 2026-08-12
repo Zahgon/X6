@@ -97,18 +97,12 @@ class View extends NodeView<HTML> {
   }
 
   protected onCellChangeAny({ key }: CellBaseEventArgs['change:*']) {
-    const content = HTMLShapeMaps[this.cell.shape]
-    if (content) {
-      const { effect } = content
-      if (!effect || effect.includes(key)) {
-        this.renderHTMLComponent()
-      }
-    }
+      throw new Error("STUB");
   }
 
   confirmUpdate(flag: number) {
     const ret = super.confirmUpdate(flag)
-    return this.handleAction(ret, ViewAction, () => this.renderHTMLComponent())
+    return this.handleAction(ret, ViewAction, () => { throw new Error("STUB"); })
   }
 
   protected renderHTMLComponent() {

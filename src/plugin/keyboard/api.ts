@@ -21,35 +21,19 @@ declare module '../../graph/graph' {
 }
 
 Graph.prototype.isKeyboardEnabled = function () {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    return keyboard.isEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableKeyboard = function () {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.enable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableKeyboard = function () {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.disable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleKeyboard = function (enabled?: boolean) {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.toggleEnabled(enabled)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.bindKey = function (
@@ -57,39 +41,23 @@ Graph.prototype.bindKey = function (
   callback: KeyboardImplHandler,
   action?: KeyboardImplAction,
 ) {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.bindKey(keys, callback, action)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.unbindKey = function (
   keys: string | string[],
   action?: KeyboardImplAction,
 ) {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.unbindKey(keys, action)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.clearKeys = function () {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.clear()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.triggerKey = function (
   key: string,
   action: KeyboardImplAction,
 ) {
-  const keyboard = this.getPlugin('keyboard') as Keyboard
-  if (keyboard) {
-    keyboard.trigger(key, action)
-  }
-  return this
+    throw new Error("STUB");
 }

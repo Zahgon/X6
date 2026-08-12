@@ -119,39 +119,7 @@ export class Edge<
   >({
     type: 'edge',
     process(shape, options) {
-      if (exist(shape, false)) {
-        throw new Error(
-          `Edge with name '${shape}' was registered by anthor Node`,
-        )
-      }
-
-      if (typeof options === 'function') {
-        options.config({ shape })
-        return options
-      }
-
-      let parent = Edge
-
-      // default inherit from 'dege'
-      const { inherit = 'edge', ...others } = options
-      if (typeof inherit === 'string') {
-        const base = this.get(inherit || 'edge')
-        if (base == null && inherit) {
-          this.onNotFound(inherit, 'inherited')
-        } else {
-          parent = base
-        }
-      } else {
-        parent = inherit
-      }
-
-      if (others.constructorName == null) {
-        others.constructorName = shape
-      }
-
-      const ctor: Definition = parent.define.call(parent, others)
-      ctor.config({ shape })
-      return ctor as any
+        throw new Error("STUB");
     },
   })
   static equalTerminals(a: TerminalData, b: TerminalData) {
@@ -299,8 +267,8 @@ export class Edge<
 
   protected setup() {
     super.setup()
-    this.on('change:labels', (args) => this.onLabelsChanged(args))
-    this.on('change:vertices', (args) => this.onVertexsChanged(args))
+    this.on('change:labels', (args) => { throw new Error("STUB"); })
+    this.on('change:vertices', (args) => { throw new Error("STUB"); })
   }
 
   isEdge(): this is Edge {
@@ -321,11 +289,11 @@ export class Edge<
   }
 
   get source() {
-    return this.getSource()
+      throw new Error("STUB");
   }
 
   set source(data: TerminalData) {
-    this.setSource(data)
+      throw new Error("STUB");
   }
 
   getSource() {
@@ -365,11 +333,11 @@ export class Edge<
   }
 
   get target() {
-    return this.getTarget()
+      throw new Error("STUB");
   }
 
   set target(data: TerminalData) {
-    this.setTarget(data)
+      throw new Error("STUB");
   }
 
   getTarget() {
@@ -515,15 +483,11 @@ export class Edge<
   // #region router
 
   get router() {
-    return this.getRouter()
+      throw new Error("STUB");
   }
 
   set router(data: RouterData | undefined) {
-    if (data == null) {
-      this.removeRouter()
-    } else {
-      this.setRouter(data)
-    }
+      throw new Error("STUB");
   }
 
   getRouter() {
@@ -555,15 +519,11 @@ export class Edge<
   // #region connector
 
   get connector() {
-    return this.getConnector()
+      throw new Error("STUB");
   }
 
   set connector(data: ConnectorData | undefined) {
-    if (data == null) {
-      this.removeConnector()
-    } else {
-      this.setConnector(data)
-    }
+      throw new Error("STUB");
   }
 
   getConnector() {
@@ -600,16 +560,16 @@ export class Edge<
   }
 
   get labels() {
-    return this.getLabels()
+      throw new Error("STUB");
   }
 
   set labels(labels: EdgeLabel[]) {
-    this.setLabels(labels)
+      throw new Error("STUB");
   }
 
   getLabels(): EdgeLabel[] {
     return [...this.store.get('labels', [])].map((item) =>
-      this.parseLabel(item),
+      { throw new Error("STUB"); },
     )
   }
 
@@ -626,19 +586,11 @@ export class Edge<
     index?: number,
     options: EdgeSetOptions = {},
   ) {
-    const labels = this.getLabels()
-    const len = labels.length
-    let idx = index != null && Number.isFinite(index) ? index : len
-    if (idx < 0) {
-      idx = len + idx + 1
-    }
-
-    labels.splice(idx, 0, this.parseLabel(label))
-    return this.setLabels(labels, options)
+      throw new Error("STUB");
   }
 
   appendLabel(label: EdgeLabel | string, options: EdgeSetOptions = {}) {
-    return this.insertLabel(label, -1, options)
+      throw new Error("STUB");
   }
 
   getLabelAt(index: number) {
@@ -663,12 +615,7 @@ export class Edge<
   }
 
   removeLabelAt(index: number, options: EdgeSetOptions = {}) {
-    const labels = this.getLabels()
-    const idx = index != null && Number.isFinite(index) ? index : -1
-
-    const removed = labels.splice(idx, 1)
-    this.setLabels(labels, options)
-    return removed.length ? removed[0] : null
+      throw new Error("STUB");
   }
 
   protected parseLabel(label: string | EdgeLabel) {
@@ -686,16 +633,8 @@ export class Edge<
     const added =
       previous && current
         ? current.filter((label1) => {
-            if (
-              !previous.find(
-                (label2) =>
-                  label1 === label2 || ObjectExt.isEqual(label1, label2),
-              )
-            ) {
-              return label1
-            }
-            return null
-          })
+            throw new Error("STUB");
+        })
         : current
         ? [...current]
         : []
@@ -703,16 +642,8 @@ export class Edge<
     const removed =
       previous && current
         ? previous.filter((label1) => {
-            if (
-              !current.find(
-                (label2) =>
-                  label1 === label2 || ObjectExt.isEqual(label1, label2),
-              )
-            ) {
-              return label1
-            }
-            return null
-          })
+            throw new Error("STUB");
+        })
         : previous
         ? [...previous]
         : []
@@ -730,11 +661,11 @@ export class Edge<
 
   // #region vertices
   get vertices() {
-    return this.getVertices()
+      throw new Error("STUB");
   }
 
   set vertices(vertices: PointOptions | PointOptions[]) {
-    this.setVertices(vertices)
+      throw new Error("STUB");
   }
 
   getVertices() {
@@ -748,7 +679,7 @@ export class Edge<
     const points = Array.isArray(vertices) ? vertices : [vertices]
     this.store.set(
       'vertices',
-      points.map((p) => Point.toJSON(p)),
+      points.map((p) => { throw new Error("STUB"); }),
       options,
     )
     return this
@@ -787,19 +718,11 @@ export class Edge<
     vertice: PointOptions,
     options: EdgeSetOptions = {},
   ) {
-    if (index != null && Number.isFinite(index)) {
-      const vertices = this.getVertices()
-      vertices[index] = vertice
-      this.setVertices(vertices, options)
-    }
-    return this
+      throw new Error("STUB");
   }
 
   removeVertexAt(index: number, options: EdgeSetOptions = {}) {
-    const vertices = this.getVertices()
-    const idx = index != null && Number.isFinite(index) ? index : -1
-    vertices.splice(idx, 1)
-    return this.setVertices(vertices, options)
+      throw new Error("STUB");
   }
 
   protected onVertexsChanged({
@@ -809,11 +732,8 @@ export class Edge<
     const added =
       previous && current
         ? current.filter((p1) => {
-            if (!previous.find((p2) => Point.equals(p1, p2))) {
-              return p1
-            }
-            return null
-          })
+            throw new Error("STUB");
+        })
         : current
         ? [...current]
         : []
@@ -821,11 +741,8 @@ export class Edge<
     const removed =
       previous && current
         ? previous.filter((p1) => {
-            if (!current.find((p2) => Point.equals(p1, p2))) {
-              return p1
-            }
-            return null
-          })
+            throw new Error("STUB");
+        })
         : previous
         ? [...previous]
         : []
@@ -865,10 +782,7 @@ export class Edge<
     options.ty = ty
 
     return this.applyToPoints(
-      (p) => ({
-        x: (p.x || 0) + tx,
-        y: (p.y || 0) + ty,
-      }),
+      (p) => { throw new Error("STUB"); },
       options,
     )
   }
@@ -883,7 +797,7 @@ export class Edge<
     options: EdgeSetOptions = {},
   ) {
     return this.applyToPoints((p) => {
-      return Point.create(p).scale(sx, sy, origin).toJSON()
+        throw new Error("STUB");
     }, options)
   }
 
@@ -931,7 +845,7 @@ export class Edge<
   getPolyline() {
     const points = [
       this.getSourcePoint(),
-      ...this.getVertices().map((vertice) => Point.create(vertice)),
+      ...this.getVertices().map((vertice) => { throw new Error("STUB"); }),
       this.getTargetPoint(),
     ]
     return new Polyline(points)
@@ -1000,7 +914,7 @@ export class Edge<
 
   getFragmentAncestor(): Cell | null {
     const cells = [this, this.getSourceNode(), this.getTargetNode()].filter(
-      (item) => item != null,
+      (item) => { throw new Error("STUB"); },
     )
     return this.getCommonAncestor(...cells)
   }
@@ -1184,23 +1098,7 @@ export interface Definition extends EdgeClass {
 Edge.config({
   shape,
   propHooks(metadata: EdgeProperties) {
-    const { label, vertices, ...others } = metadata
-    if (label) {
-      if (others.labels == null) {
-        others.labels = []
-      }
-      const formated =
-        typeof label === 'string' ? Edge.parseStringLabel(label) : label
-      others.labels.push(formated)
-    }
-
-    if (vertices) {
-      if (Array.isArray(vertices)) {
-        others.vertices = vertices.map((item) => Point.create(item).toJSON())
-      }
-    }
-
-    return others
+      throw new Error("STUB");
   },
 })
 Edge.registry.register(shape, Edge)

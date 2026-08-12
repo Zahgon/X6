@@ -105,8 +105,7 @@ export function parseXML(
 }
 
 export function tagName(node: Element, lowercase = true) {
-  const nodeName = node.nodeName
-  return lowercase ? nodeName.toLowerCase() : nodeName.toUpperCase()
+    throw new Error("STUB");
 }
 
 export function index(elem: Element) {
@@ -134,16 +133,7 @@ export function findParentByClass(
   className: string,
   terminator?: Element,
 ) {
-  const ownerSVGElement = (elem as SVGElement).ownerSVGElement
-  let node = elem.parentNode
-  while (node && node !== terminator && node !== ownerSVGElement) {
-    if (hasClass(node as Element, className)) {
-      return node
-    }
-    node = node.parentNode
-  }
-
-  return null
+    throw new Error("STUB");
 }
 
 export function contains(parent: Element, child: Element) {
@@ -158,9 +148,7 @@ export function remove(elem: Element | Element[] | null) {
   if (elem) {
     const elems = Array.isArray(elem) ? elem : [elem]
     elems.forEach((item) => {
-      if (item.parentNode) {
-        item.parentNode.removeChild(item)
-      }
+        throw new Error("STUB");
     })
   }
 }
@@ -177,9 +165,7 @@ export function append(
 ) {
   const arr = Array.isArray(elems) ? elems : [elems]
   arr.forEach((child) => {
-    if (child != null) {
-      elem.appendChild(child)
-    }
+      throw new Error("STUB");
   })
 }
 
@@ -199,9 +185,7 @@ export function before(
   if (parent) {
     const arr = Array.isArray(elems) ? elems : [elems]
     arr.forEach((child) => {
-      if (child != null) {
-        parent.insertBefore(child, elem)
-      }
+        throw new Error("STUB");
     })
   }
 }
@@ -210,15 +194,7 @@ export function after(
   elem: Element,
   elems: Element | DocumentFragment | (Element | DocumentFragment)[],
 ) {
-  const parent = elem.parentNode
-  if (parent) {
-    const arr = Array.isArray(elems) ? elems : [elems]
-    arr.forEach((child) => {
-      if (child != null) {
-        parent.insertBefore(child, elem.nextSibling)
-      }
-    })
-  }
+    throw new Error("STUB");
 }
 
 export function appendTo(elem: Element, target: Element) {

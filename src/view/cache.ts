@@ -29,7 +29,7 @@ export class Cache {
   }
 
   constructor(protected view: CellView) {
-    this.clean()
+      throw new Error("STUB");
   }
 
   clean() {

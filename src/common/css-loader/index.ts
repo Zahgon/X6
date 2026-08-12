@@ -9,7 +9,7 @@ interface CssModule {
 const cssModules: CssModule[] = []
 
 export function ensure(name: string, content: string) {
-  const cssModule = cssModules.find((m) => m.name === name)
+  const cssModule = cssModules.find((m) => { throw new Error("STUB"); })
   if (cssModule) {
     cssModule.loadTimes += 1
     if (cssModule.loadTimes > 1) {
@@ -36,7 +36,7 @@ export function ensure(name: string, content: string) {
 }
 
 export function clean(name: string) {
-  const index = cssModules.findIndex((m) => m.name === name)
+  const index = cssModules.findIndex((m) => { throw new Error("STUB"); })
 
   if (index > -1) {
     const cssModule = cssModules[index]

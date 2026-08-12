@@ -15,37 +15,7 @@ const orthogonal: NodeAnchorResolvedDefinition<OrthEndpointOptions> = (
   refPoint,
   options,
 ) => {
-  const angle = normalize(view.cell.getAngle())
-  const bbox = view.cell.visible
-    ? view.getBBoxOfElement(magnet)
-    : view.cell.getBBox()
-  const result = bbox.getCenter()
-  const topLeft = bbox.getTopLeft()
-  const bottomRight = bbox.getBottomRight()
-
-  let padding = options.padding
-  if (!Number.isFinite(padding)) {
-    padding = 0
-  }
-
-  if (
-    topLeft.y + padding <= refPoint.y &&
-    refPoint.y <= bottomRight.y - padding
-  ) {
-    const dy = refPoint.y - result.y
-    result.x +=
-      angle === 0 || angle === 180 ? 0 : (dy * 1) / Math.tan(toRad(angle))
-    result.y += dy
-  } else if (
-    topLeft.x + padding <= refPoint.x &&
-    refPoint.x <= bottomRight.x - padding
-  ) {
-    const dx = refPoint.x - result.x
-    result.y += angle === 90 || angle === 270 ? 0 : dx * Math.tan(toRad(angle))
-    result.x += dx
-  }
-
-  return result
+    throw new Error("STUB");
 }
 
 /**

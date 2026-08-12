@@ -24,7 +24,7 @@ export class FlagManager {
   protected bootstrap: FlagManagerActions
 
   protected get cell() {
-    return this.view.cell
+      throw new Error("STUB");
   }
 
   constructor(
@@ -32,47 +32,7 @@ export class FlagManager {
     actions: KeyValue<FlagManagerActions>,
     bootstrap: FlagManagerActions = [],
   ) {
-    const flags: { [name: string]: number } = {}
-    const attrs: { [attr: string]: number } = {}
-
-    let shift = 0
-    Object.keys(actions).forEach((attr) => {
-      let labels = actions[attr]
-      if (!Array.isArray(labels)) {
-        labels = [labels]
-      }
-
-      labels.forEach((label) => {
-        let flag = flags[label]
-        if (!flag) {
-          shift += 1
-          flag = flags[label] = 1 << shift
-        }
-        attrs[attr] |= flag
-      })
-    })
-
-    let labels = bootstrap
-    if (!Array.isArray(labels)) {
-      labels = [labels]
-    }
-
-    labels.forEach((label) => {
-      if (!flags[label]) {
-        shift += 1
-        flags[label] = 1 << shift
-      }
-    })
-
-    // 26 - 30 are reserved for paper flags
-    // 31+ overflows maximal number
-    if (shift > 25) {
-      throw new Error('Maximum number of flags exceeded.')
-    }
-
-    this.flags = flags
-    this.attrs = attrs
-    this.bootstrap = bootstrap
+      throw new Error("STUB");
   }
 
   getFlag(label: FlagManagerActions) {
@@ -82,7 +42,7 @@ export class FlagManager {
     }
 
     if (Array.isArray(label)) {
-      return label.reduce((memo, key) => memo | flags[key], 0)
+      return label.reduce((memo, key) => { throw new Error("STUB"); }, 0)
     }
 
     return flags[label] | 0
@@ -101,18 +61,6 @@ export class FlagManager {
   }
 
   getChangedFlag() {
-    let flag = 0
-
-    if (!this.attrs) {
-      return flag
-    }
-
-    Object.keys(this.attrs).forEach((attr) => {
-      if (this.cell.hasChanged(attr)) {
-        flag |= this.attrs[attr]
-      }
-    })
-
-    return flag
+      throw new Error("STUB");
   }
 }

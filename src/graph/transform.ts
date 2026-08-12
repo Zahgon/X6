@@ -9,15 +9,15 @@ export class TransformManager extends Base {
   protected viewportTransformString: string | null
 
   protected get container() {
-    return this.graph.view.container
+      throw new Error("STUB");
   }
 
   protected get viewport() {
-    return this.graph.view.viewport
+      throw new Error("STUB");
   }
 
   protected get stage() {
-    return this.graph.view.stage
+      throw new Error("STUB");
   }
 
   protected init() {
@@ -203,7 +203,7 @@ export class TransformManager extends Base {
   }
 
   setOrigin(ox?: number, oy?: number) {
-    return this.translate(ox || 0, oy || 0)
+      throw new Error("STUB");
   }
 
   fitToContent(

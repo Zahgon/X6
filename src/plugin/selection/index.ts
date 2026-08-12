@@ -63,11 +63,11 @@ export class Selection
   private unselectMap = new WeakMap<Cell, boolean>()
 
   get rubberbandDisabled() {
-    return this.options.enabled !== true || this.options.rubberband !== true
+      throw new Error("STUB");
   }
 
   get disabled() {
-    return this.options.enabled !== true
+      throw new Error("STUB");
   }
 
   get length() {
@@ -75,18 +75,11 @@ export class Selection
   }
 
   get cells() {
-    return this.selectionImpl.cells
+      throw new Error("STUB");
   }
 
   constructor(options: SelectionOptions = {}) {
-    super()
-    this.options = {
-      enabled: true,
-      ...DefaultOptions,
-      ...options,
-    }
-
-    CssLoader.ensure(this.name, content)
+      throw new Error("STUB");
   }
 
   public init(graph: Graph) {
@@ -338,8 +331,7 @@ export class Selection
 
   protected setup() {
     this.selectionImpl.on('*', (name, args) => {
-      this.trigger(name, args)
-      this.graph.trigger(name, args)
+        throw new Error("STUB");
     })
   }
 
@@ -360,19 +352,7 @@ export class Selection
   }
 
   protected onBlankMouseDown({ e }: EventArgs['blank:mousedown']) {
-    if (!this.allowBlankMouseDown(e)) {
-      return
-    }
-
-    const allowGraphPanning = this.graph.panning.allowPanning(e, true)
-    const scroller = this.graph.getPlugin<any>('scroller')
-    const allowScrollerPanning = scroller && scroller.allowPanning(e, true)
-    if (
-      this.allowRubberband(e, true) ||
-      (this.allowRubberband(e) && !allowScrollerPanning && !allowGraphPanning)
-    ) {
-      this.startRubberband(e)
-    }
+      throw new Error("STUB");
   }
 
   protected allowBlankMouseDown(e: Dom.MouseDownEvent) {
@@ -390,7 +370,7 @@ export class Selection
   }
 
   protected onBlankClick() {
-    this.clean()
+      throw new Error("STUB");
   }
 
   protected allowRubberband(e: Dom.MouseDownEvent, strict?: boolean) {
@@ -424,7 +404,7 @@ export class Selection
       const panningEventsSet = new Set(panningEvents)
       // 判断是否有相同事件类型（eventTypes）
       const hasOverlappingEvents = selectionEvents.some((event) =>
-        panningEventsSet.has(event),
+        { throw new Error("STUB"); },
       )
       // 判断是否有相同修饰键（modifiers）
       const hasSameModifiers = isModifierKeyEqual(
@@ -440,71 +420,34 @@ export class Selection
   }
 
   protected allowMultipleSelection(e: Dom.MouseDownEvent | Dom.MouseUpEvent) {
-    return (
-      this.isMultiple() &&
-      isModifierKeyMatch(e, this.options.multipleSelectionModifiers)
-    )
+      throw new Error("STUB");
   }
 
   protected onCellMouseMove({ cell }: EventArgs['cell:mousemove']) {
-    this.movedMap.set(cell, true)
+      throw new Error("STUB");
   }
 
   protected onCellMouseUp({ e, cell }: EventArgs['cell:mouseup']) {
-    const options = this.options
-    let disabled = this.disabled
-    if (!disabled && this.movedMap.has(cell)) {
-      disabled = options.selectCellOnMoved === false
-
-      if (!disabled) {
-        disabled = options.selectNodeOnMoved === false && cell.isNode()
-      }
-
-      if (!disabled) {
-        disabled = options.selectEdgeOnMoved === false && cell.isEdge()
-      }
-    }
-
-    if (!disabled) {
-      if (!this.allowMultipleSelection(e)) {
-        this.reset(cell)
-      } else if (this.unselectMap.has(cell)) {
-        this.unselectMap.delete(cell)
-      } else if (this.isSelected(cell)) {
-        this.unselect(cell)
-      } else {
-        this.select(cell)
-      }
-    }
-
-    this.movedMap.delete(cell)
+      throw new Error("STUB");
   }
 
   protected onBoxMouseDown({
     e,
     cell,
   }: SelectionImplEventArgs['box:mousedown']) {
-    if (!this.disabled && cell) {
-      if (this.allowMultipleSelection(e)) {
-        this.unselect(cell)
-        this.unselectMap.set(cell, true)
-      }
-    }
+      throw new Error("STUB");
   }
 
   protected getCells(cells: Cell | string | (Cell | string)[]) {
     return (Array.isArray(cells) ? cells : [cells])
       .map((cell) =>
-        typeof cell === 'string' ? this.graph.getCellById(cell) : cell,
+        { throw new Error("STUB"); },
       )
-      .filter((cell) => cell != null)
+      .filter((cell) => { throw new Error("STUB"); })
   }
 
   protected startRubberband(e: Dom.MouseDownEvent) {
-    if (!this.rubberbandDisabled) {
-      this.selectionImpl.startSelecting(e)
-    }
-    return this
+      throw new Error("STUB");
   }
 
   protected isMultiple() {

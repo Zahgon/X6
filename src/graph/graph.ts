@@ -181,7 +181,7 @@ export class Graph extends Basecoat<EventArgs> {
   public readonly size: Size
 
   public get container() {
-    return this.options.container
+      throw new Error("STUB");
   }
 
   protected get [Symbol.toStringTag]() {
@@ -189,29 +189,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   constructor(options: Partial<GraphManual>) {
-    super()
-    this.options = getOptions(options)
-    this.css = new Css(this)
-    this.view = new GraphView(this)
-    this.defs = new Defs(this)
-    this.coord = new Coord(this)
-    this.transform = new Transform(this)
-    this.highlight = new Highlight(this)
-    this.grid = new Grid(this)
-    this.background = new Background(this)
-
-    if (this.options.model) {
-      this.model = this.options.model
-    } else {
-      this.model = new Model()
-      this.model.graph = this
-    }
-
-    this.renderer = new ViewRenderer(this)
-    this.panning = new Panning(this)
-    this.mousewheel = new Wheel(this)
-    this.virtualRender = new VirtualRender(this)
-    this.size = new Size(this)
+      throw new Error("STUB");
   }
 
   // #region model
@@ -230,8 +208,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   clearCells(options: CellSetOptions = {}) {
-    this.model.clear(options)
-    return this
+      throw new Error("STUB");
   }
 
   toJSON(options: ToJSONOptions = {}) {
@@ -259,7 +236,7 @@ export class Graph extends Basecoat<EventArgs> {
 
   addNodes(nodes: (Node | NodeMetadata)[], options: AddOptions = {}) {
     return this.addCell(
-      nodes.map((node) => (Node.isNode(node) ? node : this.createNode(node))),
+      nodes.map((node) => { throw new Error("STUB"); }),
       options,
     )
   }
@@ -282,7 +259,7 @@ export class Graph extends Basecoat<EventArgs> {
 
   addEdges(edges: (Edge | EdgeMetadata)[], options: AddOptions = {}) {
     return this.addCell(
-      edges.map((edge) => (Edge.isEdge(edge) ? edge : this.createEdge(edge))),
+      edges.map((edge) => { throw new Error("STUB"); }),
       options,
     )
   }
@@ -332,7 +309,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   getCellCount() {
-    return this.model.total()
+      throw new Error("STUB");
   }
 
   /**
@@ -377,14 +354,14 @@ export class Graph extends Basecoat<EventArgs> {
    * Returns an array of all the roots of the graph.
    */
   getRootNodes() {
-    return this.model.getRoots()
+      throw new Error("STUB");
   }
 
   /**
    * Returns an array of all the leafs of the graph.
    */
   getLeafNodes() {
-    return this.model.getLeafs()
+      throw new Error("STUB");
   }
 
   /**
@@ -392,7 +369,7 @@ export class Graph extends Basecoat<EventArgs> {
    * there is no  edges coming to the node.
    */
   isRootNode(cell: Cell | string) {
-    return this.model.isRoot(cell)
+      throw new Error("STUB");
   }
 
   /**
@@ -400,7 +377,7 @@ export class Graph extends Basecoat<EventArgs> {
    * there is no edges going out from the node.
    */
   isLeafNode(cell: Cell | string) {
-    return this.model.isLeaf(cell)
+      throw new Error("STUB");
   }
 
   /**
@@ -415,7 +392,7 @@ export class Graph extends Basecoat<EventArgs> {
    * Returns `true` if `cell2` is a neighbor of `cell1`.
    */
   isNeighbor(cell1: Cell, cell2: Cell, options: GetNeighborsOptions = {}) {
-    return this.model.isNeighbor(cell1, cell2, options)
+      throw new Error("STUB");
   }
 
   getSuccessors(cell: Cell, options: GetPredecessorsOptions = {}) {
@@ -426,11 +403,11 @@ export class Graph extends Basecoat<EventArgs> {
    * Returns `true` if `cell2` is a successor of `cell1`.
    */
   isSuccessor(cell1: Cell, cell2: Cell, options: GetPredecessorsOptions = {}) {
-    return this.model.isSuccessor(cell1, cell2, options)
+      throw new Error("STUB");
   }
 
   getPredecessors(cell: Cell, options: GetPredecessorsOptions = {}) {
-    return this.model.getPredecessors(cell, options)
+      throw new Error("STUB");
   }
 
   /**
@@ -441,7 +418,7 @@ export class Graph extends Basecoat<EventArgs> {
     cell2: Cell,
     options: GetPredecessorsOptions = {},
   ) {
-    return this.model.isPredecessor(cell1, cell2, options)
+      throw new Error("STUB");
   }
 
   getCommonAncestor(...cells: (Cell | null | undefined)[]) {
@@ -527,8 +504,7 @@ export class Graph extends Basecoat<EventArgs> {
     iterator: SearchIterator,
     options: SearchOptions = {},
   ) {
-    this.model.search(cell, iterator, options)
-    return this
+      throw new Error("STUB");
   }
 
   /** *
@@ -540,7 +516,7 @@ export class Graph extends Basecoat<EventArgs> {
     target: Cell | string,
     options: GetShortestPathOptions = {},
   ) {
-    return this.model.getShortestPath(source, target, options)
+      throw new Error("STUB");
   }
 
   /**
@@ -582,7 +558,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   updateCellId(cell: Cell, newId: string) {
-    return this.model.updateCellId(cell, newId)
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -598,15 +574,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   findViews(ref: PointLike | RectangleLike) {
-    if (Rectangle.isRectangleLike(ref)) {
-      return this.findViewsInArea(ref)
-    }
-
-    if (Point.isPointLike(ref)) {
-      return this.findViewsFromPoint(ref)
-    }
-
-    return []
+      throw new Error("STUB");
   }
 
   findViewByCell(cellId: string | number): CellView | null
@@ -624,8 +592,7 @@ export class Graph extends Basecoat<EventArgs> {
   findViewsFromPoint(x: number, y: number): CellView[]
   findViewsFromPoint(p: PointLike): CellView[]
   findViewsFromPoint(x: number | PointLike, y?: number) {
-    const p = typeof x === 'number' ? { x, y: y as number } : x
-    return this.renderer.findViewsFromPoint(p)
+      throw new Error("STUB");
   }
 
   findViewsInArea(
@@ -778,10 +745,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   translateBy(dx: number, dy: number): this {
-    const ts = this.translate()
-    const tx = ts.tx + dx
-    const ty = ts.ty + dy
-    return this.translate(tx, ty)
+      throw new Error("STUB");
   }
 
   getGraphArea() {
@@ -974,20 +938,7 @@ export class Graph extends Basecoat<EventArgs> {
     width?: number,
     height?: number,
   ) {
-    if (Rectangle.isRectangleLike(x)) {
-      return this.coord.localToPageRect(x)
-    }
-
-    if (
-      typeof x === 'number' &&
-      typeof y === 'number' &&
-      typeof width === 'number' &&
-      typeof height === 'number'
-    ) {
-      return this.coord.localToPageRect(x, y, width, height)
-    }
-
-    return this.coord.localToPagePoint(x, y)
+      throw new Error("STUB");
   }
 
   clientToLocal(rect: RectangleLike): Rectangle
@@ -1026,20 +977,7 @@ export class Graph extends Basecoat<EventArgs> {
     width?: number,
     height?: number,
   ) {
-    if (Rectangle.isRectangleLike(x)) {
-      return this.coord.localToClientRect(x)
-    }
-
-    if (
-      typeof x === 'number' &&
-      typeof y === 'number' &&
-      typeof width === 'number' &&
-      typeof height === 'number'
-    ) {
-      return this.coord.localToClientRect(x, y, width, height)
-    }
-
-    return this.coord.localToClientPoint(x, y)
+      throw new Error("STUB");
   }
 
   /**
@@ -1163,18 +1101,15 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   showGrid() {
-    this.grid.show()
-    return this
+      throw new Error("STUB");
   }
 
   hideGrid() {
-    this.grid.hide()
-    return this
+      throw new Error("STUB");
   }
 
   clearGrid() {
-    this.grid.clear()
-    return this
+      throw new Error("STUB");
   }
 
   drawGrid(options?: GridDrawOptions) {
@@ -1187,8 +1122,7 @@ export class Graph extends Basecoat<EventArgs> {
   // #region background
 
   updateBackground() {
-    this.background.update()
-    return this
+      throw new Error("STUB");
   }
 
   drawBackground(options?: BackgroundOptions, onGraph?: boolean) {
@@ -1202,13 +1136,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   clearBackground(onGraph?: boolean) {
-    const scroller = this.getPlugin<any>('scroller')
-    if (scroller != null && (this.options.background == null || !onGraph)) {
-      scroller.clearBackground(onGraph)
-    } else {
-      this.background.clear()
-    }
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1216,13 +1144,11 @@ export class Graph extends Basecoat<EventArgs> {
   // #region virtual-render
 
   enableVirtualRender() {
-    this.virtualRender.enableVirtualRender()
-    return this
+      throw new Error("STUB");
   }
 
   disableVirtualRender() {
-    this.virtualRender.disableVirtualRender()
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1230,32 +1156,19 @@ export class Graph extends Basecoat<EventArgs> {
   // #region mousewheel
 
   isMouseWheelEnabled() {
-    return !this.mousewheel.disabled
+      throw new Error("STUB");
   }
 
   enableMouseWheel() {
-    this.mousewheel.enable()
-    return this
+      throw new Error("STUB");
   }
 
   disableMouseWheel() {
-    this.mousewheel.disable()
-    return this
+      throw new Error("STUB");
   }
 
   toggleMouseWheel(enabled?: boolean) {
-    if (enabled == null) {
-      if (this.isMouseWheelEnabled()) {
-        this.disableMouseWheel()
-      } else {
-        this.enableMouseWheel()
-      }
-    } else if (enabled) {
-      this.enableMouseWheel()
-    } else {
-      this.disableMouseWheel()
-    }
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1263,22 +1176,11 @@ export class Graph extends Basecoat<EventArgs> {
   // #region panning
 
   isPannable() {
-    const scroller = this.getPlugin<any>('scroller')
-    if (scroller) {
-      return scroller.isPannable()
-    }
-    return this.panning.pannable
+      throw new Error("STUB");
   }
 
   enablePanning() {
-    const scroller = this.getPlugin<any>('scroller')
-    if (scroller) {
-      scroller.enablePanning()
-    } else {
-      this.panning.enablePanning()
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   disablePanning() {
@@ -1292,21 +1194,7 @@ export class Graph extends Basecoat<EventArgs> {
   }
 
   togglePanning(pannable?: boolean) {
-    if (pannable == null) {
-      if (this.isPannable()) {
-        this.disablePanning()
-      } else {
-        this.enablePanning()
-      }
-    } else if (pannable !== this.isPannable()) {
-      if (pannable) {
-        this.enablePanning()
-      } else {
-        this.disablePanning()
-      }
-    }
-
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1337,13 +1225,13 @@ export class Graph extends Basecoat<EventArgs> {
 
   getPlugin<T extends GraphPlugin>(pluginName: string): T | undefined {
     return Array.from(this.installedPlugins).find(
-      (plugin) => plugin.name === pluginName,
+      (plugin) => { throw new Error("STUB"); },
     ) as T
   }
 
   getPlugins<T extends GraphPlugin[]>(pluginName: string[]): T | undefined {
     return Array.from(this.installedPlugins).filter((plugin) =>
-      pluginName.includes(plugin.name),
+      { throw new Error("STUB"); },
     ) as T
   }
 
@@ -1354,8 +1242,7 @@ export class Graph extends Basecoat<EventArgs> {
     }
     const aboutToChangePlugins = this.getPlugins(postPlugins)
     aboutToChangePlugins?.forEach((plugin) => {
-      plugin?.enable?.()
-      this.handleScrollerPluginStateChange(plugin, true)
+        throw new Error("STUB");
     })
     return this
   }
@@ -1367,29 +1254,17 @@ export class Graph extends Basecoat<EventArgs> {
     }
     const aboutToChangePlugins = this.getPlugins(postPlugins)
     aboutToChangePlugins?.forEach((plugin) => {
-      plugin?.disable?.()
-      this.handleScrollerPluginStateChange(plugin, false)
+        throw new Error("STUB");
     })
     return this
   }
 
   isPluginEnabled(pluginName: string) {
-    const pluginIns = this.getPlugin(pluginName)
-    return pluginIns?.isEnabled?.()
+      throw new Error("STUB");
   }
 
   disposePlugins(plugins: string[] | string) {
-    let postPlugins = plugins
-    if (!Array.isArray(postPlugins)) {
-      postPlugins = [postPlugins]
-    }
-    const aboutToChangePlugins = this.getPlugins(postPlugins)
-    aboutToChangePlugins?.forEach((plugin) => {
-      plugin.dispose()
-      this.handleScrollerPluginStateChange(plugin, false)
-      this.installedPlugins.delete(plugin)
-    })
-    return this
+      throw new Error("STUB");
   }
 
   // #endregion
@@ -1415,7 +1290,7 @@ export class Graph extends Basecoat<EventArgs> {
     this.renderer.dispose()
 
     this.installedPlugins.forEach((plugin) => {
-      plugin.dispose()
+        throw new Error("STUB");
     })
   }
 

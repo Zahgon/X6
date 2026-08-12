@@ -13,35 +13,34 @@ export { lowerFirst, upperFirst, camelCase } from 'lodash-es'
 const cacheStringFunction = <T extends (str: string) => string>(fn: T): T => {
   const cache: Record<string, string> = Object.create(null)
   return ((str: string) => {
-    const hit = cache[str]
-    return hit || (cache[str] = fn(str))
+      throw new Error("STUB");
   }) as any
 }
 
 export const kebabCase = cacheStringFunction((s: string) =>
-  s.replace(/\B([A-Z])/g, '-$1').toLowerCase(),
+  { throw new Error("STUB"); },
 )
 
 export const pascalCase = cacheStringFunction((s: string) =>
-  startCase(camelCase(s)).replace(/ /g, ''),
+  { throw new Error("STUB"); },
 )
 
 export const constantCase = cacheStringFunction((s: string) =>
-  upperCase(s).replace(/ /g, '_'),
+  { throw new Error("STUB"); },
 )
 
 export const dotCase = cacheStringFunction((s: string) =>
-  lowerCase(s).replace(/ /g, '.'),
+  { throw new Error("STUB"); },
 )
 
 export const pathCase = cacheStringFunction((s: string) =>
-  lowerCase(s).replace(/ /g, '/'),
+  { throw new Error("STUB"); },
 )
 
 export const sentenceCase = cacheStringFunction((s: string) =>
-  upperFirst(lowerCase(s)),
+  { throw new Error("STUB"); },
 )
 
 export const titleCase = cacheStringFunction((s: string) =>
-  startCase(camelCase(s)),
+  { throw new Error("STUB"); },
 )

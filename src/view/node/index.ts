@@ -70,14 +70,7 @@ export class NodeView<
   }
 
   protected getContainerClassName() {
-    const classList = [
-      super.getContainerClassName(),
-      this.prefixClassName('node'),
-    ]
-    if (!this.can('nodeMovable')) {
-      classList.push(this.prefixClassName('node-immovable'))
-    }
-    return classList.join(' ')
+      throw new Error("STUB");
   }
 
   protected updateClassName(e: Dom.MouseEnterEvent) {
@@ -132,32 +125,23 @@ export class NodeView<
       ret = this.handleAction(
         ret,
         'resize',
-        () => this.resize(),
+        () => { throw new Error("STUB"); },
         'update', // Resize method is calling `update()` internally
       )
 
       ret = this.handleAction(
         ret,
         'update',
-        () => this.update(),
+        () => { throw new Error("STUB"); },
         // `update()` will render ports when useCSSSelectors are enabled
         Config.useCSSSelector ? 'ports' : null,
       )
 
-      ret = this.handleAction(ret, 'translate', () => this.translate())
-      ret = this.handleAction(ret, 'rotate', () => this.rotate())
-      ret = this.handleAction(ret, 'ports', () => this.renderPorts())
+      ret = this.handleAction(ret, 'translate', () => { throw new Error("STUB"); })
+      ret = this.handleAction(ret, 'rotate', () => { throw new Error("STUB"); })
+      ret = this.handleAction(ret, 'ports', () => { throw new Error("STUB"); })
       ret = this.handleAction(ret, 'tools', () => {
-        const hasModelTools = this.cell.getTools() != null
-        if (
-          !toolRelatedGeometryChanged ||
-          this.tools == null ||
-          !hasModelTools
-        ) {
-          this.renderTools()
-        } else {
-          this.updateTools(options)
-        }
+          throw new Error("STUB");
       })
     }
 
@@ -279,7 +263,7 @@ export class NodeView<
 
   protected removePorts() {
     Object.values(this.portsCache).forEach((cached) => {
-      Dom.remove(cached.portElement)
+        throw new Error("STUB");
     })
   }
 
@@ -288,7 +272,7 @@ export class NodeView<
     // References to rendered elements without z-index
     const references: Element[] = []
     container.childNodes.forEach((child) => {
-      references.push(child as Element)
+        throw new Error("STUB");
     })
     const parsedPorts = this.cell.getParsedPorts()
     const portsGropsByZ = ArrayExt.groupBy(parsedPorts, 'zIndex')
@@ -297,17 +281,12 @@ export class NodeView<
     // render non-z first
     if (portsGropsByZ[autoZIndexKey]) {
       portsGropsByZ[autoZIndexKey].forEach((port: Port) => {
-        const portElement = this.getPortElement(port)
-        container.append(portElement)
-        references.push(portElement)
+          throw new Error("STUB");
       })
     }
 
     Object.keys(portsGropsByZ).forEach((key) => {
-      if (key !== autoZIndexKey) {
-        const zIndex = parseInt(key, 10)
-        this.appendPorts(portsGropsByZ[key], zIndex, references)
-      }
+        throw new Error("STUB");
     })
 
     this.updatePorts()
@@ -340,7 +319,7 @@ export class NodeView<
   }
 
   protected appendPorts(ports: Port[], zIndex: number, refs: Element[]) {
-    const elems = ports.map((p) => this.getPortElement(p))
+    const elems = ports.map((p) => { throw new Error("STUB"); })
     if (refs[zIndex] || zIndex < 0) {
       Dom.before(refs[Math.max(zIndex, 0)], elems)
     } else {
@@ -448,7 +427,7 @@ export class NodeView<
       this.updatePortGroup()
     } else {
       groupList.forEach((groupName) => {
-        this.updatePortGroup(groupName)
+          throw new Error("STUB");
       })
     }
   }
@@ -614,15 +593,11 @@ export class NodeView<
   }
 
   onDblClick(e: Dom.DoubleClickEvent, x: number, y: number) {
-    super.onDblClick(e, x, y)
-    this.notify('node:dblclick', this.getEventArgs(e, x, y))
-    this.notifyPortEvent('node:port:dblclick', e, { x, y })
+      throw new Error("STUB");
   }
 
   onContextMenu(e: Dom.ContextMenuEvent, x: number, y: number) {
-    super.onContextMenu(e, x, y)
-    this.notify('node:contextmenu', this.getEventArgs(e, x, y))
-    this.notifyPortEvent('node:port:contextmenu', e, { x, y })
+      throw new Error("STUB");
   }
 
   onMouseDown(e: Dom.MouseDownEvent, x: number, y: number) {
@@ -684,21 +659,11 @@ export class NodeView<
   }
 
   onMouseOver(e: Dom.MouseOverEvent) {
-    super.onMouseOver(e)
-    this.notify('node:mouseover', this.getEventArgs(e))
-    // mock mouseenter event,so we can get correct trigger time when move mouse from node to port
-    // wo also need to change e.type for use get correct event args
-    this.notifyPortEvent('node:port:mouseenter', e)
-    this.notifyPortEvent('node:port:mouseover', e)
+      throw new Error("STUB");
   }
 
   onMouseOut(e: Dom.MouseOutEvent) {
-    super.onMouseOut(e)
-    this.notify('node:mouseout', this.getEventArgs(e))
-    // mock mouseleave event,so we can get correct trigger time when move mouse from port to node
-    // wo also need to change e.type for use get correct event args
-    this.notifyPortEvent('node:port:mouseleave', e)
-    this.notifyPortEvent('node:port:mouseout', e)
+      throw new Error("STUB");
   }
 
   onMouseEnter(e: Dom.MouseEnterEvent) {
@@ -713,11 +678,7 @@ export class NodeView<
   }
 
   onMouseWheel(e: Dom.EventObject, x: number, y: number, delta: number) {
-    super.onMouseWheel(e, x, y, delta)
-    this.notify('node:mousewheel', {
-      delta,
-      ...this.getEventArgs(e, x, y),
-    })
+      throw new Error("STUB");
   }
 
   onMagnetClick(e: Dom.MouseUpEvent, magnet: Element, x: number, y: number) {
@@ -738,10 +699,7 @@ export class NodeView<
     x: number,
     y: number,
   ) {
-    this.notify('node:magnet:dblclick', {
-      magnet,
-      ...this.getEventArgs(e, x, y),
-    })
+      throw new Error("STUB");
   }
 
   onMagnetContextMenu(
@@ -750,10 +708,7 @@ export class NodeView<
     x: number,
     y: number,
   ) {
-    this.notify('node:magnet:contextmenu', {
-      magnet,
-      ...this.getEventArgs(e, x, y),
-    })
+      throw new Error("STUB");
   }
 
   onMagnetMouseDown(
@@ -762,12 +717,11 @@ export class NodeView<
     x: number,
     y: number,
   ) {
-    this.startMagnetDragging(e, x, y)
+      throw new Error("STUB");
   }
 
   onCustomEvent(e: Dom.MouseDownEvent, name: string, x: number, y: number) {
-    this.notify('node:customevent', { name, ...this.getEventArgs(e, x, y) })
-    super.onCustomEvent(e, name, x, y)
+      throw new Error("STUB");
   }
 
   protected prepareEmbedding(e: Dom.MouseMoveEvent) {
@@ -802,11 +756,7 @@ export class NodeView<
               node: this.cell,
             }) as Cell[]
           ).filter((c) => {
-            return (
-              Cell.isCell(c) &&
-              this.cell.id !== c.id &&
-              !c.isDescendantOf(this.cell)
-            )
+              throw new Error("STUB");
           })
         : graph.model.getNodesUnderNode(cell, {
             by: findParent as KeyPoint,
@@ -817,7 +767,7 @@ export class NodeView<
       if (candidates.length > 0) {
         const zIndexMap = ArrayExt.groupBy(candidates, 'zIndex')
         const maxZIndex = ArrayExt.max(
-          Object.keys(zIndexMap).map((z) => parseInt(z, 10)),
+          Object.keys(zIndexMap).map((z) => { throw new Error("STUB"); }),
         )
         if (maxZIndex) {
           candidates = zIndexMap[maxZIndex]
@@ -826,7 +776,7 @@ export class NodeView<
     }
 
     // Filter the nodes which is invisiable
-    candidates = candidates.filter((candidate) => candidate.visible)
+    candidates = candidates.filter((candidate) => { throw new Error("STUB"); })
 
     let newCandidateView = null
     const prevCandidateView = data.candidateEmbedView
@@ -902,7 +852,7 @@ export class NodeView<
     }
 
     graph.model.getConnectedEdges(cell, { deep: true }).forEach((edge) => {
-      edge.updateParent({ ui: true })
+        throw new Error("STUB");
     })
 
     if (view && candidateView) {
@@ -945,50 +895,11 @@ export class NodeView<
     magnet: Element,
     e: Dom.MouseDownEvent | Dom.MouseEnterEvent,
   ) {
-    if (magnet.getAttribute('magnet') !== 'passive') {
-      const validate = this.graph.options.connecting.validateMagnet
-      if (validate) {
-        return FunctionExt.call(validate, this.graph, {
-          e,
-          magnet,
-          view: cellView,
-          cell: cellView.cell,
-        })
-      }
-      return true
-    }
-    return false
+      throw new Error("STUB");
   }
 
   protected startMagnetDragging(e: Dom.MouseDownEvent, x: number, y: number) {
-    if (!this.can('magnetConnectable')) {
-      return
-    }
-
-    e.stopPropagation()
-
-    const magnet = e.currentTarget
-    const graph = this.graph
-
-    this.setEventData<Partial<EventDataMagnet>>(e, {
-      targetMagnet: magnet,
-    })
-
-    if (this.validateMagnet(this, magnet, e)) {
-      // @ts-expect-error
-      if (graph.options.magnetThreshold <= 0) {
-        this.startConnectting(e, magnet, x, y)
-      }
-
-      this.setEventData<Partial<EventDataMagnet>>(e, {
-        action: 'magnet',
-      })
-      this.stopPropagation(e)
-    } else {
-      this.onMouseDown(e, x, y)
-    }
-
-    graph.view.delegateDragEvents(e, this)
+      throw new Error("STUB");
   }
 
   protected startConnectting(
@@ -1110,19 +1021,12 @@ export class NodeView<
     if (selection && selection.isSelectionMovable()) {
       const selectedCells = selection.getSelectedCells()
       if (selectedCells.includes(cell)) {
-        cells = selectedCells.filter((c: Cell) => c.isNode())
+        cells = selectedCells.filter((c: Cell) => { throw new Error("STUB"); })
       }
     }
 
     cells.forEach((c: Cell) => {
-      this.notify(name, {
-        e,
-        x,
-        y,
-        cell: c,
-        node: c,
-        view: c.findView(this.graph),
-      })
+        throw new Error("STUB");
     })
   }
 
@@ -1203,11 +1107,10 @@ export class NodeView<
     const allNodes = graph.getNodes()
     const restNodePositions = allNodes
       .map((node) => {
-        const pos = node.getPosition()
-        return { id: node.id, x: pos.x, y: pos.y }
+          throw new Error("STUB");
       })
       .filter((pos) => {
-        return pos.id !== nodePosition.id
+          throw new Error("STUB");
       })
     /** offset directions: right bottom, right top, left bottom, left top */
     const directions = [
@@ -1219,7 +1122,7 @@ export class NodeView<
     let step = graph.getGridSize()
     const hasSamePosition = (position: { x: number; y: number }) =>
       restNodePositions.some((pos) => {
-        return pos.x === position.x && pos.y === position.y
+          throw new Error("STUB");
       })
     while (hasSamePosition(nodePosition)) {
       let found = false

@@ -35,101 +35,57 @@ declare module '../../graph/events' {
 }
 
 Graph.prototype.isHistoryEnabled = function () {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    return history.isEnabled()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.enableHistory = function () {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.enable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.disableHistory = function () {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.disable()
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.toggleHistory = function (enabled?: boolean) {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.toggleEnabled(enabled)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.undo = function (options?: KeyValue) {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.undo(options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.redo = function (options?: KeyValue) {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.redo(options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.undoAndCancel = function (options?: KeyValue) {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.cancel(options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.canUndo = function () {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    return history.canUndo()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.canRedo = function () {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    return history.canRedo()
-  }
-  return false
+    throw new Error("STUB");
 }
 
 Graph.prototype.cleanHistory = function (options?: KeyValue) {
-  const history = this.getPlugin('history') as History
-  if (history) {
-    history.clean(options)
-  }
-  return this
+    throw new Error("STUB");
 }
 
 Graph.prototype.getHistoryStackSize = function () {
-  const history = this.getPlugin('history') as History
-  return history.getSize()
+    throw new Error("STUB");
 }
 
 Graph.prototype.getUndoStackSize = function () {
-  const history = this.getPlugin('history') as History
-  return history.getUndoSize()
+    throw new Error("STUB");
 }
 
 Graph.prototype.getRedoStackSize = function () {
-  const history = this.getPlugin('history') as History
-  return history.getRedoSize()
+    throw new Error("STUB");
 }
 
 Graph.prototype.getUndoRemainSize = function () {
-  const history = this.getPlugin('history') as History
-  return history.getUndoRemainSize()
+    throw new Error("STUB");
 }

@@ -33,16 +33,8 @@ export class ObstacleMap {
     // source or target node could be excluded from set of obstacles
     const excludedTerminals = options.excludeTerminals.reduce<Cell[]>(
       (memo, type) => {
-        const terminal = edge[type]
-        if (terminal) {
-          const cell = model.getCell((terminal as TerminalCellData).cell)
-          if (cell) {
-            memo.push(cell)
-          }
-        }
-
-        return memo
-      },
+            throw new Error("STUB");
+        },
       [],
     )
 
@@ -52,7 +44,7 @@ export class ObstacleMap {
     if (source) {
       excludedAncestors = ArrayExt.union(
         excludedAncestors,
-        source.getAncestors().map((cell) => cell.id),
+        source.getAncestors().map((cell) => { throw new Error("STUB"); }),
       )
     }
 
@@ -60,7 +52,7 @@ export class ObstacleMap {
     if (target) {
       excludedAncestors = ArrayExt.union(
         excludedAncestors,
-        target.getAncestors().map((cell) => cell.id),
+        target.getAncestors().map((cell) => { throw new Error("STUB"); }),
       )
     }
 
@@ -71,38 +63,7 @@ export class ObstacleMap {
     const mapGridSize = this.mapGridSize
 
     model.getNodes().reduce((map, node) => {
-      const excludedTerminal = excludedTerminals.some(
-        (cell) => cell.id === node.id,
-      )
-      const excludedShape = node.shape
-        ? options.excludeShapes.includes(node.shape)
-        : false
-      const excludedNode = options.excludeNodes.some((item) => {
-        if (typeof item === 'string') {
-          return node.id === item
-        }
-        return item === node
-      })
-      const excludedAncestor = excludedAncestors.includes(node.id)
-      const excluded =
-        excludedShape || excludedTerminal || excludedNode || excludedAncestor
-
-      if (node.isVisible() && !excluded) {
-        const bbox = node.getBBox().moveAndExpand(options.paddingBox)
-        const origin = bbox.getOrigin().snapToGrid(mapGridSize)
-        const corner = bbox.getCorner().snapToGrid(mapGridSize)
-
-        for (let x = origin.x; x <= corner.x; x += mapGridSize) {
-          for (let y = origin.y; y <= corner.y; y += mapGridSize) {
-            const key = new Point(x, y).toString()
-            if (map[key] == null) {
-              map[key] = []
-            }
-            map[key].push(bbox)
-          }
-        }
-      }
-      return map
+        throw new Error("STUB");
     }, this.map)
 
     return this
@@ -112,7 +73,7 @@ export class ObstacleMap {
     const key = point.clone().snapToGrid(this.mapGridSize).toString()
 
     const rects = this.map[key]
-    return rects ? rects.every((rect) => !rect.containsPoint(point)) : true
+    return rects ? rects.every((rect) => { throw new Error("STUB"); }) : true
   }
 }
 
@@ -134,14 +95,14 @@ function markDirty(model: Model) {
 function install(model: Model) {
   const state = CACHE.get(model)
   if (!state || state.installed) return
-  model.on('reseted', () => markDirty(model))
-  model.on('updated', () => markDirty(model))
-  model.on('cell:added', () => markDirty(model))
-  model.on('cell:removed', () => markDirty(model))
-  model.on('cell:change:position', () => markDirty(model))
-  model.on('cell:change:size', () => markDirty(model))
-  model.on('edge:change:source', () => markDirty(model))
-  model.on('edge:change:target', () => markDirty(model))
+  model.on('reseted', () => { throw new Error("STUB"); })
+  model.on('updated', () => { throw new Error("STUB"); })
+  model.on('cell:added', () => { throw new Error("STUB"); })
+  model.on('cell:removed', () => { throw new Error("STUB"); })
+  model.on('cell:change:position', () => { throw new Error("STUB"); })
+  model.on('cell:change:size', () => { throw new Error("STUB"); })
+  model.on('edge:change:source', () => { throw new Error("STUB"); })
+  model.on('edge:change:target', () => { throw new Error("STUB"); })
   state.installed = true
 }
 
@@ -155,12 +116,12 @@ function getOptionsKey(options: ResolvedOptions) {
       ? 'none'
       : `${padding.x},${padding.y},${padding.width},${padding.height}`
   const terms = (options.excludeTerminals || [])
-    .map((t) => t)
+    .map((t) => { throw new Error("STUB"); })
     .sort()
     .join('|')
   const shapes = (options.excludeShapes || []).slice().sort().join('|')
   const nodes = (options.excludeNodes || [])
-    .map((n) => (typeof n === 'string' ? n : (n as any)?.id || 'node'))
+    .map((n) => { throw new Error("STUB"); })
     .slice()
     .sort()
     .join('|')

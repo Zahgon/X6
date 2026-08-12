@@ -11,7 +11,5 @@ export const absolute: PortLayoutDefinition<AbsoluteArgs> = (
   portsPositionArgs,
   elemBBox,
 ) => {
-  return portsPositionArgs.map(({ x, y, angle }) =>
-    toResult(normalizePoint(elemBBox, { x, y }), angle || 0),
-  )
+    throw new Error("STUB");
 }

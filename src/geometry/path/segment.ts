@@ -17,7 +17,7 @@ export abstract class Segment extends Geometry {
   protected endPoint: Point
 
   get end() {
-    return this.endPoint
+      throw new Error("STUB");
   }
 
   get start() {

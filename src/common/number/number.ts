@@ -59,46 +59,7 @@ export function normalizePercentage(
 }
 
 export function parseCssNumeric(val: string, units?: string | string[]) {
-  function getUnit(regexp: string) {
-    const matches = new RegExp(`(?:\\d+(?:\\.\\d+)*)(${regexp})$`).exec(val)
-    if (!matches) {
-      return null
-    }
-
-    return matches[1]
-  }
-
-  const number = parseFloat(val)
-
-  if (Number.isNaN(number)) {
-    return null
-  }
-
-  // determine the unit
-  let regexp: string
-  if (units == null) {
-    // accept any unit, as well as no unit
-    regexp = '[A-Za-z]*'
-  } else if (Array.isArray(units)) {
-    if (units.length === 0) {
-      return null
-    }
-
-    regexp = units.join('|')
-  } else if (typeof units === 'string') {
-    regexp = units
-  }
-
-  const unit = getUnit(regexp!)
-
-  if (unit === null) {
-    return null
-  }
-
-  return {
-    unit,
-    value: number,
-  }
+    throw new Error("STUB");
 }
 
 export type SideOptions =

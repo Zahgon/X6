@@ -38,16 +38,11 @@ export class CoordManager extends Base {
   }
 
   localToClientPoint(x: number | Point | PointLike, y?: number) {
-    const localPoint = Point.create(x, y)
-    return Util.transformPoint(localPoint, this.getClientMatrix())
+      throw new Error("STUB");
   }
 
   localToPagePoint(x: number | Point | PointLike, y?: number) {
-    const p =
-      typeof x === 'number'
-        ? this.localToGraphPoint(x, y!)
-        : this.localToGraphPoint(x)
-    return p.translate(this.getPageOffset())
+      throw new Error("STUB");
   }
 
   localToGraphRect(
@@ -66,8 +61,7 @@ export class CoordManager extends Base {
     width?: number,
     height?: number,
   ) {
-    const localRect = Rectangle.create(x, y, width, height)
-    return Util.transformRectangle(localRect, this.getClientMatrix())
+      throw new Error("STUB");
   }
 
   localToPageRect(
@@ -76,11 +70,7 @@ export class CoordManager extends Base {
     width?: number,
     height?: number,
   ) {
-    const rect =
-      typeof x === 'number'
-        ? this.localToGraphRect(x, y!, width!, height!)
-        : this.localToGraphRect(x)
-    return rect.translate(this.getPageOffset())
+      throw new Error("STUB");
   }
 
   graphToLocalPoint(x: number | Point | PointLike, y?: number) {

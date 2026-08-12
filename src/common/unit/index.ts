@@ -2,71 +2,39 @@ let millimeterSize: number
 
 const supportedUnits = {
   px(val: number) {
-    return val
-  },
+        throw new Error("STUB");
+    },
   mm(val: number) {
-    return millimeterSize * val
+      throw new Error("STUB");
   },
   cm(val: number) {
-    return millimeterSize * val * 10
+      throw new Error("STUB");
   },
   in(val: number) {
-    return millimeterSize * val * 25.4
+      throw new Error("STUB");
   },
   pt(val: number) {
-    return millimeterSize * ((25.4 * val) / 72)
+      throw new Error("STUB");
   },
   pc(val: number) {
-    return millimeterSize * ((25.4 * val) / 6)
+      throw new Error("STUB");
   },
 }
 
 export type Unit = 'px' | 'mm' | 'cm' | 'in' | 'pt' | 'pc'
 
 export function measure(cssWidth: string, cssHeight: string, unit?: Unit) {
-  const div = document.createElement('div')
-  const style = div.style
-  style.display = 'inline-block'
-  style.position = 'absolute'
-  style.left = '-15000px'
-  style.top = '-15000px'
-  style.width = cssWidth + (unit || 'px')
-  style.height = cssHeight + (unit || 'px')
-  document.body.appendChild(div)
-
-  const rect = div.getBoundingClientRect()
-  const size = {
-    width: rect.width || 0,
-    height: rect.height || 0,
-  }
-
-  document.body.removeChild(div)
-
-  return size
+    throw new Error("STUB");
 }
 
 export function setMillimeterSize(pxPerMm: number) {
-  millimeterSize = pxPerMm
+    throw new Error("STUB");
 }
 
 export function getMillimeterSize() {
-  return millimeterSize
+    throw new Error("STUB");
 }
 
 export function toPx(val: number, unit?: Unit) {
-  if (millimeterSize == null) {
-    if (typeof document === 'undefined' || !document.body) {
-      // Node / 测试环境
-      millimeterSize = 3.7795275591 // 1mm ≈ 3.78px
-    } else {
-      millimeterSize = measure('1', '1', 'mm').width
-    }
-  }
-
-  const convert = unit ? supportedUnits[unit] : null
-  if (convert) {
-    return convert(val)
-  }
-
-  return val
+    throw new Error("STUB");
 }

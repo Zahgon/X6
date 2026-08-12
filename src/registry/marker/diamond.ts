@@ -17,21 +17,5 @@ export const diamond: MarkerFactory<DiamondMarkerOptions> = ({
   offset,
   ...attrs
 }) => {
-  const s = size || 10
-  const w = width || s
-  const h = height || s
-
-  const path = new Path()
-  path
-    .moveTo(0, h / 2)
-    .lineTo(w / 2, 0)
-    .lineTo(w, h / 2)
-    .lineTo(w / 2, h)
-    .close()
-
-  return {
-    ...attrs,
-    tagName: 'path',
-    d: normalize(path.serialize(), offset == null ? -w / 2 : offset),
-  }
+    throw new Error("STUB");
 }

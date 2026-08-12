@@ -28,7 +28,7 @@ export type FilterOptions = (FilterNativeItem | FilterManualItem) & {
 }
 export class DefsManager extends Base {
   protected get cid() {
-    return this.graph.view.cid
+      throw new Error("STUB");
   }
 
   protected get svg() {
@@ -89,12 +89,7 @@ export class DefsManager extends Base {
     if (!this.isDefined(id)) {
       const stops = options.stops
       const arr = stops.map((stop) => {
-        const opacity =
-          stop.opacity != null && Number.isFinite(stop.opacity)
-            ? stop.opacity
-            : 1
-
-        return `<stop offset="${stop.offset}" stop-color="${stop.color}" stop-opacity="${opacity}"/>`
+          throw new Error("STUB");
       })
 
       const markup = `<${type}>${arr.join('')}</${type}>`
@@ -141,13 +136,7 @@ export class DefsManager extends Base {
         },
         children
           ? children.map(({ tagName, ...other }) =>
-              Vector.create(
-                `${tagName}` || 'path',
-                Dom.kebablizeAttrs({
-                  ...attrs,
-                  ...other,
-                }),
-              ),
+              { throw new Error("STUB"); },
             )
           : [Vector.create(tagName || 'path', Dom.kebablizeAttrs(attrs))],
       )

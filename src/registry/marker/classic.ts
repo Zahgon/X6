@@ -26,13 +26,7 @@ export const block: MarkerFactory<BlockMarkerOptions> = ({
   open,
   ...attrs
 }) => {
-  return createClassicMarker(
-    { size, width, height, offset },
-    open === true,
-    true,
-    undefined,
-    attrs,
-  )
+    throw new Error("STUB");
 }
 
 export const classic: MarkerFactory<ClassicMarkerOptions> = ({
@@ -43,13 +37,7 @@ export const classic: MarkerFactory<ClassicMarkerOptions> = ({
   factor,
   ...attrs
 }) => {
-  return createClassicMarker(
-    { size, width, height, offset },
-    false,
-    false,
-    factor,
-    attrs,
-  )
+    throw new Error("STUB");
 }
 
 function createClassicMarker(

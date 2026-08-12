@@ -32,26 +32,7 @@ export const nodeToolRegistry = Registry.create<
 >({
   type: 'node tool',
   process(name, options) {
-    if (typeof options === 'function') {
-      return options
-    }
-
-    let parent = ToolItem
-    const { inherit, ...others } = options
-    if (inherit) {
-      const base = this.get(inherit)
-      if (base == null) {
-        this.onNotFound(inherit, 'inherited')
-      } else {
-        parent = base
-      }
-    }
-
-    if (others.name == null) {
-      others.name = name
-    }
-
-    return parent.define.call(parent, others)
+      throw new Error("STUB");
   },
 })
 
@@ -104,26 +85,7 @@ export const edgeToolRegistry = Registry.create<
 >({
   type: 'edge tool',
   process(name, options) {
-    if (typeof options === 'function') {
-      return options
-    }
-
-    let parent = ToolItem
-    const { inherit, ...others } = options
-    if (inherit) {
-      const base = this.get(inherit)
-      if (base == null) {
-        this.onNotFound(inherit, 'inherited')
-      } else {
-        parent = base
-      }
-    }
-
-    if (others.name == null) {
-      others.name = name
-    }
-
-    return parent.define.call(parent, others)
+      throw new Error("STUB");
   },
 })
 

@@ -23,8 +23,8 @@ export class ClipboardImpl {
 
     // sort asc by cell type
     this.cells = ArrayExt.sortBy(
-      Object.keys(cloned).map((key) => cloned[key]),
-      (cell: Cell) => (cell.isEdge() ? 2 : 1),
+      Object.keys(cloned).map((key) => { throw new Error("STUB"); }),
+      (cell: Cell) => { throw new Error("STUB"); },
     )
 
     this.serialize(options)
@@ -38,7 +38,7 @@ export class ClipboardImpl {
     this.copy(cells, graph, options)
     const model = Graph.isGraph(graph) ? graph.model : graph
     model.batchUpdate('cut', () => {
-      cells.forEach((cell) => cell.remove())
+        throw new Error("STUB");
     })
   }
 
@@ -57,24 +57,12 @@ export class ClipboardImpl {
     const cells = this.cells
 
     cells.forEach((cell) => {
-      cell.model = null
-      cell.removeProp('zIndex')
-      if (dx || dy) {
-        cell.translate(dx, dy)
-      }
-
-      if (nodeProps && cell.isNode()) {
-        cell.prop(nodeProps)
-      }
-
-      if (edgeProps && cell.isEdge()) {
-        cell.prop(edgeProps)
-      }
+        throw new Error("STUB");
     })
 
     const model = Graph.isGraph(graph) ? graph.model : graph
     model.batchUpdate('paste', () => {
-      model.addCells(this.cells)
+        throw new Error("STUB");
     })
 
     this.copy(cells, graph, options)
